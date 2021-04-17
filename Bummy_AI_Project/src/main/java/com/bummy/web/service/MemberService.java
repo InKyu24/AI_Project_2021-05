@@ -9,8 +9,8 @@ public class MemberService {
 	@Autowired
 	MemberDAO memberDAO;
 	
-	public void join(MemberVO m) throws Exception{
-		memberDAO.join(m);
+	public void signup(MemberVO m) throws Exception{
+		memberDAO.signup(m);
 	}
 
 }

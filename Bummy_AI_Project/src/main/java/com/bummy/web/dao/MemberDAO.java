@@ -4,7 +4,7 @@ import com.bummy.web.vo.MemberVO;
 
 public class MemberDAO {
 
-	public void join(MemberVO m) {
+	public void signup(MemberVO m) {
 		
 	}
 
