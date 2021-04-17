@@ -1,2 +1,29 @@
-<meta charset="utf-8">
-회원가입
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>회원가입</title>
+	<!-- jQuery library -->
+  	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+ 	<!--  회원 가입 기능 수행 jQuery -->
+	<script type="text/javascript" src="../js/signup.js"></script>
+</head>
+
+<body>
+	<form>
+		아이디 <input type="text" name="id" id="user_id"><br>
+		이름 <input type="text" name="name" id="user_name"><br>
+		비밀번호 <input type="password" name="pw" id="user_pw"><br>
+		비밀번호 확인 <input type="password" name="pwc"id="user_pwc"><br>
+		휴대폰 번호 <input type="text" name="phone" id="user_phone" placeholder="010-1234-1234"><br>
+		이메일 주소 <input type="text" name="email" id="user_email"><br>
+		소속 <input type="text" name="belong" id="user_belong"><br>
+		타입 <input type="radio" name="type" id="user_Ltype"><input type="radio" name="type" id="user_Ptype"><br>
+		<button type="submit" id="signup">양식 제출</button>
+		<button id="close">취소</button>
+	</form>
+
+</body>
+
+</html>
