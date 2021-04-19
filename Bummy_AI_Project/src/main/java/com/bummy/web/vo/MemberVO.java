@@ -4,7 +4,7 @@ public class MemberVO {
 	private String user_id,user_pw,user_pwc,user_name,user_email,user_belong,user_type;
 	private int user_phone;
 
-	public MemberVO(String user_id, String user_pw, String user_name, String user_type) {
+	public MemberVO(String user_id, String user_pw, String user_name) {
 		setUser_id(user_id);
 		setUser_pw(user_pw);
 		setUser_name(user_name);
