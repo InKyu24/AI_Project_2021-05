@@ -1,14 +1,12 @@
 package com.bummy.web.dao;
 
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import com.bummy.web.vo.MemberVO;
 
-@Repository
-public class MemberDAO {
+public interface MemberDAO {
 
-	public void signup(MemberVO m) {
-		
-	}
-
+	void signup(MemberVO memberVO) ;
+	
 }
