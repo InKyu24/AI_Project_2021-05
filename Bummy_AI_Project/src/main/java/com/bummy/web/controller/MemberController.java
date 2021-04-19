@@ -18,7 +18,7 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
-	@RequestMapping(value = "signup.do",	method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "signup.do", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
 	
 	@ResponseBody
 	public String join(HttpServletRequest request, HttpServletResponse response)throws Exception{
@@ -34,8 +34,8 @@ public class MemberController {
 		System.out.println("아이디: "+user_id+"\n비밀번호: "+user_pw+"\n이름: "+user_name+"\n전화번호: "+user_phone+"\n이메일: "+user_email+"\n소속: "+user_belong+"\n타입: "+user_type);
 		
 		try {
-			MemberVO m=new MemberVO(user_id,user_pw,user_name); 
-			memberService.signup(m);
+			MemberVO memberVO =new MemberVO(user_id,user_pw,user_name); 
+			memberService.signup(memberVO);
 			return user_name+"님 회원가입 되셨습니다";
 		}catch(Exception e) {
 			return e.getMessage();

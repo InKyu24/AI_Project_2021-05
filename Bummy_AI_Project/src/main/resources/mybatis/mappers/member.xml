@@ -6,8 +6,8 @@
 <mapper namespace="com.bummy.web.dao.MemberDAO">
 	<insert id="signup" parameterType="memberVO" >
 		<![CDATA[
-			insert into user(user_id,user_pw,user_name,user_phone,user_email,user_belong,user_type) 
-			values(#{user_id},#{user_pw},#{user_name},#{user_phone},#{user_email},#{user_belong},#{user_type})
+			insert into USER_INFO
+			values (#{user_id},#{user_pw},#{user_name},#{user_phone},#{user_email},#{user_belong},#{user_type})
 		]]>
 	</insert>
 	

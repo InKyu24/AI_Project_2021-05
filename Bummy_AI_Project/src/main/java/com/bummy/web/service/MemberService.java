@@ -11,8 +11,8 @@ public class MemberService {
 	@Autowired
 	MemberDAO memberDAO;
 	
-	public void signup(MemberVO m) throws Exception{
-		memberDAO.signup(m);
+	public void signup(MemberVO memberVO) throws Exception{
+		memberDAO.signup(memberVO);
 	}
 
 }

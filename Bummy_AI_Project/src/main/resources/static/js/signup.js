@@ -6,7 +6,8 @@ $(document).ready(function(){
 		var user_pwc = $('#user_pwc').val();
 		var user_phone = $('#user_phone').val();
 		var user_email = $('#user_email').val();
-		var user_belong = $('#user_belong').val();		
+		var user_belong = $('#user_belong').val();
+		var user_type = $("input:radio[name=user_type]:checked").val();	
 		
 		if (user_id == '') {
 		alert("아이디를 입력해주세요.");
@@ -42,6 +43,11 @@ $(document).ready(function(){
 		alert("소속을 입력해주세요.");
 		return;
 		}
+		
+		if (user_type == null) {
+		alert("사용자 종류를 입력해주세요.");
+		return;
+		}
 			  
 		$.post("../signup.do",
 			{
@@ -50,11 +56,13 @@ $(document).ready(function(){
 				user_pw:user_pw,
 				user_phone:user_phone,
 				user_email:user_email,
-				user_belong:user_belong
+				user_belong:user_belong,
+				user_type:user_type
 			},
+			
 			function(data, status){
-				alert(data)
-				self.close();
+				alert(data);
+				window.close();
 			}
 		);
 	});
