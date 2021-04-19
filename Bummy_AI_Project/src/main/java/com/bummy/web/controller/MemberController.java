@@ -18,7 +18,7 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
-	@RequestMapping(value = "signup.do",	method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "signup.do", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
 	
 	@ResponseBody
 	public String join(HttpServletRequest request, HttpServletResponse response)throws Exception{
