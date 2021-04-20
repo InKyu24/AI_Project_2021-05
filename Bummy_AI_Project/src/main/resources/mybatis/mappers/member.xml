@@ -11,4 +11,17 @@
 		]]>
 	</insert>
 	
+	<select id="login_username" resultType="String" parameterType="memberVO">
+		<![CDATA[
+			select user_name from USER_INFO
+			where user_id=#{user_id} and user_pw=#{user_pw}
+		]]>
+	</select>
+	
+	<select id="login_usertype" resultType="String" parameterType="memberVO">
+		<![CDATA[
+			select user_type from USER_INFO
+			where user_id=#{user_id} and user_pw=#{user_pw}
+		]]>
+	</select>
 </mapper> 

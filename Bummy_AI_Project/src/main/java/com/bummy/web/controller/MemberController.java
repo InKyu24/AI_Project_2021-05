@@ -2,7 +2,9 @@ package com.bummy.web.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +20,36 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
+	@RequestMapping(value = "/login", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")			
+	@ResponseBody
+	public String login(HttpServletRequest request, HttpServletResponse response){
+		String user_id=request.getParameter("user_id");
+		String user_pw=request.getParameter("user_pw");		
+		JSONObject json=new JSONObject();
+		
+		try {
+			MemberVO memberVO=new MemberVO(user_id,user_pw);
+			String[] user_logined = memberService.login(memberVO);
+			String user_name= user_logined[0];
+			String user_type= user_logined[1];
+			
+			System.out.println(user_name);
+			System.out.println(user_type);								// 이 아래로 확인
+			if(user_name!=null && user_type!=null) {
+				HttpSession session=request.getSession();
+				session.setAttribute("member", memberVO);
+				json.put("user_name", user_name);
+				json.put("user_type", user_type);
+			} else {
+				json.put("msg", "로그인 실패");
+			}
+		}catch(Exception e) {
+			json.put("msg", e.getMessage());
+		}		
+		return json.toJSONString();
+	}
+	
+	// 회원가입 구현
 	@RequestMapping(value ="/signup", produces = "application/text; charset=utf8", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String signup(HttpServletRequest request, HttpServletResponse response)throws Exception{

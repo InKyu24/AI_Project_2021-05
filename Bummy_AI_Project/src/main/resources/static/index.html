@@ -6,17 +6,21 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<title>버미버미버미</title>
 
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+	<!-- 로그인 JS -->
+	<script type="text/javascript" src="js/login.js"></script>
 
 </head>
 
 <body>
 <!-- 로그인 -->
 <div id="msgDiv">
-	ID<input size="5" id="id">
-	PW<input size="5" id="pw" type="password">
-	<input type="button" id="loginBtn" value="login">
+	<form name="login_form" method="post" action="login">
+	ID<input size="5" id="user_id">
+	PW<input size="5" id="user_pw" type="password">
+	<input type="button" id="login" value="로그인">
+	</form>
 </div>
 
 <br><br><br>

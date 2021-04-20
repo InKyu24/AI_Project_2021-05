@@ -15,4 +15,9 @@ public class MemberService {
 		memberDAO.signup(memberVO);
 	}
 
+	public String[] login(MemberVO memberVO) {
+		return memberDAO.login(memberVO);
+		
+	}
+
 }

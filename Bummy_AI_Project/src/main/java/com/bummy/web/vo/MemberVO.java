@@ -15,6 +15,11 @@ public class MemberVO {
 		setUser_type(user_type);	
 	}
 	
+	public MemberVO(String user_id, String user_pw) {
+		setUser_id(user_id);
+		setUser_pw(user_pw);
+	}
+
 	public String getUser_id() {
 		return user_id;
 	}

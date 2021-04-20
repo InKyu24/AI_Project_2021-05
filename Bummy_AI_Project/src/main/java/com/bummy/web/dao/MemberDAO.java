@@ -5,5 +5,7 @@ import com.bummy.web.vo.MemberVO;
 public interface MemberDAO {
 
 	void signup(MemberVO memberVO) ;
+
+	String[] login(MemberVO memberVO);
 	
 }
