@@ -16,4 +16,13 @@ public class MemberDAOImpl implements MemberDAO {
 		sqlSession.insert("mapper.member.signup", memberVO);
 	}
 
+	@Override
+	public String[] login(MemberVO memberVO) {
+		String user_name = sqlSession.selectOne("mapper.member.login_username", memberVO);
+		String user_type = sqlSession.selectOne("mapper.member.login_usertype", memberVO);
+		String[] user_logined =  {user_name, user_type};
+		return user_logined;
+		
+	}
+
 }
