@@ -18,6 +18,7 @@
 		<java.version>11</java.version>
 	</properties>
 	<dependencies>	
+	
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>
