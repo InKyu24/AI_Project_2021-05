@@ -7,7 +7,7 @@ $(document).ready(function(){
 		var user_phone = $('#user_phone').val();
 		var user_email = $('#user_email').val();
 		var user_belong = $('#user_belong').val();
-		var user_type = $("input:radio[name=user_type]:checked").val();	
+		var user_type = $("input:radio[name='user_type']:checked").val();	
 		
 		if (user_id == '') {
 		alert("아이디를 입력해주세요.");
@@ -49,20 +49,19 @@ $(document).ready(function(){
 		return;
 		}
 			  
-		$.post("../signup.do",
+		$.post("/signup",
 			{
-				user_name:user_name, 
 				user_id:user_id,
 				user_pw:user_pw,
+				user_name:user_name,
 				user_phone:user_phone,
 				user_email:user_email,
 				user_belong:user_belong,
 				user_type:user_type
 			},
-			
 			function(data, status){
 				alert(data);
-				window.close();
+				self.close();
 			}
 		);
 	});
