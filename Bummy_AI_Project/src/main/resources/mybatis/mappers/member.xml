@@ -7,7 +7,7 @@
 	<insert id="signup" parameterType="memberVO" >
 		<![CDATA[
 			insert into USER_INFO
-			values (#{user_id},#{user_pw},#{user_phone},#{user_name},#{user_email},#{user_belong},#{user_type})
+			values (#{user_id},#{user_pw},#{user_phone},#{user_name},#{user_email},#{user_belong},#{user_type},#{user_img})
 		]]>
 	</insert>
 	

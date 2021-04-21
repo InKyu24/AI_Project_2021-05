@@ -17,8 +17,13 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
-	<dependencies>	
-	
+	<dependencies>
+		<!-- WebSocket -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple -->
 		<dependency>
 		    <groupId>com.googlecode.json-simple</groupId>

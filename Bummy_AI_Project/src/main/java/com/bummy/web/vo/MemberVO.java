@@ -1,10 +1,18 @@
 package com.bummy.web.vo;
 
 public class MemberVO {
-	private String user_id,user_pw,user_pwc,user_phone,user_name,user_email,user_belong,user_type;
+	private String user_id,user_pw,user_pwc,user_phone,user_name,user_email,user_belong,user_type,user_img;
+
+	public String getUser_img() {
+		return user_img;
+	}
+
+	public void setUser_img(String user_img) {
+		this.user_img = user_img;
+	}
 
 	public MemberVO(String user_id, String user_pw, String user_phone, String user_name,
-			String user_email, String user_belong, String user_type) {
+			String user_email, String user_belong, String user_type, String user_img) {
 		super();
 		setUser_id(user_id);
 		setUser_pw(user_pw);
@@ -12,7 +20,8 @@ public class MemberVO {
 		setUser_phone(user_phone);
 		setUser_email(user_email);
 		setUser_belong(user_belong);
-		setUser_type(user_type);	
+		setUser_type(user_type);
+		setUser_img(user_img);
 	}
 	
 	public MemberVO(String user_id, String user_pw) {

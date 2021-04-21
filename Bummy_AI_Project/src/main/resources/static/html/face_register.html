@@ -1,1 +1,78 @@
-ddddd
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function(){
+		let ws, ws_cam;
+		let id;
+		let localstream;
+		let cam_loop;
+		
+		const video=document.querySelector('video');
+		const getByteArray=function(){
+			const canvas=document.createElement("canvas");
+			canvas.width=video.videoWidth;
+			canvas.height=video.videoHeight;
+			let ctx=canvas.getContext('2d');
+			ctx.drawImage(video,0,0);
+			let imgData=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+			let byteArray=new Uint8Array(imgData);
+			return byteArray;
+		};
+		
+		$("#startBtn").click(function(){
+			// video 태그 안에 미디어 객체를 얻은(웹캠 작동) 후, 스트림 진행
+			navigator.mediaDevices.getUserMedia({video:{width:320, height:230}})
+			.then((stream)=>{
+				video.srcObject=stream;
+				localstream=stream;
+				video.onloadedmetadata=function(e){
+					video.play();
+					ws_cam=new WebSocket("ws://localhost:8090/my_web_socket_cam");
+					ws_cam.binaryType="arraybuffer";
+					ws_cam.onopen=function(){
+						console.log("cam con ok");
+						// setInterval(콜백함수,time);
+						cam_loop=setInterval(function(){
+							ws_cam.send(getByteArray().buffer);//byteArray
+						},1000/30);
+					}
+					ws_cam.onmessage=function(binary){
+						// console.log(binary);
+						// 캔버스 위에 받은 binary 데이터를 그린다.
+						let blueCanvas=document.getElementById('blueCanvas');
+						let blueCtx=blueCanvas.getContext('2d');
+						let imgData=blueCtx.createImageData(blueCanvas.width,blueCanvas.height);
+						let pixels=imgData.data;
+						let arrayBuffer=new Uint8Array(binary.data);
+						for(let i=0;i<pixels.length;i++){
+							pixels[i]=arrayBuffer[i];
+						}
+						blueCtx.putImageData(imgData,0,0);
+					}
+				}
+			});
+		});
+		
+		$("#stopBtn").click(function(){
+			localstream.getTracks()[0].stop();
+			video.pause();
+			video.src="";
+			clearInterval(cam_loop);
+		});
+</script>
+
+</head>
+<body>
+	<video src="" width="320" height="230" style="background-color: black"></video>
+	<canvas id="blueCanvas" width="320" height="230" style="background-color: blue"></canvas>
+	<br><input type="button" value="화상 시작" id="startBtn">
+	<br><input type="button" value="화상 종료" id="stopBtn">
+</body>
+</html>
+
