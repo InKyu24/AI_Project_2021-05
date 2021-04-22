@@ -17,7 +17,14 @@
 	<properties>
 		<java.version>11</java.version>
 	</properties>
+  
 	<dependencies>
+		<dependency>
+		    <groupId>com.amazonaws</groupId>
+		    <artifactId>aws-java-sdk-rekognition</artifactId>
+		    <version>1.11.1001</version>
+		</dependency>
+				
 		<!-- WebSocket -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>
