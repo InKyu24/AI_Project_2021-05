@@ -20,7 +20,18 @@ public class MemberController {
 	@Autowired
 	MemberService memberService;
 	
-	@RequestMapping(value = "/login", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")			
+	// 로그아웃 기능 구현
+	@RequestMapping(value="logout", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String logout(HttpServletRequest request, HttpServletResponse response){
+		HttpSession session=request.getSession(false);
+		session.invalidate();
+		return "";
+	}
+
+	
+	// 로그인 기능 구현
+	@RequestMapping(value="/login", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")			
 	@ResponseBody
 	public String login(HttpServletRequest request, HttpServletResponse response){
 		String user_id=request.getParameter("user_id");
@@ -33,11 +44,10 @@ public class MemberController {
 			String user_name= user_logined[0];
 			String user_type= user_logined[1];
 			
-			System.out.println(user_name);
-			System.out.println(user_type);								// 이 아래로 확인
 			if(user_name!=null && user_type!=null) {
 				HttpSession session=request.getSession();
 				session.setAttribute("member", memberVO);
+				json.put("user_id", user_id);
 				json.put("user_name", user_name);
 				json.put("user_type", user_type);
 			} else {
