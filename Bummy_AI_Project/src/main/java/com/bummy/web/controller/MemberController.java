@@ -71,7 +71,7 @@ public class MemberController {
 		String user_email=request.getParameter("user_email");
 		String user_belong=request.getParameter("user_belong");
 		String user_type=request.getParameter("user_type");
-		String user_img="D:\\"+user_id+".jpeg";
+		String user_img="D:\\"+user_id+".jpg";
 			
 		System.out.println("아이디: "+user_id+"\n비밀번호: "+user_pw+"\n이름: "+user_name+"\n전화번호: "+user_phone+"\n이메일: "+user_email+"\n소속: "+user_belong+"\n타입: "+user_type);
 		
