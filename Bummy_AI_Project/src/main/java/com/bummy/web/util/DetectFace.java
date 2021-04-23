@@ -5,7 +5,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 
 // 네이버 얼굴인식 API 예제
@@ -69,14 +71,14 @@ public class DetectFace {
                 }
                 br.close();
                 JSONParser parser = new JSONParser();
-                Object obj = parser.parse(response.toString());
-                JSONObject jsonObj = (JSONObject) obj;
+                Object objResponse = parser.parse(response.toString());
+                JSONObject jsonObjResponse = (JSONObject) objResponse;
                 
-//                
-//                Object obj = parser.parse(response.toString());
-//                JSONObject jsonObj = (JSONObject) obj;
-//                Object obj_info = jsonObj.get("info");
-                return response.toString();
+                Object objInfo = jsonObjResponse.get("info");
+                JSONObject jsonInfo = (JSONObject) objInfo;
+                Object objFaceCount = jsonInfo.get("faceCount");
+                
+                return objFaceCount.toString();
             } else {
                 return "error !!!";
             }
