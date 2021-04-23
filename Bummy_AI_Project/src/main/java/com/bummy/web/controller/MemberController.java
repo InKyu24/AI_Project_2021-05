@@ -19,9 +19,9 @@ public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
-	
+
 	// 로그아웃 기능 구현
-	@RequestMapping(value="logout", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@RequestMapping(value="/logout", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String logout(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session=request.getSession(false);
@@ -43,13 +43,15 @@ public class MemberController {
 			String[] user_logined = memberService.login(memberVO);
 			String user_name= user_logined[0];
 			String user_type= user_logined[1];
-			
 			if(user_name!=null && user_type!=null) {
 				HttpSession session=request.getSession();
 				session.setAttribute("member", memberVO);
-				json.put("user_id", user_id);
-				json.put("user_name", user_name);
-				json.put("user_type", user_type);
+					json.put("user_id", user_id);
+					json.put("user_name", user_name);
+					json.put("user_type", user_type);
+					json.put("condition_check", "<a class='nav-link' id='condition_check' href='#''>상태 확인</a>");
+					json.put("timer", "<a class='nav-link' id='timer' href='#'>타이머</a>");
+					json.put("signup_accept", "<a class='nav-link' id='signup_accept' href='#'>가입 승인</a>");
 			} else {
 				json.put("msg", "로그인 실패");
 			}

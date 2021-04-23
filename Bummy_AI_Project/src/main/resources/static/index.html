@@ -24,32 +24,71 @@
 	</form>
 </div>
 
-<br><br><br>
+<li id="SignupLi">
 <!-- 회원가입 -->
 <a class="nav-link" href="#" onclick="window.open('html/signup.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=400,height=750');">회원가입</a>
+</li>
 
-<br><br><br>
+<li id="NoticeLi">
 <!-- 공지사항 -->
 <a class="nav-link" href="#" onclick="window.open('notice', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">공지사항</a>
+</li>
 
-<br><br><br>
+<li id="BoardLi">
 <!-- 게시판 -->
 <a class="nav-link" href="#" onclick="window.open('board', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">게시판</a>
+</li>
 
-<br><br><br>
-<!-- 얼굴 등록 -->
-<a class="nav-link" href="#" onclick="window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">얼굴 등록</a>
+<li id="FaceRegisterLi">
+<!-- 얼굴 등록 -->       
+	<a class="nav-link" href="#" onclick="window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">얼굴 등록</a>
+</li>
+
+<li id="FaceRegisterLi">
+<!-- 강의실 -->       
+	<a class="nav-link" href="#" onclick="window.open('html/class_room.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">강의실 입장</a>
+</li>
+
+<li id="ConditionLi">
+<!-- 상태 확인 -->
+</li>
+
+<li id="TimerLi">
+<!-- 타이머 -->
+</li>
+
+<li id="SignupAcceptLi">
+<!-- 가입 승인 -->
+</li>
+
 
 </body>
 	<!-- 쿠키 설정 -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 	<script>
+	
 	$(function(){
 		var user_id=$.cookie('user_id');
 		var user_name=$.cookie('user_name');
 		var user_type=$.cookie('user_type');
 		var login=$.cookie('logined');
+		var condition_check=$.cookie('condition_check');
+		var timer=$.cookie('timer');
+		var signup_accept=$.cookie('signup_accept');
 		$("#msgDiv").html(login);
+		$("#ConditionLi").html(condition_check);
+		$("#TimerLi").html(timer);
+		$("#SignupAcceptLi").html(signup_accept);
+	});
+
+	$(document).on("click", "#condition_check", function(event) {
+		window.open('html/AWS_img_cogni.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');
+	});
+	$(document).on("click", "#timer", function(event) {
+		window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');
+	});
+	$(document).on("click", "#signup_accept", function(event) {
+		window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');
 	});
 	</script>
 </html>

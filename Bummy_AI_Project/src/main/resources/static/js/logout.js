@@ -5,7 +5,10 @@ $(document).on("click", "#logout", function(event) {
 			$.removeCookie("user_id");		  	
 			$.removeCookie("user_name");
 			$.removeCookie("user_type");
-			$.removeCookie("logined");	     
+			$.removeCookie("logined");
+			$.removeCookie("condition_check");
+			$.removeCookie("timer");
+			$.removeCookie("signup_accept");     
 			location.reload();						   
 		}
 	);

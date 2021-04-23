@@ -33,12 +33,25 @@ $(document).ready(function(){
 						user_id = obj.user_id;
 						user_name = obj.user_name;
 						user_type = obj.user_type;
+						condition_check = obj.condition_check;
+						timer = obj.timer;
+						signup_accept = obj.signup_accept;
 						data=obj.user_name+" "+obj.user_type+"님 환영합니다. 기분좋은 "+dayOfWeek+"요일 입니다. <input type='button' value='logout' id='logout'>";
 						$.cookie("user_id",user_id);	
 	  					$.cookie("user_name",user_name);
 	  					$.cookie("user_type",user_type);
-	  					$.cookie("logined",data);	
+	  					$.cookie("logined",data);
 	  					$("#msgDiv").html(data);	
+	  					
+						if (obj.user_type=="L") {
+		  					$.cookie("condition_check",condition_check);
+		  					$.cookie("timer",timer);
+		  					$.cookie("signup_accept",signup_accept);
+		  					$("#ConditionLi").html(condition_check);
+		  					$("#TimerLi").html(timer);
+		  					$("#SignupAcceptLi").html(signup_accept);
+	  					} else {
+	  					}
 	  				}else{
 	  					alert(obj.msg);
 	  					location.reload();
