@@ -31,23 +31,13 @@
 			return byteArray;
 		};
 		
-		$("#startBtn").click(function(){
-			// video 태그 안에 미디어 객체를 얻은(웹캠 작동) 후, 스트림 진행
-			navigator.mediaDevices.getUserMedia({video:{width:320, height:230}})
-			.then((stream)=>{
-				video.srcObject=stream;
-				localstream=stream;
-				video.onloadedmetadata=function(e){
-					video.play();
-				};
-			});
-		});
-		
-		$("#stopBtn").click(function(){
-			localstream.getTracks()[0].stop();
-			video.pause();
-			video.src="";
-			clearInterval(cam_loop);
+		navigator.mediaDevices.getUserMedia({video:{width:320, height:230}})
+		.then((stream)=>{
+			video.srcObject=stream;
+			localstream=stream;
+			video.onloadedmetadata=function(e){
+				video.play();
+			};
 		});
 		
 		// 찰칵 버튼 처리
@@ -101,9 +91,7 @@
 	<canvas id="drawCanvas" width="320" height="230" style="border:1px solid black">		
 	</canvas></div>
 	<img src="../img/example.jpg" width="320" height="230">
-	<br><input type="button" value="화상 시작" id="startBtn">
 	<br><input type="button" value="촬영" id="shotBtn">
-	<br><input type="button" value="화상 종료" id="stopBtn">
 </body>
 </html>
 

@@ -5,10 +5,13 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 // 네이버 얼굴인식 API 예제
 public class DetectFace {
 
-    public static void main(String[] args) {
+    public static String main(String imgFile) {
 
         StringBuffer reqStr = new StringBuffer();
         String clientId = "lv0h6xt1fj";//애플리케이션 클라이언트 아이디값";
@@ -16,7 +19,7 @@ public class DetectFace {
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정
-            String imgFile = "d:\\face1.jpg";
+            
             File uploadFile = new File(imgFile);
             String apiURL = "https://naveropenapi.apigw.ntruss.com/vision/v1/face"; // 얼굴 감지
             URL url = new URL(apiURL);
@@ -65,12 +68,21 @@ public class DetectFace {
                     response.append(inputLine);
                 }
                 br.close();
-                System.out.println(response.toString());
+                JSONParser parser = new JSONParser();
+                Object obj = parser.parse(response.toString());
+                JSONObject jsonObj = (JSONObject) obj;
+                
+//                
+//                Object obj = parser.parse(response.toString());
+//                JSONObject jsonObj = (JSONObject) obj;
+//                Object obj_info = jsonObj.get("info");
+                return response.toString();
             } else {
-                System.out.println("error !!!");
+                return "error !!!";
             }
         } catch (Exception e) {
-            System.out.println(e);
+            return e.getMessage();
         }
+
     }
 }
