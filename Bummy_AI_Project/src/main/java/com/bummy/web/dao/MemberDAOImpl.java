@@ -1,5 +1,7 @@
 package com.bummy.web.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -23,6 +25,11 @@ public class MemberDAOImpl implements MemberDAO {
 		String[] user_logined =  {user_name, user_type};
 		return user_logined;
 		
+	}
+
+	@Override
+	public List<MemberVO> pList(MemberVO memberVO) {
+		return sqlSession.selectList("mapper.member.pList");
 	}
 
 }

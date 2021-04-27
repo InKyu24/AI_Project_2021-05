@@ -4,6 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.member">
+	<select id="pList" resultType="memberVO">
+		<![CDATA[
+			select * from USER_INFO where user_type='P' or user_type='N'
+		]]>
+	</select>
+	
 	<insert id="signup" parameterType="memberVO" >
 		<![CDATA[
 			insert into USER_INFO

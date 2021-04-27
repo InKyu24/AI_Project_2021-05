@@ -1,25 +1,56 @@
 package com.bummy.web.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.util.http.ServerCookies;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.bummy.web.service.MemberService;
 import com.bummy.web.vo.MemberVO;
+import com.bummy.web.util.FindCookies;
 
 @Controller
 public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
+	
+	//
+	@RequestMapping(value = "/pList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")	
+	public ModelAndView p_Manager(HttpServletRequest request) throws IOException {
+		FindCookies fc = new FindCookies();
 
+		String user_id=fc.FindCookie(request, "user_id");
+		String user_type=fc.FindCookie(request, "user_type");
+		String user_belong="P";
+		
+		System.out.println(user_id);
+		System.out.println(user_type);
+		System.out.println(user_belong);
+		
+		ModelAndView mav = new ModelAndView("p_manager");
+		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
+		List<MemberVO> pList = memberService.pList(memberVO);
+		System.out.println(pList.size());
+		System.out.println(memberVO);
+		mav.addObject("pList",pList);
+		return mav;
+	}
+	
 	// 로그아웃 기능 구현
 	@RequestMapping(value="/logout", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
 	@ResponseBody
@@ -51,7 +82,8 @@ public class MemberController {
 					json.put("user_type", user_type);
 					json.put("condition_check", "<a class='nav-link' id='condition_check' href='#''>상태 확인</a>");
 					json.put("timer", "<a class='nav-link' id='timer' href='#'>타이머</a>");
-					json.put("signup_accept", "<a class='nav-link' id='signup_accept' href='#'>가입 승인</a>");
+					json.put("p_manager", "<a class='nav-link' id='p_manager' href='#'>회원 관리</a>");
+					
 			} else {
 				json.put("msg", "로그인 실패");
 			}
@@ -65,7 +97,7 @@ public class MemberController {
 	@RequestMapping(value ="/signup", produces = "application/text; charset=utf8", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
 	public String signup(HttpServletRequest request, HttpServletResponse response)throws Exception{
-
+		
 		String user_id=request.getParameter("user_id");
 		String user_pw=request.getParameter("user_pw");
 		String user_name=request.getParameter("user_name");

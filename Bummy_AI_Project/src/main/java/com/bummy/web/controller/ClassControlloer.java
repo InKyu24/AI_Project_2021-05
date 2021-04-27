@@ -16,8 +16,8 @@ import com.bummy.web.util.SessionList;
 
 //webRTC.html과 연결
 @Component
-@ServerEndpoint(value = "/classChat")
-public class ClassChatControlloer {
+@ServerEndpoint(value = "/class")
+public class ClassControlloer {
 	
 	ArrayList<Session> list;
 	@OnOpen

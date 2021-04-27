@@ -57,7 +57,7 @@
 <!-- 타이머 -->
 </li>
 
-<li id="SignupAcceptLi">
+<li id="P_ManagerLi">
 <!-- 가입 승인 -->
 </li>
 
@@ -74,11 +74,11 @@
 		var login=$.cookie('logined');
 		var condition_check=$.cookie('condition_check');
 		var timer=$.cookie('timer');
-		var signup_accept=$.cookie('signup_accept');
+		var p_manager=$.cookie('p_manager');
 		$("#msgDiv").html(login);
 		$("#ConditionLi").html(condition_check);
 		$("#TimerLi").html(timer);
-		$("#SignupAcceptLi").html(signup_accept);
+		$("#P_ManagerLi").html(p_manager);
 	});
 
 	$(document).on("click", "#condition_check", function(event) {
@@ -87,8 +87,8 @@
 	$(document).on("click", "#timer", function(event) {
 		window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');
 	});
-	$(document).on("click", "#signup_accept", function(event) {
-		window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');
+	$(document).on("click", "#p_manager", function(event) {
+		window.open('pList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');
 	});
 	</script>
 </html>

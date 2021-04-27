@@ -35,7 +35,7 @@ $(document).ready(function(){
 						user_type = obj.user_type;
 						condition_check = obj.condition_check;
 						timer = obj.timer;
-						signup_accept = obj.signup_accept;
+						p_manager = obj.p_manager;
 						data=obj.user_name+" "+obj.user_type+"님 환영합니다. 기분좋은 "+dayOfWeek+"요일 입니다. <input type='button' value='logout' id='logout'>";
 						$.cookie("user_id",user_id);	
 	  					$.cookie("user_name",user_name);
@@ -46,11 +46,12 @@ $(document).ready(function(){
 						if (obj.user_type=="L") {
 		  					$.cookie("condition_check",condition_check);
 		  					$.cookie("timer",timer);
-		  					$.cookie("signup_accept",signup_accept);
+		  					$.cookie("p_manager",p_manager);
 		  					$("#ConditionLi").html(condition_check);
 		  					$("#TimerLi").html(timer);
-		  					$("#SignupAcceptLi").html(signup_accept);
-	  					} else {
+		  					$("#P_ManagerLi").html(p_manager);
+	  					} else if (obj.user_type=="N"){
+	  						alert("주최자에게 가입승인을 받은 후, 버미를 이용해주세요")
 	  					}
 	  				}else{
 	  					alert(obj.msg);

@@ -8,7 +8,7 @@ $(document).on("click", "#logout", function(event) {
 			$.removeCookie("logined");
 			$.removeCookie("condition_check");
 			$.removeCookie("timer");
-			$.removeCookie("signup_accept");     
+			$.removeCookie("p_manager");     
 			location.reload();						   
 		}
 	);
