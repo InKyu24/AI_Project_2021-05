@@ -1,5 +1,7 @@
 package com.bummy.web.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,10 @@ public class MemberService {
 
 	public String[] login(MemberVO memberVO) {
 		return memberDAO.login(memberVO);
-		
+	}
+
+	public List<MemberVO> pList(MemberVO memberVO) {
+		return memberDAO.pList(memberVO);
 	}
 
 }

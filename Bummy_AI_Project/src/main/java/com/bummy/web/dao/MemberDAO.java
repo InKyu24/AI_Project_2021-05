@@ -1,5 +1,7 @@
 package com.bummy.web.dao;
 
+import java.util.List;
+
 import com.bummy.web.vo.MemberVO;
 
 public interface MemberDAO {
@@ -8,4 +10,6 @@ public interface MemberDAO {
 
 	String[] login(MemberVO memberVO);
 	
+	List<MemberVO> pList(MemberVO memberVO);
+
 }

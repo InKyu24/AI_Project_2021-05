@@ -18,7 +18,7 @@
 		
 		let id="["+user_name+"]";
 		// HTML5의 내장 객체 WebSocket 생성 + Java class "WebSocket.java"와 연결
-		ws=new WebSocket("ws://121.128.43.56:8090/classChat");
+		ws=new WebSocket("ws://localhost:8090/classChat");
 		// 연결이 되면 아래를 실행 + Java class "WebSocket.java"에서 작성한 메소드 실행
 		ws.onopen=function(){
 			console.log("con ok");
