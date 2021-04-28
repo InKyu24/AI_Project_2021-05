@@ -17,7 +17,7 @@ import com.bummy.web.util.SessionList;
 //webRTC.html과 연결
 @Component
 @ServerEndpoint(value = "/class")
-public class ClassControlloer {
+public class ClassComponent {
 	
 	ArrayList<Session> list;
 	@OnOpen
@@ -45,6 +45,8 @@ public class ClassControlloer {
 			}
 		}
 	}
+	
+	@OnMessage
 	
 	@OnClose
 	public void close(Session session) {

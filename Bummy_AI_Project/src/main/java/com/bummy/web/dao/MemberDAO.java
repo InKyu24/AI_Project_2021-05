@@ -12,4 +12,6 @@ public interface MemberDAO {
 	
 	List<MemberVO> pList(MemberVO memberVO);
 
+	void pAccept(MemberVO memberVO);
+
 }
