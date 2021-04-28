@@ -4,9 +4,16 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.member">
+	<update id="pAccept">
+		<![CDATA[
+			update USER_INFO set user_type='P'
+			where user_id=#{user_id}
+		]]>
+	</update>
+
 	<select id="pList" resultType="memberVO">
 		<![CDATA[
-			select * from USER_INFO where user_type='P' or user_type='N'
+			select * from USER_INFO where user_type='N' and user_belong=#{user_belong}
 		]]>
 	</select>
 	
@@ -17,16 +24,30 @@
 		]]>
 	</insert>
 	
-	<select id="login_username" resultType="String" parameterType="memberVO">
+	<update id="login_attend">
+		<![CDATA[
+			update USER_INFO set user_attend=0
+			where user_id=#{user_id}
+		]]>
+	</update>
+	
+	<select id="login_usertype" resultType="String" parameterType="memberVO">
+		<![CDATA[
+			select user_type from USER_INFO
+			where user_id=#{user_id} and user_pw=#{user_pw}
+		]]>
+	</select>
+	
+		<select id="login_username" resultType="String" parameterType="memberVO">
 		<![CDATA[
 			select user_name from USER_INFO
 			where user_id=#{user_id} and user_pw=#{user_pw}
 		]]>
 	</select>
 	
-	<select id="login_usertype" resultType="String" parameterType="memberVO">
+	<select id="login_userbelong" resultType="String" parameterType="memberVO">
 		<![CDATA[
-			select user_type from USER_INFO
+			select user_belong from USER_INFO
 			where user_id=#{user_id} and user_pw=#{user_pw}
 		]]>
 	</select>

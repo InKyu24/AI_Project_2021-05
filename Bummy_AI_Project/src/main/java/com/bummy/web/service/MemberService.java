@@ -25,4 +25,8 @@ public class MemberService {
 		return memberDAO.pList(memberVO);
 	}
 
+	public void pAccept(MemberVO memberVO) {
+		memberDAO.pAccept(memberVO);
+	}
+
 }

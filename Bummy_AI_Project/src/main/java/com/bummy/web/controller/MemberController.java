@@ -1,16 +1,12 @@
 package com.bummy.web.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.ServerCookies;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,15 +24,22 @@ public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
-	
-	//
-	@RequestMapping(value = "/pList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")	
-	public ModelAndView p_Manager(HttpServletRequest request) throws IOException {
+		
+	// 회원 관리
+	@RequestMapping(value = "/pList", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")	
+	public ModelAndView p_Manager(HttpServletRequest request) throws IOException{
+		if (request.getParameter("user_id")!=null) {
+			String user_id=request.getParameter("user_id");
+			System.out.println(user_id);
+			MemberVO memberVO=new MemberVO(user_id);
+			memberService.pAccept(memberVO); 
+		} else {}
+		
 		FindCookies fc = new FindCookies();
 
 		String user_id=fc.FindCookie(request, "user_id");
 		String user_type=fc.FindCookie(request, "user_type");
-		String user_belong="P";
+		String user_belong="멀티캠퍼스";
 		
 		System.out.println(user_id);
 		System.out.println(user_type);
@@ -74,16 +77,14 @@ public class MemberController {
 			String[] user_logined = memberService.login(memberVO);
 			String user_name= user_logined[0];
 			String user_type= user_logined[1];
+			String user_belong= user_logined[2];
 			if(user_name!=null && user_type!=null) {
 				HttpSession session=request.getSession();
 				session.setAttribute("member", memberVO);
 					json.put("user_id", user_id);
 					json.put("user_name", user_name);
 					json.put("user_type", user_type);
-					json.put("condition_check", "<a class='nav-link' id='condition_check' href='#''>상태 확인</a>");
-					json.put("timer", "<a class='nav-link' id='timer' href='#'>타이머</a>");
-					json.put("p_manager", "<a class='nav-link' id='p_manager' href='#'>회원 관리</a>");
-					
+					json.put("user_belong", user_belong);
 			} else {
 				json.put("msg", "로그인 실패");
 			}
@@ -105,16 +106,16 @@ public class MemberController {
 		String user_email=request.getParameter("user_email");
 		String user_belong=request.getParameter("user_belong");
 		String user_type=request.getParameter("user_type");
-		String user_img="D:\\"+user_id+".jpg";
+		String user_img="D:\\registry\\"+user_id+".jpg";
 			
 		System.out.println("아이디: "+user_id+"\n비밀번호: "+user_pw+"\n이름: "+user_name+"\n전화번호: "+user_phone+"\n이메일: "+user_email+"\n소속: "+user_belong+"\n타입: "+user_type);
 		
 		try {
-			MemberVO memberVO =new MemberVO(user_id,user_pw,user_name,user_phone,user_email,user_belong,user_type,user_img); 
+			MemberVO memberVO =new MemberVO(user_id,user_pw,user_name,user_phone,user_email,user_belong,user_type,user_img, null); 
 			memberService.signup(memberVO);
 			return user_name+"님 회원가입 되셨습니다";
 		}catch(Exception e) {
-			return e.getMessage();
+			return "가입 에러, 다시 시도해주세요";
 		}		
 	}
 }

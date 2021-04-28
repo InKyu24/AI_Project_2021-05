@@ -8,44 +8,28 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script>
-if (${p.user_type } == "P") {
-	var user_type = "가입 승인됨"
-} else if (${p.user_type } == "N") {
-	var user_type = "승인 대기 중"
-} else {
-	var user_type = "알 수 없는 회원"
-}
-</script>
 </head>
 <body>
+	<H1>가입 대기자</H1>
 	<table border="1" align="center" width="100%">
 		<tr align="center" bgcolor="lightgreen">
-			<td> <b>번호</b> </td>
+			<td> <b>선택</b> </td>
 			<td> <b>아이디</b> </td>
 			<td> <b>이름</b> </td>
 			<td> <b>전화번호</b> </td>
 			<td> <b>이메일</b> </td>
 			<td> <b>타입</b> </td>
-			<td> <b>사진</b> </td>
 			<td> <b>소속</b> </td>
 		</tr>
-	<form action="가입승인.jsp">
+	<form name="pAccpet_form" method="post" action="pList">
 	<c:forEach var="p" items="${pList }" varStatus="i">
 		<tr>
-			<td>${i.count }</td>
+			<td><input type="checkbox" value=${p.user_id } name="user_id"></td>
 			<td>${p.user_id }</td>
 			<td>${p.user_name }</td>
 			<td>${p.user_phone }</td>
 			<td>${p.user_email }</td>
-			<td>
-				<select name="user_type">
-				<option value=${p.user_type } selected>${p.user_type }</option>
-				<option value="P">가입 승인</option>
-				<option value="N">승인 취소 </option>
-				</select>
-			</td>
-			<td>${p.user_img }</td>
+			<td>${p.user_type }</td>
 			<td>${p.user_belong }</td>
 		</tr>
 	</c:forEach>

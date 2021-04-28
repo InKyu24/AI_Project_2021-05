@@ -2,9 +2,10 @@ package com.bummy.web.vo;
 
 public class MemberVO {
 	private String user_id,user_pw,user_pwc,user_phone,user_name,user_email,user_belong,user_type,user_img;
+	private Boolean user_attend;
 
 	public MemberVO(String user_id, String user_pw, String user_phone, String user_name,
-			String user_email, String user_belong, String user_type, String user_img) {
+			String user_email, String user_belong, String user_type, String user_img, Boolean userBoolean) {
 		super();
 		setUser_id(user_id);
 		setUser_pw(user_pw);
@@ -14,6 +15,7 @@ public class MemberVO {
 		setUser_belong(user_belong);
 		setUser_type(user_type);
 		setUser_img(user_img);
+		setUser_belong(user_belong);
 	}
 	
 	public MemberVO(String user_id, String user_pw) {
@@ -25,6 +27,10 @@ public class MemberVO {
 		setUser_id(user_id);
 		setUser_belong(user_belong);
 		setUser_type(user_type);
+	}
+
+	public MemberVO(String user_id) {
+		setUser_id(user_id);
 	}
 
 	public String getUser_id() {
@@ -78,9 +84,14 @@ public class MemberVO {
 	public String getUser_img() {
 		return user_img;
 	}
-
 	public void setUser_img(String user_img) {
 		this.user_img = user_img;
+	}
+	public Boolean getUser_attend() {
+		return user_attend;
+	}
+	public void setUser_attend(Boolean user_attend) {
+		this.user_attend = user_attend;
 	}
 	
 	@Override
