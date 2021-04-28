@@ -2,7 +2,7 @@
     pageEncoding="UTF-8" %>
  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-   
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +18,9 @@
 		var user_name=$.cookie('user_name');
 		var user_id=$.cookie('user_id');
 		var user_type=$.cookie('user_type');
-		var checkTime = 5*1000;
+		
+		var checkTime = ${checkTime}*1000;
+		alert(checkTime);
 		let ws, ws_cam;
 		let localstream;
 		let cam_loop;
