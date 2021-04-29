@@ -14,13 +14,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
 	$(document).ready(function(){
-		// 대화 설정
 		var user_name=$.cookie('user_name');
+		
 		var user_id=$.cookie('user_id');
 		var user_type=$.cookie('user_type');
-		
-		var checkTime = ${checkTime}*1000;
-		alert(checkTime);
+		var user_belong=$.cookie('user_belong');
+		var check_time=${check_time}*1000;
+			
 		let ws, ws_cam;
 		let localstream;
 		let cam_loop;
@@ -97,7 +97,7 @@
 												console.log(data);
 												alert(data);
 												if (data == "출석 확인") {
-												} else if (date == "대리 출석이 의심되는 상황") {
+												} else if (data == "대리 출석이 의심되는 상황") {
 													ws.send("[서버]"+user_name+"님은 현재 대리출석이 의심됩니다.");
 												}
 											}
@@ -114,7 +114,7 @@
 				if(++count==1) clearInterval(timer);
 			},
 			//선생님이 정한 시간
-			checkTime);
+			check_time);
 		}
 	});
 </script>

@@ -1,5 +1,10 @@
 package com.bummy.web.controller;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bummy.web.service.ClassService;
-import com.bummy.web.service.MemberService;
 import com.bummy.web.vo.MemberVO;
 
 @Controller
@@ -20,21 +24,28 @@ public class ClassController {
 	@Autowired
 	ClassService classService;
 	
-	@RequestMapping(value = "/class_room", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
-	public ModelAndView classRoom(HttpServletRequest request) {
+	@RequestMapping(value = "/class_room", method = {RequestMethod.GET}, produces = "application/text; charset=utf8")
+	public ModelAndView classRoom(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			ModelAndView mav = new ModelAndView("class_room");
-			//int checkTimeGet = checkTime(request);
-			int checkTimeGet = 3;
-			mav.addObject("checkTime", checkTimeGet);
+			int checkTimeGet =3; 
+			Cookie cookie[] = request.getCookies();
+			String user_id=cookie[1].getValue();
+			String user_belong=URLDecoder.decode(cookie[4].getValue(), "UTF-8");
+			String user_type="L";
+			// belong 받아서, check_time 조회할 수 있도록! 
+			MemberVO memberVO=new MemberVO(user_id,user_belong,user_type);
+			int check_time=classService.checkTimeGet(memberVO);
+			
+			mav.addObject("check_time", check_time);
 			return mav;
 	}
 	
 	// 출석 확인 시간 설정
 	@RequestMapping(value="/check", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")			
 	@ResponseBody
-	public String check(HttpServletRequest request, HttpServletResponse response){
+	public String checkTimeSet(HttpServletRequest request, HttpServletResponse response){
 		
-		String user_belong=request.getParameter("user_belong"); // 여기서는 user_belong과 check_time 필요
+		String user_belong=request.getParameter("user_belong");
 		String check_hour=request.getParameter("check_hour");
 		String check_minute=request.getParameter("check_minute");
 		String check_Second=request.getParameter("check_Second");
@@ -64,9 +75,4 @@ public class ClassController {
 		
 		return user_belong+" 소속 학생들은 강의실 입장 후 "+check_time+"초 후에 출석이 확인됩니다.";
 	}
-	
-	
-	// 출석 확인  시간 조회
-	
-	// 여기서는 user_type[무조건 L] 과 user_belong, check_time 필요
 }
