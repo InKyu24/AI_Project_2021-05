@@ -13,6 +13,10 @@ public class ClassDAO {
 	SqlSession sqlSession;
 
 	public void checkTimeSet(MemberVO memberVO) {
-	sqlSession.update("mapper.member.checkTimeSet", memberVO);
+		sqlSession.update("mapper.member.checkTimeSet", memberVO);
+	}
+
+	public int checkTimeGet(MemberVO memberVO) {
+		return sqlSession.selectOne("mapper.member.checkTimeGet", memberVO);
 	}
 }

@@ -4,6 +4,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.member">
+	<select id="checkTimeGet" resultType="int" >
+		<![CDATA[
+			select check_time from USER_INFO
+			where user_belong=#{user_belong} and user_type=#{user_type}
+		]]>
+	</select>
+	
 	<update id="checkTimeSet">
 		<![CDATA[
 			update USER_INFO set check_time=#{check_time}
@@ -20,7 +27,8 @@
 
 	<select id="pList" resultType="memberVO">
 		<![CDATA[
-			select * from USER_INFO where user_type='N' and user_belong=#{user_belong}
+			select * from USER_INFO
+			where user_type='N' and user_belong=#{user_belong}
 		]]>
 	</select>
 	

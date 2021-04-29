@@ -5,8 +5,7 @@ public class MemberVO {
 	private int check_time;
 	private Boolean user_attend;
 
-	public MemberVO(String user_id, String user_pw, String user_phone, String user_name,
-			String user_email, String user_belong, String user_type, String user_img, Boolean user_attend, int  check_time) {
+	public MemberVO(String user_id, String user_pw, String user_phone, String user_name, String user_email, String user_belong, String user_type, String user_img, Boolean user_attend, int  check_time) {
 		super();
 		setUser_id(user_id);
 		setUser_pw(user_pw);

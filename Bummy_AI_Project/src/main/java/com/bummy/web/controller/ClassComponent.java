@@ -27,8 +27,6 @@ public class ClassComponent {
 			list.add(session);
 		}
 		System.out.println(session.getId()+" 접속 ok");
-		System.out.println(list);
-
 	}
 	
 	@OnMessage
