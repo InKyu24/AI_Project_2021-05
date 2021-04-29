@@ -25,8 +25,7 @@ public class MemberDAOImpl implements MemberDAO {
 		String user_belong = sqlSession.selectOne("mapper.member.login_userbelong", memberVO);
 		sqlSession.update("mapper.member.login_attend", memberVO);
 		String[] user_logined =  {user_name, user_type, user_belong};
-		return user_logined;
-		
+		return user_logined;		
 	}
 
 	@Override
@@ -36,8 +35,7 @@ public class MemberDAOImpl implements MemberDAO {
 
 	@Override
 	public void pAccept(MemberVO memberVO) {
-		sqlSession.update("mapper.member.pAccept", memberVO);
-		
-	}
-
+		sqlSession.update("mapper.member.pAccept", memberVO);		
+	}	
+	
 }
