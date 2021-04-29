@@ -24,7 +24,8 @@ public class MemberController {
 	
 	@Autowired
 	MemberService memberService;
-		
+	
+
 	// 회원 관리
 	@RequestMapping(value = "/pList", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")	
 	public ModelAndView p_Manager(HttpServletRequest request) throws IOException{
@@ -111,7 +112,7 @@ public class MemberController {
 		System.out.println("아이디: "+user_id+"\n비밀번호: "+user_pw+"\n이름: "+user_name+"\n전화번호: "+user_phone+"\n이메일: "+user_email+"\n소속: "+user_belong+"\n타입: "+user_type);
 		
 		try {
-			MemberVO memberVO =new MemberVO(user_id,user_pw,user_name,user_phone,user_email,user_belong,user_type,user_img, null); 
+			MemberVO memberVO =new MemberVO(user_id,user_pw,user_name,user_phone,user_email,user_belong,user_type,user_img, null, 5); 
 			memberService.signup(memberVO);
 			return user_name+"님 회원가입 되셨습니다";
 		}catch(Exception e) {

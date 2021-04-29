@@ -2,10 +2,11 @@ package com.bummy.web.vo;
 
 public class MemberVO {
 	private String user_id,user_pw,user_pwc,user_phone,user_name,user_email,user_belong,user_type,user_img;
+	private int check_time;
 	private Boolean user_attend;
 
 	public MemberVO(String user_id, String user_pw, String user_phone, String user_name,
-			String user_email, String user_belong, String user_type, String user_img, Boolean userBoolean) {
+			String user_email, String user_belong, String user_type, String user_img, Boolean user_attend, int  check_time) {
 		super();
 		setUser_id(user_id);
 		setUser_pw(user_pw);
@@ -15,7 +16,8 @@ public class MemberVO {
 		setUser_belong(user_belong);
 		setUser_type(user_type);
 		setUser_img(user_img);
-		setUser_belong(user_belong);
+		setUser_attend(user_attend);
+		setCheck_time(check_time);
 	}
 	
 	public MemberVO(String user_id, String user_pw) {
@@ -31,6 +33,11 @@ public class MemberVO {
 
 	public MemberVO(String user_id) {
 		setUser_id(user_id);
+	}
+
+	public MemberVO(String user_belong, int check_time) {
+		setUser_belong(user_belong);
+		setCheck_time(check_time);
 	}
 
 	public String getUser_id() {
@@ -94,11 +101,19 @@ public class MemberVO {
 		this.user_attend = user_attend;
 	}
 	
+	public int getCheck_time() {
+		return check_time;
+	}
+
+	public void setCheck_time(int check_time) {
+		this.check_time = check_time;
+	}
+
 	@Override
 	public String toString() {
-		return "MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_pwc=" + user_pwc + ", user_name="
-				+ user_name + ", user_email=" + user_email + ", user_belong=" + user_belong + ", user_type=" + user_type
-				+ ", user_phone=" + user_phone + "]";
-	}
-	
+		return "MemberVO [user_id=" + user_id + ", user_pw=" + user_pw + ", user_pwc=" + user_pwc + ", user_phone="
+				+ user_phone + ", user_name=" + user_name + ", user_email=" + user_email + ", user_belong="
+				+ user_belong + ", user_type=" + user_type + ", user_img=" + user_img + ", check_time=" + check_time
+				+ ", user_attend=" + user_attend + "]";
+	}	
 }
