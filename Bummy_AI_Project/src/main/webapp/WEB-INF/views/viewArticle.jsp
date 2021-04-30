@@ -4,21 +4,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<%-- 
-<c:set var="article"  value="${articleMap.article}"  />
-<c:set var="imageFileList"  value="${articleMap.imageFileList}"  />
 
- --%>
-<%
-  request.setCharacterEncoding("UTF-8");
-%> 
+<% request.setCharacterEncoding("UTF-8"); %> 
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
  
    <title>글보기</title>
@@ -47,7 +39,7 @@
 	 }
 	 
 	 function fn_modify_article(obj){
-		 obj.action="${contextPath}/board/modArticle.do";
+		 obj.action="${contextPath}/board/modArticle";
 		 obj.submit();
 	 }
 	 
@@ -66,20 +58,6 @@
 	 
 	 }
 	 
-	 function fn_reply_form(url, parentNO){
-		 var form = document.createElement("form");
-		 form.setAttribute("method", "post");
-		 form.setAttribute("action", url);
-	     var parentNOInput = document.createElement("input");
-	     parentNOInput.setAttribute("type","hidden");
-	     parentNOInput.setAttribute("name","parentNO");
-	     parentNOInput.setAttribute("value", parentNO);
-		 
-	     form.appendChild(parentNOInput);
-	     document.body.appendChild(form);
-		 form.submit();
-	 }
-	 
 	 function readURL(input) {
 	     if (input.files && input.files[0]) {
 	         var reader = new FileReader();
@@ -95,127 +73,70 @@
 
 <br><br><br>
 <div class="container table-responsiv">
-  <form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
-  <table  border=0  align="center" class="table table-condensed">
-  <tr>
-   <td width=150 align="center" bgcolor=lightgray>
-      글번호
-   </td>
-   <td >
-    <input type="text"  value="${article.board_articleNO }"  disabled />
-    <input type="hidden" name="board_articleNO" value="${article.board_articleNO}"  />
-   </td>
-  </tr>
-  <tr>
-    <td width="150" align="center" bgcolor="lightgray">
-      작성자 아이디
-   </td>
-   <td >
-    <input type=text value="${article.board_id }" name="writer"  disabled />
-   </td>
-  </tr>
-  <tr>
-    <td width="150" align="center" bgcolor="lightgray">
-      제목 
-   </td>
-   <td>
-    <input type=text value="${article.board_title }"  name="title"  id="i_title" disabled />
-   </td>   
-  </tr>
-  <tr>
-    <td width="150" align="center" bgcolor="lightgray">
-      내용
-   </td>
-   <td>
-    <textarea rows="10" cols="60"  name="content"  id="i_content"  disabled />${article.board_content }</textarea>
-   </td>  
-  </tr>
- <%-- 
- <c:if test="${not empty imageFileList && imageFileList!='null' }">
-	  <c:forEach var="item" items="${imageFileList}" varStatus="status" >
-		    <tr>
-			    <td width="150" align="center" bgcolor="lightgray"  rowspan="2">
-			      이미지${status.count }
-			   </td>
-			   <td>
-			     <input  type= "hidden"   name="originalFileName" value="${item.imageFileName }" />
-			    <img src="${contextPath}/download.do?board_articleNO=${article.board_articleNO}&imageFileName=${item.imageFileName}" id="preview"  /><br>
-			   </td>   
-			  </tr>  
-			  <tr>
-			    <td>
-			       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
-			    </td>
-			 </tr>
-		</c:forEach>
- </c:if>
- 	 --%>    
- 	 
-  <c:choose> 
-	  <c:when test="${not empty article.board_FileName && article.board_FileName!='null' }">
-	   	<tr>
-		    <td width="150" align="center" bgcolor="lightgray"  rowspan="2">
-		      이미지
-		   </td>
-		   <td>
-		     <input  type= "hidden"   name="originalFileName" value="${article.board_FileName }" />
-		    <img src="${contextPath}/download.do?board_articleNO=${article.board_articleNO}&imageFileName=${article.board_FileName}" id="preview"  /><br>
-		   </td>   
-		  </tr>  
-		  <tr>
-		    <td ></td>
-		    <td>
-		       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
-		    </td>
-		  </tr> 
+	<form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
+		<table  border=0  align="center" class="table table-condensed">
+		<!-- 글번호 열 -->
+			<tr>
+   				<td width=150 align="center" bgcolor=lightgray>글번호</td>
+   				<td> <input type="text"  value="${article.board_articleNO }"  disabled /><input type="hidden" name="board_articleNO" value="${article.board_articleNO}"  /></td>
+  			</tr>
+ 		<!-- 작성자 아이디 열 -->
+  			<tr>
+    			<td width="150" align="center" bgcolor="lightgray">작성자 아이디</td>
+   				<td><input type=text value="${article.board_id }" name="board_id"  disabled /></td>
+  			</tr>
+ 		<!-- 글 제목 열 -->
+  			<tr>
+    			<td width="150" align="center" bgcolor="lightgray">제목</td>
+   				<td><input type=text value="${article.board_title }"  name="board_title"  id="i_title" disabled /></td>
+  			</tr>
+  		<!-- 글 내용 열 -->	
+  			<tr>
+    			<td width="150" align="center" bgcolor="lightgray">내용</td>
+   				<td><textarea rows="10" cols="60"  name="board_content"  id="i_content"  disabled />${article.board_content }</textarea></td>  
+  			</tr>
+
+	<c:choose> 
+		<c:when test="${not empty article.board_FileName && article.board_FileName!='null' }">
+		   	<tr>
+				<td width="150" align="center" bgcolor="lightgray"  rowspan="2">이미지</td>
+			   	<td><input  type= "hidden"   name="board_FileName" value="${article.board_FileName }" /><img src="${contextPath}/download?board_articleNO=${article.board_articleNO}&board_FileName=${article.board_FileName}" id="preview"  /></td>   
+			</tr>
+			  
+			<tr>
+			    <td ></td>
+			    <td><input  type="file"  name="board_FileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   /></td>
+			</tr> 
+			
 		 </c:when>
 		 <c:otherwise>
 		    <tr  id="tr_file_upload" >
-				    <td width="150" align="center" bgcolor="lightgray"  rowspan="2">
-				      이미지
-				    </td>
-				    <td>
-				      <input  type= "hidden"   name="originalFileName" value="${article.board_FileName }" />
-				    </td>
-			    </tr>
-			    <tr>
-				    <td ></td>
-				    <td>
-				       <img id="preview"  /><br>
-				       <input  type="file"  name="imageFileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   />
-				    </td>
-			  </tr>
-		 </c:otherwise>
-	 </c:choose>
-  <tr>
-	   <td width="150" align="center" bgcolor="lightgray">
-	      등록일자
-	   </td>
-	   <td>
-	    <input type=text value="<fmt:formatDate value="${article.board_Date}" />" disabled />
-	   </td>   
-  </tr>
-  <tr   id="tr_btn_modify"  align="center"  >
-	   <td colspan="2"   >
-	       <input type=button value="수정반영하기"   onClick="fn_modify_article(frmArticle)"  >
-           <input type=button value="취소"  onClick="backToList(frmArticle)">
-	   </td>   
-  </tr>
-    
-  <tr  id="tr_btn"    >
-   <td colspan="2" align="center">
-       <c:if test="${member.id == article.board_id }">
-	      <input type=button value="수정하기" onClick="fn_enable(this.form)">
-	      <input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.board_articleNO})">
-	    </c:if>
-	    <br>
-	    <input type=button value="리스트로 돌아가기"  onClick="backToList()" class="btn btn-info">
-	     <input type=button value="답글쓰기"  onClick="fn_reply_form('../replyForm', ${article.board_articleNO})" class="btn btn-info">
-   </td>
-  </tr>
- </table>
- </form>
- 
- </div>
+			    <td width="150" align="center" bgcolor="lightgray"  rowspan="2">이미지</td>
+			    <td><input  type= "hidden"   name="board_FileName" value="${article.board_FileName }" /></td>
+		    </tr>
+	 		
+	 		<tr>
+			    <td ></td>
+			    <td><img id="preview"  /><br><input  type="file"  name="board_FileName " id="i_imageFileName"   disabled   onchange="readURL(this);"   /></td>
+		  	</tr>
+		</c:otherwise>
+ 	</c:choose>
+  			<tr>
+  				<td width="150" align="center" bgcolor="lightgray">등록일자</td>
+	   			<td><input type=text value="<fmt:formatDate value="${article.board_Date}" />" disabled /></td>   
+  			</tr>
+  			
+  			<tr id="tr_btn_modify"  align="center">
+				<td colspan="2"><input type=button value="수정 완료"   onClick="fn_modify_article(frmArticle)"><input type=button value="취소"  onClick="backToList(frmArticle)"></td>   
+  			</tr>
+  			
+	<c:if test="${member.user_id == article.board_id }">    
+  			<tr id="tr_btn">
+   				<td colspan="2" align="center"><input type=button value="수정하기" onClick="fn_enable(this.form)"><input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/board/removeArticle.do', ${article.board_articleNO})"><br><input type=button value="리스트로 돌아가기"  onClick="backToList()" class="btn btn-info"></td>
+    </c:if>
+  			</tr>
+		</table>
+	</form>
+</div>
 </body>
 </html>

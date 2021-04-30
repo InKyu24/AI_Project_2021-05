@@ -18,17 +18,14 @@ public class BoardDAO {
 	SqlSession sqlSession;
 
 	public List<BoardVO> listArticles() {
-				return sqlSession.selectList("mapper.board.selectAllBoard");
+		return sqlSession.selectList("mapper.board.selectAllBoard");
 	}
-
-	public void boardWrite(Map<String, Object> articleMap) {
-		sqlSession.insert("mapper.board.insert", articleMap);
-		
-	}
-
 
 	public BoardVO viewArticle(int board_articleNO){
 		return sqlSession.selectOne("mapper.board.selectArticle", board_articleNO);
 	}
 
+	public void boardWrite(Map<String, Object> articleMap) {
+		sqlSession.insert("mapper.board.insert", articleMap);
+	}
 }

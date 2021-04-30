@@ -4,36 +4,20 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="contextPath"  value="${pageContext.request.contextPath}"  />
-<%
-  request.setCharacterEncoding("UTF-8");
-%>  
+<% request.setCharacterEncoding("UTF-8"); %>
+  
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
- <style>
-   .cls1 {text-decoration:none;}
-   .cls2{text-align:center; font-size:30px;}
-  </style>
+	
   <meta charset="UTF-8">
-  <title>글목록창</title>
+  <title>글 목록창</title>
 </head>
-<script>
-	function fn_articleForm(articleForm){
-		var login=$.cookie('logined');
-	  if(login){
-	    location.href=articleForm;
-	  }else{
-	    alert("로그인 후 글쓰기가 가능합니다.")
-	    window.close();
-	  }
-	}
-</script>
+
 <body>
 <br><br><br>
 <div class="container">
@@ -74,16 +58,15 @@
 	          </c:otherwise>
 	        </c:choose>
 	  </td>
-	  <td  width="30%">${article.board_Date}</td> 
+	  <td  width="30%"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${article.board_Date}" /></td> 
 	</tr>
     </c:forEach>
      </c:when>
     </c:choose>
 </table>
 </div>
-<!-- <a  class="cls1"  href="#"><p class="cls2">글쓰기</p></a> -->
 <center>
-<a    href="javascript:fn_articleForm('../boardWriteForm')"><p class="btn btn-info">글쓰기</p></a>
+<button type="button" onclick="location.href='boardWriteForm'">글쓰기</button>
 </center>
 </body>
 </html>
