@@ -33,9 +33,30 @@ public class MemberDAOImpl implements MemberDAO {
 		return sqlSession.selectList("mapper.member.pList", memberVO);
 	}
 
+
+	@Override
+	public List<MemberVO> uList(MemberVO memberVO) {
+		return sqlSession.selectList("mapper.member.uList", memberVO);
+	}	
+
 	@Override
 	public void pAccept(MemberVO memberVO) {
 		sqlSession.update("mapper.member.pAccept", memberVO);		
-	}	
-	
+	}
+
+	@Override
+	public String userFindId(MemberVO memberVO) {
+		return sqlSession.selectOne("mapper.member.userFindId", memberVO);
+	}
+
+	@Override
+	public String idCheck(MemberVO memberVO) {
+		return sqlSession.selectOne("mapper.member.idCheck", memberVO);
+	}
+
+	@Override
+	public String belongCheckL(MemberVO memberVO) {
+		return sqlSession.selectOne("mapper.member.belongCheckL", memberVO);
+	}
+
 }

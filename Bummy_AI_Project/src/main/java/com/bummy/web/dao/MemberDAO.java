@@ -12,6 +12,13 @@ public interface MemberDAO {
 	
 	List<MemberVO> pList(MemberVO memberVO);
 
+	List<MemberVO> uList(MemberVO memberVO);
+	
 	void pAccept(MemberVO memberVO);
 
+	String userFindId(MemberVO memberVO);
+
+	String idCheck(MemberVO memberVO);
+
+	String belongCheckL(MemberVO memberVO);
 }

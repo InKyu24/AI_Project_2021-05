@@ -24,9 +24,25 @@ public class MemberService {
 	public List<MemberVO> pList(MemberVO memberVO) {
 		return memberDAO.pList(memberVO);
 	}
+	
+	public List<MemberVO> uList(MemberVO memberVO) {
+		return memberDAO.uList(memberVO);
+	}
 
 	public void pAccept(MemberVO memberVO) {
 		memberDAO.pAccept(memberVO);
+	}
+
+	public String userFindId(MemberVO memberVO) {
+		return memberDAO.userFindId(memberVO);
+	}
+
+	public String idCheck(MemberVO memberVO) {
+		return memberDAO.idCheck(memberVO);
+	}
+
+	public String belongCheckL(MemberVO memberVO) {
+		return memberDAO.belongCheckL(memberVO);
 	}
 
 }
