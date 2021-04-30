@@ -8,47 +8,43 @@
 <!-- 쿠키 설정 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
-	$(document).ready(function(){	
-		$('#check').click(function(){
-			var user_belong=$.cookie('user_belong');
-			var check_hour = $('#check_hour').val();
-			var check_minute = $('#check_minute').val();
-			var check_Second = $('#check_Second').val();
+$(document).ready(function(){	
+	$('#check').click(function(){
+		var user_belong=$.cookie('user_belong');
+		var check_hour = $('#check_hour').val();
+		var check_minute = $('#check_minute').val();
+		var check_Second = $('#check_Second').val();
 			
-			$.post("/check",
-				{
-					user_belong:user_belong,
-					check_hour:check_hour,
-					check_minute:check_minute,
-					check_Second:check_Second
-				},
-				function(data, status){
-					alert(data);
-					self.close();
-				}
-			);
-		});
+		$.post("/check",
+			{
+				user_belong:user_belong,
+				check_hour:check_hour,
+				check_minute:check_minute,
+				check_Second:check_Second
+			},
+			function(data, status){
+				alert(data);
+				self.close();
+			}
+		);
 	});
+});
 </script>
 
 </head>
 <body>
-	<form name="check_form" method="post" action="check">
 	<table>
-	<tr>
-	<th>시</th>
-	<th>분</th>
-	<th>초</th>
-	<th rowspan="2"><input type="button" id="check" value="전송"></td>
-	</tr>
-	
-	<tr>
-	<td><input type="text" id="check_hour" size="3"></td>
-	<td><input type="text" id="check_minute" size="3"></td>
-	<td><input type="text" id="check_Second" size="3"></td>
-	</tr>
-	<br>
-	</form>
+		<tr>
+			<th>시</th>
+			<th>분</th>
+			<th>초</th>
+			<th rowspan="2"><input type="submit" id="check" value="전송"></th>
+		</tr>	
+		<tr>
+			<td><input type="text" id="check_hour" size="3"></td>
+			<td><input type="text" id="check_minute" size="3"></td>
+			<td><input type="text" id="check_Second" size="3"></td>
+		</tr>
 	</table>
 </body>
 </html>

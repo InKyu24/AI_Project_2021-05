@@ -4,8 +4,9 @@ public class MemberVO {
 	private String user_id,user_pw,user_pwc,user_phone,user_name,user_email,user_belong,user_type,user_img;
 	private int check_time;
 	private Boolean user_attend;
-
-	public MemberVO(String user_id, String user_pw, String user_phone, String user_name, String user_email, String user_belong, String user_type, String user_img, Boolean user_attend, int  check_time) {
+	
+	// 회원 조회
+	public MemberVO(String user_id, String user_pw,String user_name, String user_phone, String user_email, String user_belong, String user_type, String user_img, Boolean user_attend, int check_time) {
 		super();
 		setUser_id(user_id);
 		setUser_pw(user_pw);
@@ -15,28 +16,53 @@ public class MemberVO {
 		setUser_belong(user_belong);
 		setUser_type(user_type);
 		setUser_img(user_img);
+		setCheck_time(check_time);
 		setUser_attend(user_attend);
+	}
+	
+	// 회원가입
+	public MemberVO(String user_id, String user_pw, String user_name, String user_phone, String user_email, String user_belong, String user_type, String user_img) {
+		super();
+		setUser_id(user_id);
+		setUser_pw(user_pw);
+		setUser_name(user_name);
+		setUser_phone(user_phone);
+		setUser_email(user_email);
+		setUser_belong(user_belong);
+		setUser_type(user_type);
+		setUser_img(user_img);
+	}
+	
+	// 회원 관리
+	public MemberVO(String user_id) {
+		setUser_id(user_id);
+	}
+	
+	// 체크 타임 설정
+	public MemberVO(String user_belong, int check_time) {
+		setUser_belong(user_belong);
 		setCheck_time(check_time);
 	}
 	
+	// 로그인
 	public MemberVO(String user_id, String user_pw) {
 		setUser_id(user_id);
 		setUser_pw(user_pw);
 	}
-
+	
+	// 회원 가입, 회원 관리, 체크 타임 조회
 	public MemberVO(String user_id, String user_belong, String user_type) {
 		setUser_id(user_id);
 		setUser_belong(user_belong);
 		setUser_type(user_type);
 	}
-
-	public MemberVO(String user_id) {
-		setUser_id(user_id);
-	}
-
-	public MemberVO(String user_belong, int check_time) {
+	
+	// 아이디 찾기
+	public MemberVO(String user_name, String user_phone, String user_email, String user_belong) {
+		setUser_name(user_name);
+		setUser_phone(user_phone);
+		setUser_email(user_email);
 		setUser_belong(user_belong);
-		setCheck_time(check_time);
 	}
 
 	public String getUser_id() {

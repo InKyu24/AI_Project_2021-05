@@ -43,9 +43,7 @@ public class ClassComponent {
 			}
 		}
 	}
-	
-	@OnMessage
-	
+
 	@OnClose
 	public void close(Session session) {
 		synchronized (list) {

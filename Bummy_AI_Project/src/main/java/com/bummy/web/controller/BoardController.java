@@ -2,12 +2,14 @@ package com.bummy.web.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -34,85 +36,73 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
-/** 모든 글 보기 */
-	@RequestMapping(value = "boardList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public ModelAndView boardList(HttpServletRequest request) {
-
-		ModelAndView mav = new ModelAndView("board");
-		List<BoardVO> articlesList = boardService.listArticles();
-		System.out.println(articlesList.size());
-		mav.addObject("articlesList", articlesList);
-		return mav;
-	}
-
-/** 글 쓰기 화면 얻기 */
-	@RequestMapping(value = "boardWriteForm", method = {
-			RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public String boardWriteForm(HttpServletRequest request) {
-		return "boardWriteForm";
-	}
-	
-/** 로그인  화면 얻기 */
-	@RequestMapping(value = "loginForm", method = {
-			RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public String loginForm(HttpServletRequest request) {
-		return "loginForm";
-	}
-
-	
-/** 글 쓰기 처리 */
-           @RequestMapping(value = "boardWrite", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
-	public RedirectView boardWrite(MultipartHttpServletRequest multipartRequest) {
-		try {
-			multipartRequest.setCharacterEncoding("utf-8");
+	// 글쓰기 처리
+    @RequestMapping(value = "boardWrite", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
+    public RedirectView boardWrite(MultipartHttpServletRequest multipartRequest) {
+    	Cookie cookie[] = multipartRequest.getCookies();
+    	try {
+    		multipartRequest.setCharacterEncoding("utf-8");
+    		
 			Map<String, Object> articleMap = new HashMap<String, Object>();
 			Enumeration<String> enu = multipartRequest.getParameterNames();
-
+			
+			// 글쓰기 창에서 제목과 내용을 Enumeration으로 저장 
 			while (enu.hasMoreElements()) {
 				String name = enu.nextElement();
 				String value = multipartRequest.getParameter(name);
 				articleMap.put(name, value);
 			}
+			
+			// 파일을 저장 
 			MultipartFile file = multipartRequest.getFile("file");
+			// 파일이 있는 경우, 파일 이름을 문자열로 저장
 			if (file != null) {
 				String fileName = file.getOriginalFilename();
+				// 파일이름이 공백이 아닌 경우
 				if (!fileName.equals("")) {
 					System.out.println(fileName);
-					file.transferTo(new File("d:\\tool\\temp\\" + fileName));
-					articleMap.put("imageFileName", fileName);
+					// 아래 경로에 파일을 저장
+					file.transferTo(new File("d:\\boardfiles\\" + fileName));
+					articleMap.put("board_filename", fileName);
 				} else {
-					articleMap.put("imageFileName", "");
+					// 파일이름이 공백인 경우에는 공백을 저장
+					articleMap.put("board_filename", "");
 				}
 			} else {
-				articleMap.put("imageFileName", "");
-			}
-			HttpSession session = multipartRequest.getSession();
-			MemberVO memberVO=null;
-			if(session==null || (memberVO = (MemberVO) session.getAttribute("board_id"))!=null) {
-				return new RedirectView("loginForm");
+			// 파일 이름이 없는 경우에도 공백을 저장
+			articleMap.put("board_filename", "");
+			}			
+			
+			if(articleMap.get("board_parentNO")==null) {
+				articleMap.put("board_parentNO", 0);
 			}
 			
-			String id = memberVO.getUser_id();
-			System.out.println("parentNO:"+articleMap.get("parentNO"));
-			if(articleMap.get("parentNO")==null) {
-				articleMap.put("parentNO", 0);
-			}
-			articleMap.put("board_id", id);
-
+			String user_name=URLDecoder.decode(cookie[2].getValue(), "UTF-8");
+			articleMap.put("board_id", user_name);
+			
+			System.out.println(articleMap);
 			boardService.boardWrite(articleMap);
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 		}
-		return new RedirectView("boardList");
+    	return new RedirectView("boardList");
+    }	
+    
+	// 모든 글 보기
+	@RequestMapping(value = "boardList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
+	public ModelAndView boardList(HttpServletRequest request) {
+
+		ModelAndView mav = new ModelAndView("board");
+		List<BoardVO> articlesList = boardService.listArticles();
+		mav.addObject("articlesList", articlesList);
+		return mav;
 	}
 
-
-/**  글 내용 보기 */
+	// 글 내용 보기
 	@RequestMapping(value = "viewArticle", method = RequestMethod.GET)
-	public ModelAndView viewArticle(@RequestParam("board_articleNO") int board_articleNO, HttpServletRequest request,
-			HttpServletResponse response) throws Exception {	
+	public ModelAndView viewArticle(@RequestParam("board_articleNO") int board_articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception {	
 		System.out.println(board_articleNO+"번 글 보기");
 		BoardVO boardVO = boardService.viewArticle(board_articleNO);
 		ModelAndView mav = new ModelAndView();
@@ -121,35 +111,9 @@ public class BoardController {
 		return mav;
 	}
 	
-/**  답글 작성 화면 얻기 */
-	@RequestMapping(value = "replyForm", method =  RequestMethod.POST)
-	private ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {		
-		ModelAndView mav = new ModelAndView();
-		mav.addObject("parentNO", request.getParameter("parentNO"));
-		mav.setViewName("replyForm");
-		return mav;
-	}
-
-/** 파일 업로드하기 */
-	private String upload(MultipartHttpServletRequest multipartRequest) throws Exception{
-		String imageFileName= null;
-		Iterator<String> fileNames = multipartRequest.getFileNames();
-		
-		while(fileNames.hasNext()){
-			String fileName = fileNames.next();
-			MultipartFile mFile = multipartRequest.getFile(fileName);
-			imageFileName=mFile.getOriginalFilename();
-			File file = new File("d:\\tool\\temp\\"+ fileName);
-			if(mFile.getSize()!=0){ //File Null Check
-				if(! file.exists()){ //경로상에 파일이 존재하지 않을 경우
-					if(file.getParentFile().mkdirs()){ //경로에 해당하는 디렉토리들을 생성
-							file.createNewFile(); //이후 파일 생성
-					}
-				}
-				mFile.transferTo(new File("d:\\tool\\temp\\"+imageFileName)); //임시로 저장된 multipartFile을 실제 파일로 전송
-			}
-		}
-		return imageFileName;
+	// 글 쓰기 화면 얻기
+	@RequestMapping(value = "boardWriteForm", method = {RequestMethod.GET }, produces = "application/text; charset=utf8")
+	public String boardWriteForm(HttpServletRequest request) {
+		return "boardWriteForm";
 	}
 }
-

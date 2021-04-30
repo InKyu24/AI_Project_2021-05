@@ -25,9 +25,9 @@ public class ClassController {
 	ClassService classService;
 	
 	@RequestMapping(value = "/class_room", method = {RequestMethod.GET}, produces = "application/text; charset=utf8")
+	@ResponseBody
 	public ModelAndView classRoom(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			ModelAndView mav = new ModelAndView("class_room");
-			int checkTimeGet =3; 
 			Cookie cookie[] = request.getCookies();
 			String user_id=cookie[1].getValue();
 			String user_belong=URLDecoder.decode(cookie[4].getValue(), "UTF-8");
@@ -41,7 +41,7 @@ public class ClassController {
 	}
 	
 	// 출석 확인 시간 설정
-	@RequestMapping(value="/check", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")			
+	@RequestMapping(value="/check", method= {RequestMethod.POST}, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public String checkTimeSet(HttpServletRequest request, HttpServletResponse response){
 		
@@ -72,7 +72,7 @@ public class ClassController {
 		
 		MemberVO memberVO=new MemberVO(user_belong,check_time);
 		classService.checkTimeSet(memberVO);
-		
+		System.out.println(check_time);
 		return user_belong+" 소속 학생들은 강의실 입장 후 "+check_time+"초 후에 출석이 확인됩니다.";
 	}
 }
