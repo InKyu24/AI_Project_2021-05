@@ -18,13 +18,19 @@ public class BoardService {
 	}
 
 	public void boardWrite(Map<String, Object> articleMap) {
-		boardDAO.boardWrite(articleMap);
-		
+		boardDAO.boardWrite(articleMap);	
 	}
 
 	public BoardVO viewArticle(int board_articleNO) {
 		return boardDAO.viewArticle(board_articleNO);
 	}
+
+	public void modArticle(Map<String, Object> articleMap) {
+		boardDAO.modArticle(articleMap);
+	}
+
+	public void removeArticle(BoardVO boardVO) {
+		boardDAO.removeArticle(boardVO);
+		
+	}
 }
-
-

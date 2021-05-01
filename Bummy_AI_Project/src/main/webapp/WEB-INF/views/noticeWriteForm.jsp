@@ -16,14 +16,14 @@
 
 <script type="text/javascript">
  // 리스트로 돌아가기
-  function backToList(){location.href="../boardList";}
+  function backToList(){location.href="../noticeList";}
 </script>
 
 </head>
 <body>
 <div class="container">
 <h1 style="text-align:center">글쓰기</h1>
-  <form name="articleForm" method="post" action="../boardWrite" enctype="multipart/form-data">
+  <form name="notiForm" method="post" action="../noticeWrite" enctype="multipart/form-data">
     <table>
 	
 		<tr>
@@ -34,12 +34,12 @@
 		
      	<tr>
 		   <td >글제목 : </td>
-		   <td colspan="2"><input type="text" size="50"  maxlength="300" name="board_title" /></td>
+		   <td colspan="2"><input type="text" size="50"  maxlength="300" name="notice_title" /></td>
 	 	</tr>
 	 	
 	 	<tr>
 			<td valign="top"><br>글내용 : </td>
-			<td colspan=2><textarea name="board_content" rows="10" cols="53" maxlength="4000"></textarea> </td>
+			<td colspan=2><textarea name="notice_content" rows="10" cols="53" maxlength="4000"></textarea> </td>
      	</tr>
      	
      	

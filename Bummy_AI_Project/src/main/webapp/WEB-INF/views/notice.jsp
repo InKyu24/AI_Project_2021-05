@@ -29,7 +29,7 @@
      <td >작성일</td>
   </tr>
 <c:choose>
-  <c:when test="${articlesList ==null }" >
+  <c:when test="${notiList ==null }" >
     <tr  height="10">
       <td colspan="4">
          <p align="center">
@@ -38,27 +38,27 @@
       </td>  
     </tr>
   </c:when>
-  <c:when test="${articlesList !=null }" >
-    <c:forEach  var="article" items="${articlesList }" varStatus="articleNum" >
+  <c:when test="${notiList !=null }" >
+    <c:forEach  var="noti" items="${notiList }" varStatus="notiNum" >
      <tr align="center">
-	<td width="5%">${articleNum.count}</td>
-	<td width="10%">${article.board_name }</td>
+	<td width="5%">${notiNum.count}</td>
+	<td width="10%">${noti.notice_name }</td>
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
 	   <c:choose>
-	      <c:when test='${article.level > 1 }'>  
-	         <c:forEach begin="1" end="${article.level }" step="1">
+	      <c:when test='${noti.level > 1 }'>  
+	         <c:forEach begin="1" end="${noti.level }" step="1">
 	              <span style="padding-left:20px"></span>    
 	         </c:forEach>
 	         <span style="font-size:12px;">[답변]</span>
-                   <a class='cls1' href="../viewArticle?board_articleNO=${article.board_articleNO}">${article.board_title}</a>
+                   <a class='cls1' href="../viewNoti?notice_notiNO=${noti.notice_notiNO}">${noti.notice_title}</a>
 	          </c:when>
 	          <c:otherwise>
-	            <a class='cls1' href="../viewArticle?board_articleNO=${article.board_articleNO}">${article.board_title }</a>
+	            <a class='cls1' href="../viewNoti?notice_notiNO=${noti.notice_notiNO}">${noti.notice_title }</a>
 	          </c:otherwise>
 	        </c:choose>
 	  </td>
-	  <td  width="30%"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${article.board_Date}" /></td> 
+	  <td  width="30%"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${noti.notice_Date}" /></td> 
 	</tr>
     </c:forEach>
      </c:when>
@@ -66,7 +66,7 @@
 </table>
 </div>
 <center>
-<button type="button" onclick="location.href='boardWriteForm'">글쓰기</button>
+<button type="button" onclick="location.href='noticeWriteForm'">글쓰기</button>
 </center>
 </body>
 </html>

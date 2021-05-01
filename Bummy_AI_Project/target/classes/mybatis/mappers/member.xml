@@ -20,8 +20,8 @@
 	
 	<select id="userFindId" resultType="String" parameterType="memberVO">
 		<![CDATA[
-		SELECT user_id FROM user_info
-		WHERE user_name = #{user_name} and user_phone = #{user_phone} and user_email = #{user_email} and user_belong = #{user_belong}
+			SELECT user_id FROM user_info
+			WHERE user_name = #{user_name} and user_phone = #{user_phone} and user_email = #{user_email} and user_belong = #{user_belong}
 		]]>
 	</select>
 

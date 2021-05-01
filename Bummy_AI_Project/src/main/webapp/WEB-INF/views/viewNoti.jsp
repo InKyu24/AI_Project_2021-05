@@ -28,7 +28,7 @@
 
 	// 리스트로 돌아가기 기능 
    	function backToList(){
-    	 location.href="../boardList";
+    	 location.href="../noticeList";
      }
    	
 	// 수정 버튼으로, 수정 가능 내용 활성화 & 수정완료 및 취소 버튼 생성
@@ -53,22 +53,22 @@
 	 }
 	
 	// 수정 완료 버튼 작동
-	function fn_modify_article(obj){
+	function fn_modify_noti(obj){
 		obj.method="post"
-		obj.action="${contextPath}/modArticle";
+		obj.action="${contextPath}/modNoti";
 		obj.submit();
 	}
 	 
-	function fn_remove_article(url,board_articleNO){
+	function fn_remove_noti(url,notice_notiNO){
 		 var form = document.createElement("form");
 		 form.setAttribute("method", "post");
 		 form.setAttribute("action", url);
-	     var board_articleNOInput = document.createElement("input");
-	     board_articleNOInput.setAttribute("type","hidden");
-	     board_articleNOInput.setAttribute("name","board_articleNO");
-	     board_articleNOInput.setAttribute("value", board_articleNO);
+	     var notice_notiNOInput = document.createElement("input");
+	     notice_notiNOInput.setAttribute("type","hidden");
+	     notice_notiNOInput.setAttribute("name","notice_notiNO");
+	     notice_notiNOInput.setAttribute("value", notice_notiNO);
 		 
-	     form.appendChild(board_articleNOInput);
+	     form.appendChild(notice_notiNOInput);
 	     document.body.appendChild(form);
 	     form.submit();
 	 }
@@ -88,54 +88,54 @@
 
 <br><br><br>
 <div class="container table-responsiv">
-	<form name="frmArticle" method="post"  action="${contextPath}"  enctype="multipart/form-data">
+	<form name="frmNoti" method="post"  action="${contextPath}"  enctype="multipart/form-data">
 		<table  border=0  align="center" class="table table-condensed">
 		<!-- 글번호 열 -->
 			<tr>
    				<td width=150 align="center" bgcolor=lightgray>글번호</td>
-   				<td> <input type="text"  value="${article.board_articleNO }"  disabled /><input type="hidden" name="board_articleNO" value="${article.board_articleNO}"  /></td>
+   				<td> <input type="text"  value="${noti.notice_notiNO }"  disabled /><input type="hidden" name="notice_notiNO" value="${noti.notice_notiNO}"  /></td>
   			</tr>
  		<!-- 작성자 이름 열 -->
   			<tr>
     			<td width="150" align="center" bgcolor="lightgray">작성자</td>
-   				<td><input type=text value="${article.board_name }" name="board_name" id="board_name" disabled /></td>
+   				<td><input type=text value="${noti.notice_name }" name="notice_name" id="notice_name" disabled /></td>
   			</tr>
  		<!-- 글 제목 열 -->
   			<tr>
     			<td width="150" align="center" bgcolor="lightgray">제목</td>
-   				<td><input type=text value="${article.board_title }"  name="board_title"  id="i_title" disabled /></td>
+   				<td><input type=text value="${noti.notice_title }"  name="notice_title"  id="i_title" disabled /></td>
   			</tr>
   		<!-- 글 내용 열 -->	
   			<tr>
     			<td width="150" align="center" bgcolor="lightgray">내용</td>
-   				<td><textarea rows="10" cols="60"  name="board_content"  id="i_content"  disabled />${article.board_content }</textarea></td>  
+   				<td><textarea rows="10" cols="60"  name="notice_content"  id="i_content"  disabled />${noti.notice_content }</textarea></td>  
   			</tr>
   			
 		<!-- 파일을 업로드하는 열 -->
 <!-- 
 	<c:choose> 
-		<c:when test="${not empty article.board_filename && article.board_filename!='null' }">
+		<c:when test="${not empty noti.notice_filename && noti.notice_filename!='null' }">
 		   	<tr>
 				<td width="150" align="center" bgcolor="lightgray"  rowspan="2">이미지</td>
-			   	<td><input type="hidden" name="board_filename" value="${article.board_filename }" /><img src="${contextPath}/download?board_articleNO=${article.board_articleNO}&board_filename=${article.board_filename}" id="preview"  /></td>   
+			   	<td><input type="hidden" name="notice_filename" value="${noti.notice_filename }" /><img src="${contextPath}/download?notice_notiNO=${noti.notice_notiNO}&notice_filename=${noti.notice_filename}" id="preview"  /></td>   
 			</tr>
  
  
 			<tr>
 			    <td ></td>
-			    <td><input  type="file"  name="board_filename " id="i_imageFileName"   disabled   onchange="readURL(this);"   /></td>
+			    <td><input  type="file"  name="notice_filename " id="i_imageFileName"   disabled   onchange="readURL(this);"   /></td>
 			</tr> 
 			
 		 </c:when>
 		 <c:otherwise>
 		    <tr  id="tr_file_upload" >
 			    <td width="150" align="center" bgcolor="lightgray"  rowspan="2">이미지</td>
-			    <td><input  type= "hidden"   name="board_filename" value="${article.board_filename }" /></td>
+			    <td><input  type= "hidden"   name="notice_filename" value="${noti.notice_filename }" /></td>
 		    </tr>
 	 		
 	 		<tr>
 			    <td ></td>
-			    <td><img id="preview"  /><br><input  type="file"  name="board_filename " id="i_imageFileName"   disabled   onchange="readURL(this);"   /></td>
+			    <td><img id="preview"  /><br><input  type="file"  name="notice_filename " id="i_imageFileName"   disabled   onchange="readURL(this);"   /></td>
 		  	</tr>
 		</c:otherwise>
  	</c:choose>
@@ -144,18 +144,18 @@
 		<!-- 등록일자 열 -->
   			<tr>
   				<td width="150" align="center" bgcolor="lightgray">등록일자</td>
-	   			<td><input type=text value="<fmt:formatDate value="${article.board_Date}" />" disabled /></td>   
+	   			<td><input type=text value="<fmt:formatDate value="${noti.notice_Date}" />" disabled /></td>   
   			</tr>			
   		
 		<!--  수정, 삭제 버튼 / 수정완료, 취소 버튼-->   
-			<c:if test="${member.user_id == article.board_id}">
+			<c:if test="${member.user_id == noti.notice_id}">
 	      	<tr id="modifyAndDelete">
-   				<td><input type=button value="수정하기" onClick="fn_enable(this.form)"><input type=button value="삭제하기" onClick="fn_remove_article('${contextPath}/removeArticle', ${article.board_articleNO})"></td>
+   				<td><input type=button value="수정하기" onClick="fn_enable(this.form)"><input type=button value="삭제하기" onClick="fn_remove_noti('${contextPath}/removeNoti', ${noti.notice_notiNO})"></td>
   			</tr>
 	    	</c:if>
   			
   			<tr id="modifyAndCancel" style="display : none">
-				<td><input type=button value="수정 완료" onClick="fn_modify_article(frmArticle)"><input type=button value="취소"  onClick="fn_disable(this.form)"></td>
+				<td><input type=button value="수정 완료" onClick="fn_modify_noti(frmNoti)"><input type=button value="취소"  onClick="fn_disable(this.form)"></td>
 			</tr> 
 			
   			<tr>	

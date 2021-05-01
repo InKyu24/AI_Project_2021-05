@@ -25,42 +25,42 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.bummy.web.service.BoardService;
-import com.bummy.web.vo.BoardVO;
+import com.bummy.web.service.NoticeService;
+import com.bummy.web.vo.NoticeVO;
 import com.bummy.web.vo.MemberVO;
 
 @Controller
-public class BoardController {
+public class NoticeController {
 
 	@Autowired
-	BoardService boardService;
+	NoticeService noticeService;
 	
 	// 글 삭제 처리
-	@RequestMapping(value = "removeArticle", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "removeNoti", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
 	@ResponseBody
-	public RedirectView removeArticle(HttpServletRequest request, HttpServletResponse response){
-		int board_articleNO=Integer.parseInt(request.getParameter("board_articleNO"));
-		System.out.println(board_articleNO);
-		BoardVO boardVO = new BoardVO(board_articleNO);
-		boardService.removeArticle(boardVO);
-		return new RedirectView("boardList");
+	public RedirectView removeNoti(HttpServletRequest request, HttpServletResponse response){
+		int notice_notiNO=Integer.parseInt(request.getParameter("notice_notiNO"));
+		System.out.println(notice_notiNO);
+		NoticeVO noticeVO = new NoticeVO(notice_notiNO);
+		noticeService.removeNoti(noticeVO);
+		return new RedirectView("noticeList");
     }	
 	
-    @RequestMapping(value = "modArticle", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
-    public RedirectView modArticle(MultipartHttpServletRequest multipartRequest) {
+    @RequestMapping(value = "modNoti", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
+    public RedirectView modNoti(MultipartHttpServletRequest multipartRequest) {
     	Cookie cookie[] = multipartRequest.getCookies();
     	try {
     		multipartRequest.setCharacterEncoding("utf-8");
     		
-			Map<String, Object> articleMap = new HashMap<String, Object>();
-			System.out.println(articleMap);
+			Map<String, Object> notiMap = new HashMap<String, Object>();
+			System.out.println(notiMap);
 			Enumeration<String> enu = multipartRequest.getParameterNames();
 			
 			// 글쓰기 창에서 제목과 내용을 Enumeration으로 저장 
 			while (enu.hasMoreElements()) {
 				String name = enu.nextElement();
 				String value = multipartRequest.getParameter(name);
-				articleMap.put(name, value);
+				notiMap.put(name, value);
 			}
 			
 			// 파일을 저장 
@@ -72,52 +72,52 @@ public class BoardController {
 				if (!fileName.equals("")) {
 					System.out.println(fileName);
 					// 아래 경로에 파일을 저장
-					file.transferTo(new File("d:\\boardfiles\\" + fileName));
-					articleMap.put("board_filename", fileName);
+					file.transferTo(new File("d:\\noticefiles\\" + fileName));
+					notiMap.put("notice_filename", fileName);
 				} else {
 					// 파일이름이 공백인 경우에는 공백을 저장
-					articleMap.put("board_filename", "");
+					notiMap.put("notice_filename", "");
 				}
 			} else {
 			// 파일 이름이 없는 경우에도 공백을 저장
-			articleMap.put("board_filename", "");
+			notiMap.put("notice_filename", "");
 			}			
 			
-			if(articleMap.get("board_parentNO")==null) {
-				articleMap.put("board_parentNO", 0);
+			if(notiMap.get("notice_parentNO")==null) {
+				notiMap.put("notice_parentNO", 0);
 			}
 			
 			String user_id=cookie[1].getValue();
 			String user_name=URLDecoder.decode(cookie[2].getValue(), "UTF-8");
-			articleMap.put("board_id", user_id);
-			articleMap.put("board_name", user_name);
+			notiMap.put("notice_id", user_id);
+			notiMap.put("notice_name", user_name);
 			
-			System.out.println(articleMap);
-			boardService.modArticle(articleMap);
+			System.out.println(notiMap);
+			noticeService.modNoti(notiMap);
 			
 		} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-    	return new RedirectView("boardList");
+    	return new RedirectView("noticeList");
     }	
 
 	
 	// 글쓰기 처리 
-    @RequestMapping(value = "boardWrite", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
-    public RedirectView boardWrite(MultipartHttpServletRequest multipartRequest) {
+    @RequestMapping(value = "noticeWrite", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
+    public RedirectView noticeWrite(MultipartHttpServletRequest multipartRequest) {
     	Cookie cookie[] = multipartRequest.getCookies();
     	try {
     		multipartRequest.setCharacterEncoding("utf-8");
     		
-			Map<String, Object> articleMap = new HashMap<String, Object>();
+			Map<String, Object> notiMap = new HashMap<String, Object>();
 			Enumeration<String> enu = multipartRequest.getParameterNames();
 			
 			// 글쓰기 창에서 제목과 내용을 Enumeration으로 저장 
 			while (enu.hasMoreElements()) {
 				String name = enu.nextElement();
 				String value = multipartRequest.getParameter(name);
-				articleMap.put(name, value);
+				notiMap.put(name, value);
 			}
 			
 			// 파일을 저장 
@@ -129,61 +129,61 @@ public class BoardController {
 				if (!fileName.equals("")) {
 					System.out.println(fileName);
 					// 아래 경로에 파일을 저장
-					file.transferTo(new File("d:\\boardfiles\\" + fileName));
-					articleMap.put("board_filename", fileName);
+					file.transferTo(new File("d:\\noticefiles\\" + fileName));
+					notiMap.put("notice_filename", fileName);
 				} else {
 					// 파일이름이 공백인 경우에는 공백을 저장
-					articleMap.put("board_filename", "");
+					notiMap.put("notice_filename", "");
 				}
 			} else {
 			// 파일 이름이 없는 경우에도 공백을 저장
-			articleMap.put("board_filename", "");
+			notiMap.put("notice_filename", "");
 			}			
 			
-			if(articleMap.get("board_parentNO")==null) {
-				articleMap.put("board_parentNO", 0);
+			if(notiMap.get("notice_parentNO")==null) {
+				notiMap.put("notice_parentNO", 0);
 			}
 			
 			String user_id=cookie[1].getValue();
 			String user_name=URLDecoder.decode(cookie[2].getValue(), "UTF-8");
-			articleMap.put("board_id", user_id);
-			articleMap.put("board_name", user_name);
+			notiMap.put("notice_id", user_id);
+			notiMap.put("notice_name", user_name);
 			
-			System.out.println(articleMap);
-			boardService.boardWrite(articleMap);
+			System.out.println(notiMap);
+			noticeService.noticeWrite(notiMap);
 			
 		} catch (Exception e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-    	return new RedirectView("boardList");
+    	return new RedirectView("noticeList");
     }	
     
 	// 모든 글 보기
-	@RequestMapping(value = "boardList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public ModelAndView boardList(HttpServletRequest request) {
+	@RequestMapping(value = "noticeList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
+	public ModelAndView noticeList(HttpServletRequest request) {
 
-		ModelAndView mav = new ModelAndView("board");
-		List<BoardVO> articlesList = boardService.listArticles();
-		mav.addObject("articlesList", articlesList);
+		ModelAndView mav = new ModelAndView("notice");
+		List<NoticeVO> notiList = noticeService.listNoti();
+		mav.addObject("notiList", notiList);
 		return mav;
 	}
 
 	// 글 내용 보기
-	@RequestMapping(value = "viewArticle", method = RequestMethod.GET)
-	public ModelAndView viewArticle(@RequestParam("board_articleNO") int board_articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception {	
-		System.out.println(board_articleNO+"번 글 보기");
-		BoardVO boardVO = boardService.viewArticle(board_articleNO);
+	@RequestMapping(value = "viewNoti", method = RequestMethod.GET)
+	public ModelAndView viewNoti(@RequestParam("notice_notiNO") int notice_notiNO, HttpServletRequest request, HttpServletResponse response) throws Exception {	
+		System.out.println(notice_notiNO+"번 글 보기");
+		NoticeVO noticeVO = noticeService.viewNoti(notice_notiNO);
 		ModelAndView mav = new ModelAndView();
-		mav.setViewName("viewArticle");
-		mav.addObject("article", boardVO);
+		mav.setViewName("viewNoti");
+		mav.addObject("noti", noticeVO);
 		System.out.println(mav);
 		return mav;
 	}
 	
 	// 글 쓰기 화면 얻기
-	@RequestMapping(value = "boardWriteForm", method = {RequestMethod.GET }, produces = "application/text; charset=utf8")
-	public String boardWriteForm(HttpServletRequest request) {
-		return "boardWriteForm";
+	@RequestMapping(value = "noticeWriteForm", method = {RequestMethod.GET }, produces = "application/text; charset=utf8")
+	public String noticeWriteForm(HttpServletRequest request) {
+		return "noticeWriteForm";
 	}
 }

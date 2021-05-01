@@ -26,6 +26,14 @@ public class BoardDAO {
 	}
 
 	public void boardWrite(Map<String, Object> articleMap) {
-		sqlSession.insert("mapper.board.insert", articleMap);
+		sqlSession.insert("mapper.board.boardWrite", articleMap);
+	}
+
+	public void modArticle(Map<String, Object> articleMap) {
+		sqlSession.update("mapper.board.modArticle", articleMap);
+	}
+
+	public void removeArticle(BoardVO boardVO) {
+		sqlSession.delete("mapper.board.removeArticle", boardVO);
 	}
 }
