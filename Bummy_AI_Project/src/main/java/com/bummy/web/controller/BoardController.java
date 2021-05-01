@@ -46,6 +46,7 @@ public class BoardController {
 		return new RedirectView("boardList");
     }	
 	
+	// 글 수정
     @RequestMapping(value = "modArticle", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
     public RedirectView modArticle(MultipartHttpServletRequest multipartRequest) {
     	Cookie cookie[] = multipartRequest.getCookies();
@@ -53,7 +54,6 @@ public class BoardController {
     		multipartRequest.setCharacterEncoding("utf-8");
     		
 			Map<String, Object> articleMap = new HashMap<String, Object>();
-			System.out.println(articleMap);
 			Enumeration<String> enu = multipartRequest.getParameterNames();
 			
 			// 글쓰기 창에서 제목과 내용을 Enumeration으로 저장 
@@ -92,7 +92,6 @@ public class BoardController {
 			articleMap.put("board_id", user_id);
 			articleMap.put("board_name", user_name);
 			
-			System.out.println(articleMap);
 			boardService.modArticle(articleMap);
 			
 		} catch (Exception e) {
@@ -149,7 +148,6 @@ public class BoardController {
 			articleMap.put("board_id", user_id);
 			articleMap.put("board_name", user_name);
 			
-			System.out.println(articleMap);
 			boardService.boardWrite(articleMap);
 			
 		} catch (Exception e) {
@@ -162,17 +160,15 @@ public class BoardController {
 	// 모든 글 보기
 	@RequestMapping(value = "boardList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
 	public ModelAndView boardList(HttpServletRequest request) {
-
-		ModelAndView mav = new ModelAndView("board");
-		List<BoardVO> articlesList = boardService.listArticles();
-		mav.addObject("articlesList", articlesList);
-		return mav;
+			ModelAndView mav = new ModelAndView("board");
+			List<BoardVO> articlesList = boardService.listArticles();
+			mav.addObject("articlesList", articlesList);
+			return mav;
 	}
 
 	// 글 내용 보기
 	@RequestMapping(value = "viewArticle", method = RequestMethod.GET)
 	public ModelAndView viewArticle(@RequestParam("board_articleNO") int board_articleNO, HttpServletRequest request, HttpServletResponse response) throws Exception {	
-		System.out.println(board_articleNO+"번 글 보기");
 		BoardVO boardVO = boardService.viewArticle(board_articleNO);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("viewArticle");

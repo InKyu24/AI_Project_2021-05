@@ -41,9 +41,11 @@ $(document).ready(function(){
 	  					$.cookie("user_belong",user_belong);
 	  					$.cookie("logined",data);
 	  					$("#msgDiv").html(data);	
-	  					$('.pitem').show();
-						if (obj.user_type=="L") {
-		  					$('.litem').show();
+						if (obj.user_type=="P") {
+		  					$('.pitem').show();
+		  				} else if (obj.user_type=="L"){
+	  						$('.pitem').show();
+							$('.litem').show();
 	  					} else if (obj.user_type=="N"){
 	  						alert("주최자에게 가입승인을 받은 후, 버미를 이용해주세요")
 	  					}

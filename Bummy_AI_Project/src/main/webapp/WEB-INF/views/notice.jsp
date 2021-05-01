@@ -16,6 +16,25 @@
 	
   <meta charset="UTF-8">
   <title>글 목록창</title>
+  
+<script type="text/javascript">
+	// 공지 쓰기 버튼 실행
+//	function noticeWriteForm(){location.href="noticeWriteForm";}
+	
+	$(function(){
+		var user_type=$.cookie('user_type');
+		$('#noticeWriteBtn').click(function(){
+			if (user_type != "L") {
+				alert("주최자만 공지 작성이 가능합니다.")
+			} else {
+				location.href="noticeWriteForm";
+			} 
+		})
+		
+		
+	});
+</script>
+
 </head>
 
 <body>
@@ -29,7 +48,7 @@
      <td >작성일</td>
   </tr>
 <c:choose>
-  <c:when test="${notiList ==null }" >
+  <c:when test="${notiList=='[]'}" >
     <tr  height="10">
       <td colspan="4">
          <p align="center">
@@ -38,10 +57,10 @@
       </td>  
     </tr>
   </c:when>
-  <c:when test="${notiList !=null }" >
+  <c:when test="${notiList !='[]' }" >
     <c:forEach  var="noti" items="${notiList }" varStatus="notiNum" >
      <tr align="center">
-	<td width="5%">${notiNum.count}</td>
+	<td width="5%">${noti.notice_notiNO}</td>
 	<td width="10%">${noti.notice_name }</td>
 	<td align='left'  width="35%">
 	  <span style="padding-right:30px"></span>
@@ -66,7 +85,7 @@
 </table>
 </div>
 <center>
-<button type="button" onclick="location.href='noticeWriteForm'">글쓰기</button>
+<input type="button" value="공지 쓰기" id="noticeWriteBtn"/>
 </center>
 </body>
 </html>

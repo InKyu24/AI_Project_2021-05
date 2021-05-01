@@ -40,12 +40,12 @@ public class NoticeController {
 	@ResponseBody
 	public RedirectView removeNoti(HttpServletRequest request, HttpServletResponse response){
 		int notice_notiNO=Integer.parseInt(request.getParameter("notice_notiNO"));
-		System.out.println(notice_notiNO);
 		NoticeVO noticeVO = new NoticeVO(notice_notiNO);
 		noticeService.removeNoti(noticeVO);
 		return new RedirectView("noticeList");
     }	
 	
+	// 글 수정
     @RequestMapping(value = "modNoti", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
     public RedirectView modNoti(MultipartHttpServletRequest multipartRequest) {
     	Cookie cookie[] = multipartRequest.getCookies();
@@ -53,7 +53,6 @@ public class NoticeController {
     		multipartRequest.setCharacterEncoding("utf-8");
     		
 			Map<String, Object> notiMap = new HashMap<String, Object>();
-			System.out.println(notiMap);
 			Enumeration<String> enu = multipartRequest.getParameterNames();
 			
 			// 글쓰기 창에서 제목과 내용을 Enumeration으로 저장 
@@ -92,7 +91,6 @@ public class NoticeController {
 			notiMap.put("notice_id", user_id);
 			notiMap.put("notice_name", user_name);
 			
-			System.out.println(notiMap);
 			noticeService.modNoti(notiMap);
 			
 		} catch (Exception e) {
@@ -107,6 +105,7 @@ public class NoticeController {
     @RequestMapping(value = "noticeWrite", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
     public RedirectView noticeWrite(MultipartHttpServletRequest multipartRequest) {
     	Cookie cookie[] = multipartRequest.getCookies();
+    	
     	try {
     		multipartRequest.setCharacterEncoding("utf-8");
     		
@@ -149,7 +148,6 @@ public class NoticeController {
 			notiMap.put("notice_id", user_id);
 			notiMap.put("notice_name", user_name);
 			
-			System.out.println(notiMap);
 			noticeService.noticeWrite(notiMap);
 			
 		} catch (Exception e) {
@@ -172,12 +170,10 @@ public class NoticeController {
 	// 글 내용 보기
 	@RequestMapping(value = "viewNoti", method = RequestMethod.GET)
 	public ModelAndView viewNoti(@RequestParam("notice_notiNO") int notice_notiNO, HttpServletRequest request, HttpServletResponse response) throws Exception {	
-		System.out.println(notice_notiNO+"번 글 보기");
 		NoticeVO noticeVO = noticeService.viewNoti(notice_notiNO);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("viewNoti");
 		mav.addObject("noti", noticeVO);
-		System.out.println(mav);
 		return mav;
 	}
 	
