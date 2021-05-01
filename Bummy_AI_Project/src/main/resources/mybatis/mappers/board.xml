@@ -14,7 +14,7 @@
 				Board_content,
 				Board_Date,
 				Board_filename,
-				Board_id
+				Board_id 
 				from board
 				start with Board_parentNO=0
 				connect by prior Board_articleNO=Board_parentNO

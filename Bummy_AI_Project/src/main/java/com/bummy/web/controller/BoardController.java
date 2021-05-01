@@ -36,7 +36,7 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-	// 글쓰기 처리
+	// 글쓰기 처리 
     @RequestMapping(value = "boardWrite", method = { RequestMethod.POST }, produces = "application/text; charset=utf8")
     public RedirectView boardWrite(MultipartHttpServletRequest multipartRequest) {
     	Cookie cookie[] = multipartRequest.getCookies();

@@ -4,6 +4,27 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.member">
+	<select id="belongCheckL" resultType="String" parameterType="memberVO">
+		<![CDATA[
+			select user_id from USER_INFO
+			where user_belong=#{user_belong} and user_type=#{user_type}
+		]]>
+	</select>
+		
+	<select id="idCheck" resultType="String" parameterType="memberVO">
+		<![CDATA[
+			select user_id from USER_INFO
+			where user_id=#{user_id}
+		]]>
+	</select>
+	
+	<select id="userFindId" resultType="String" parameterType="memberVO">
+		<![CDATA[
+		SELECT user_id FROM user_info
+		WHERE user_name = #{user_name} and user_phone = #{user_phone} and user_email = #{user_email} and user_belong = #{user_belong}
+		]]>
+	</select>
+
 	<select id="checkTimeGet" resultType="int" >
 		<![CDATA[
 			select check_time from USER_INFO
@@ -28,14 +49,21 @@
 	<select id="pList" resultType="memberVO">
 		<![CDATA[
 			select * from USER_INFO
-			where user_type='N' and user_belong=#{user_belong}
+			where user_belong=#{user_belong} and user_type='N'
+		]]>
+	</select>
+	
+	<select id="uList" resultType="memberVO">
+		<![CDATA[
+			select * from USER_INFO
+			where user_belong=#{user_belong} and user_type!='L'
 		]]>
 	</select>
 	
 	<insert id="signup" parameterType="memberVO" >
 		<![CDATA[
-			insert into USER_INFO
-			values (#{user_id},#{user_pw},#{user_phone},#{user_name},#{user_email},#{user_belong},#{user_type},#{user_img})
+			insert into USER_INFO (user_id, user_pw, user_name, user_phone, user_email, user_belong, user_type, user_img)
+			values (#{user_id}, #{user_pw}, #{user_name}, #{user_phone}, #{user_email}, #{user_belong}, #{user_type}, #{user_img})
 		]]>
 	</insert>
 	

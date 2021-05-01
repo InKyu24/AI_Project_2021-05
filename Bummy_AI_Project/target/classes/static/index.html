@@ -16,7 +16,7 @@
 
 <body>
 <!-- 로그인 -->
-<div id="msgDiv">
+<div id="msgDiv"> 
 <form id='loginForm' method='post'>        		
 	<table>
 	<tr>		
@@ -27,7 +27,7 @@
 	<td><input size="10" id="user_pw" type="password" placeholder="비밀번호 입력" autofocus tabindex="2"></td>		
 	</table>
 	<button type="button" onclick="window.open('html/signup.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=400,height=750');">회원가입</button>
-	<button type="button" onclick="window.open('html/signup.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=400,height=750');">ID 찾기</button>	
+	<button type="button" onclick="window.open('html/findID.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=400,height=750');">ID 찾기</button>	
 </form>
 </div>	
 
@@ -46,11 +46,6 @@
 <a class="nav-link" href="#" onclick="window.open('boardList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">게시판</a>
 </li>
 
- <li class="nav-item">
-            <a class="nav-link" href="#" onclick="window.open('boardList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">게시판</a>
-          </li>
-
-
 <!-- 얼굴 등록 -->
 <li id="FaceRegisterLi" class="pitem" style = "display : none">
 <a class="nav-link" href="#" onclick="window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">얼굴 등록</a>
@@ -63,7 +58,7 @@
 
 <!-- 회원 관리 -->
 <li id="P_ManagerLi" class="litem" style = "display : none">
-<a class='nav-link' id='p_manager' href='#' onclick="window.open('pList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">회원 관리</a>
+<a class='nav-link' id='p_manager' href='#' onclick="window.open('uList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">회원 관리</a>
 </li>
 
 <!-- 강의실 관리 -->
