@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<H1>가입 대기자</H1>
+	<H1>가입 대기자</H1> 
 	<table border="1" align="center" width="100%">
 		<tr align="center" bgcolor="lightgreen">
 			<td> <b>선택</b> </td>

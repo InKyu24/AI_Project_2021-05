@@ -4,7 +4,7 @@ public class MemberVO {
 	private String user_id,user_pw,user_pwc,user_phone,user_name,user_email,user_belong,user_type,user_img;
 	private int check_time;
 	private Boolean user_attend;
-	
+	 
 	// 회원 조회
 	public MemberVO(String user_id, String user_pw,String user_name, String user_phone, String user_email, String user_belong, String user_type, String user_img, Boolean user_attend, int check_time) {
 		super();

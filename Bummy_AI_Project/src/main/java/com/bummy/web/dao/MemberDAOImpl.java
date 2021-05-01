@@ -35,8 +35,8 @@ public class MemberDAOImpl implements MemberDAO {
 
 
 	@Override
-	public List<MemberVO> uList(MemberVO memberVO) {
-		return sqlSession.selectList("mapper.member.uList", memberVO);
+	public List<MemberVO> uList(MemberVO memberVO) { 
+		return sqlSession.selectList("mapper.member.uList", memberVO); 
 	}	
 
 	@Override

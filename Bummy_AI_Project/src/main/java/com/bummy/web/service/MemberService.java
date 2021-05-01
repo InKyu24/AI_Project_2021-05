@@ -25,9 +25,9 @@ public class MemberService {
 		return memberDAO.pList(memberVO);
 	}
 	
-	public List<MemberVO> uList(MemberVO memberVO) {
+	public List<MemberVO> uList(MemberVO memberVO) { 
 		return memberDAO.uList(memberVO);
-	}
+	} 
 
 	public void pAccept(MemberVO memberVO) {
 		memberDAO.pAccept(memberVO);

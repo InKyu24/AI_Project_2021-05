@@ -102,7 +102,7 @@ public class MemberController {
 		System.out.println(mav);
 		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
 		System.out.println(memberVO);
-		List<MemberVO> uList = memberService.uList(memberVO);
+		List<MemberVO> uList = memberService.uList(memberVO); 
 		System.out.println(uList.size());
 		mav.addObject("uList",uList);
 		return mav;

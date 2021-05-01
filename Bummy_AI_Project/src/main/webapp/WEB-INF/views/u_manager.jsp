@@ -10,7 +10,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<H1>전체 참여자</H1>
+	<H1>전체 참여자</H1> 
 	<table border="1" align="center" width="100%">
 		<tr align="center" bgcolor="lightgreen">
 			<td> <b>아이디</b> </td>
