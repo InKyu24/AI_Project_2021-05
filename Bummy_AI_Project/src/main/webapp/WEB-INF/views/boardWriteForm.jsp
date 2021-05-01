@@ -29,7 +29,7 @@
 		<tr>
 			<td >작성자 :</td>
 			<!-- 작성자 ID or NAME를 쿠키로 받아서 자동으로 작성되도록 -->
-			<td colspan=2  ><input type="text" size="50" maxlength="100" placeholder="(로그인 아이디로 자동 입력됩니다)" readonly style="background:lightgray"/> </td>
+			<td colspan=2  ><input type="text" size="50" maxlength="100" placeholder="(로그인 이름으로 자동 입력됩니다)" readonly style="background:lightgray"/> </td>
 		</tr>
 		
      	<tr>

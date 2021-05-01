@@ -4,7 +4,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.board">
-	
+	<insert id="removeArticle" parameterType="java.util.Map">
+		<![CDATA[
+			delete from Board
+			where board_articleNO=#{board_articleNO} 
+			
+		]]>
+	</insert>
 	<select id="selectAllBoard" resultType="boardVO">
 		<![CDATA[
 			select level,
@@ -14,7 +20,8 @@
 				Board_content,
 				Board_Date,
 				Board_filename,
-				Board_id 
+				Board_id,
+				Board_name 
 				from board
 				start with Board_parentNO=0
 				connect by prior Board_articleNO=Board_parentNO
@@ -22,10 +29,10 @@
 		]]>
 	</select>
 	
-	<insert id="insert" parameterType="java.util.Map">
+	<insert id="boardWrite" parameterType="java.util.Map">
 		<![CDATA[
-			insert into board (board_title, board_content, board_filename, board_id, board_parentNO) 
-			values (#{board_title},#{board_content},#{board_filename},#{board_id},#{board_parentNO})
+			insert into board (board_title, board_content, board_filename, board_id, board_parentNO, board_name) 
+			values (#{board_title},#{board_content},#{board_filename},#{board_id},#{board_parentNO}, #{board_name})
 		]]>
 	</insert>
 	
@@ -36,5 +43,11 @@
 		]]>
 	</select>
 
+	<update id="modArticle" parameterType="java.util.Map">
+		<![CDATA[
+			update Board set board_title=#{board_title},board_content=#{board_content},board_filename=#{board_filename}
+			where board_articleNO=#{board_articleNO}
+		]]>
+	</update>
 
 </mapper>

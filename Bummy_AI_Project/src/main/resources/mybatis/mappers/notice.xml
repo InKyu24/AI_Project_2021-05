@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.notice">
+	<insert id="removeNoti" parameterType="java.util.Map">
+		<![CDATA[
+			delete from Notice
+			where notice_notiNO=#{notice_notiNO} 
+			
+		]]>
+	</insert>
+	<select id="selectAllNotice" resultType="noticeVO">
+		<![CDATA[
+			select level,
+				Notice_notiNO,
+				Notice_parentNO,
+				LPAD(' ', 4*(LEVEL-1)) || Notice_title Notice_title,
+				Notice_content,
+				Notice_Date,
+				Notice_filename,
+				Notice_id,
+				Notice_name 
+				from notice
+				start with Notice_parentNO=0
+				connect by prior Notice_notiNO=Notice_parentNO
+				order siblings by Notice_notiNO desc
+		]]>
+	</select>
+	
+	<insert id="noticeWrite" parameterType="java.util.Map">
+		<![CDATA[
+			insert into notice (notice_title, notice_content, notice_filename, notice_id, notice_parentNO, notice_name) 
+			values (#{notice_title},#{notice_content},#{notice_filename},#{notice_id},#{notice_parentNO}, #{notice_name})
+		]]>
+	</insert>
+	
+	<select id="selectNoti" resultType="noticeVO" parameterType="int">
+		<![CDATA[
+			select * from notice
+			where notice_notiNO=#{notice_notiNO}
+		]]>
+	</select>
+
+	<update id="modNoti" parameterType="java.util.Map">
+		<![CDATA[
+			update Notice set notice_title=#{notice_title},notice_content=#{notice_content},notice_filename=#{notice_filename}
+			where notice_notiNO=#{notice_notiNO}
+		]]>
+	</update>
+
+</mapper>
