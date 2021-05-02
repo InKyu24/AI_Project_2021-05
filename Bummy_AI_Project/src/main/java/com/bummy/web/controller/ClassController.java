@@ -73,6 +73,11 @@ public class ClassController {
 		MemberVO memberVO=new MemberVO(user_belong,check_time);
 		classService.checkTimeSet(memberVO);
 		System.out.println(check_time);
-		return user_belong+" 소속 학생들은 강의실 입장 후 "+check_time+"초 후에 출석이 확인됩니다.";
+		
+		if (check_time == 0) {
+			return user_belong+" 소속 학생들의 자동 출석 확인 기능을 해제합니다.";
+		} else {
+			return user_belong+" 소속 학생들은 강의실 입장 후 "+check_time+"초 후에 출석이 확인됩니다.";
+		}
 	}
 }
