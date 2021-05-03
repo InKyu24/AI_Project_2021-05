@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="mapper.break">
+	<select id="breakTimeMsgGet" resultType="String" parameterType="breakVO">
+		<![CDATA[
+			select breakTimeMsg from Break 
+			where user_belong=#{user_belong}
+		]]>
+	</select>
+	
+	<select id="breakTimeGet" resultType="int" parameterType="breakVO">
+		<![CDATA[
+			select breakTime from Break 
+			where user_belong=#{user_belong}
+		]]>
+	</select>
+	
+	<select id="breakCheck" resultType="boolean" parameterType="breakVO">
+		<![CDATA[
+			select breakbool from Break 
+			where user_belong=#{user_belong}
+		]]>
+	</select>
+	
+	<insert id="signL" parameterType="breakVO">
+		<![CDATA[
+			insert into Break (user_belong) 
+			values (#{user_belong})
+		]]>
+	</insert>
+	
+	<update id="breakSet">
+		<![CDATA[
+			update Break set breakTime=#{breakTime},breakTimeMsg=#{breakTimeMsg},breakbool=1
+			where user_belong=#{user_belong}
+		]]>
+	</update>
+
+</mapper>
