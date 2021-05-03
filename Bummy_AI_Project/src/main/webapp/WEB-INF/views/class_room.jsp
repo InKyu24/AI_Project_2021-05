@@ -44,10 +44,17 @@
 				let breakTime = breakMsgArr[0];
 				let breakTimeMsg = breakMsgArr[1];
 				ws.send("[서버] 지금부터 "+breakTime+"분 동안 쉬는 시간입니다. 시간이 지나면 알려드릴게요!");
-				// 이제 breakTime을 가져와서 시간이 흐르게 하면 된다.
-					// [DB를 만들어주자] DB에는 user_belong[PK], breakTime, breakTimeMsg, breakBool
-					// 서버에 user_belong, breakTime, breakTimeMsg, breakBool 전송
-			} if (user_type == "L" && msg.slice(0,5) == "#출석체크") {
+					$.post("/break_set",
+						{
+							user_belong:user_belong,
+							breakTime:breakTime,
+							breakTimeMsg:breakTimeMsg,
+						},
+						function(data, status){
+							alert(data);
+						}
+					);
+			} else if (user_type == "L" && msg.slice(0,5) == "#출석체크") {
 				ws.send("[서버] 5초 후에 출석체크를 시작합니다. 카메라 앞에 얼굴이 잘 보이도록 해주세요.");			
 			} else {
 				ws.send(name+" "+msg);
@@ -58,6 +65,7 @@
 		});
 		
 		// 메시지가 오면 메시지를 받는다.
+			// 출석 확인 되는 사람들은 user_attend를 1로 바꾼다
 		ws.onmessage=function(msg){
 			console.log(msg.data);
 			var oldMsg=$("textarea").val();
@@ -123,7 +131,15 @@
 				5000);
 			}
 			
-			// 만약에 타입이 P이라면
+			if (user_type=="P") {
+				$.post("/break_get",
+					{
+						user_belong:user_belong
+					},
+					function(data, status){						
+					}
+				)
+			};	  
 				// breakBool을 우선적으로 체크
 					// breakBool이 true일 때, user_belong에 맞는 breakTime과 breakMsg를 가져오기
 						// breakTime이 경과하게 되면 오디오 파일이 재생되도록 한다.

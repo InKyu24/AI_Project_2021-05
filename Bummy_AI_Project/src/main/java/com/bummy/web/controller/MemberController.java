@@ -10,10 +10,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -23,7 +21,7 @@ import com.bummy.web.util.FindCookies;
 
 @Controller
 public class MemberController {
-	
+
 	@Autowired
 	MemberService memberService;
 	
@@ -148,6 +146,23 @@ public class MemberController {
 		return json.toJSONString();
 	}
 	
+	// belongCheckL
+	@RequestMapping(value ="/belongCheckL", produces = "application/text; charset=utf8", method= {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public String belongCheckL(HttpServletRequest request, HttpServletResponse response)throws Exception{
+		String user_id=request.getParameter("user_id");
+		String user_belong=request.getParameter("user_belong");
+		String user_type=request.getParameter("user_type");
+		
+		MemberVO memberVO =new MemberVO(user_id,user_belong,user_type);
+		String belongCheckL = memberService.belongCheckL(memberVO);
+		if (belongCheckL != null) {
+			return user_belong+"에 주최자 아이디가 "+belongCheckL+"로 존재합니다.";
+		} else {
+			return "";
+		}
+	}
+	
 	// 회원가입 구현
 	@RequestMapping(value ="/signup", produces = "application/text; charset=utf8", method= {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -159,6 +174,10 @@ public class MemberController {
 		String user_email=request.getParameter("user_email");
 		String user_belong=request.getParameter("user_belong");
 		String user_type=request.getParameter("user_type");
+		System.out.println(user_type);
+		String user_Ltype=request.getParameter("user_Ltype");
+		System.out.println(user_Ltype);
+		String user_Ptype=request.getParameter("user_Ptype");
 		String user_img="D:\\registry\\"+user_id+".jpg";
 			
 		System.out.println("아이디: "+user_id+"\n비밀번호: "+user_pw+"\n이름: "+user_name+"\n전화번호: "+user_phone+"\n이메일: "+user_email+"\n소속: "+user_belong+"\n타입: "+user_type+"\n사진경로: "+user_img);
@@ -171,16 +190,14 @@ public class MemberController {
 				return "이미 가입된 아이디";
 				
 			// user_type이 L인 경우, 소속 중복여부 체크 [소속에는 단 하나의 L만이 존재해야 한다.]
-			}else if (user_type == "L") {
-				memberVO =new MemberVO(user_id,user_belong,user_type);
-				String belongCheckL = memberService.belongCheckL(memberVO);
-				if (belongCheckL != null) {
-					return user_belong+"에 주최자 아이디가 "+belongCheckL+"로 존재합니다.";
-				}
+			}else if (user_type == user_Ltype) {
+				
 			}
 			
 			memberVO =new MemberVO(user_id,user_pw,user_name,user_phone,user_email,user_belong,user_type,user_img); 
 			memberService.signup(memberVO);
+			
+	
 			return user_name+"님 회원가입 되셨습니다";
 		}catch(Exception e) {
 			e.printStackTrace();

@@ -7,7 +7,12 @@ $(document).ready(function(){
 		var user_phone = $('#user_phone').val();
 		var user_email = $('#user_email').val();
 		var user_belong = $('#user_belong').val();
-		var user_type = $("input:radio[name='user_type']:checked").val();	
+		var type = document.getElementsByName('user_type');
+		for(var i=0;i<type.length;i++){
+			if(type[i].checked==true) {
+				var user_type=type[i].value;
+			}
+		}
 		
 		if (user_id == '') {
 		alert("아이디를 입력해주세요.");
@@ -48,8 +53,42 @@ $(document).ready(function(){
 		alert("사용자 종류를 입력해주세요.");
 		return;
 		}
-			  
-		$.post("/signup",
+		
+		if (user_type=="L"){
+			$.post("/belongCheckL",
+			{
+				user_id:user_id,
+				user_belong:user_belong,
+				user_type:user_type
+			},
+			function(data, status){
+				if (data != "") {
+					alert(data);
+				} else {
+					console.log("1");
+					$.post("/signL",
+						{
+							user_belong:user_belong
+						}
+					);
+					$.post("/signup",
+						{
+							user_id:user_id,
+							user_pw:user_pw,
+							user_name:user_name,
+							user_phone:user_phone,
+							user_email:user_email,
+							user_belong:user_belong,
+							user_type:user_type
+						},
+						function(data, status){
+							alert(data);
+							self.close();
+						}
+					)
+				};	  
+			});
+		} else { $.post("/signup",
 			{
 				user_id:user_id,
 				user_pw:user_pw,
@@ -63,7 +102,7 @@ $(document).ready(function(){
 				alert(data);
 				self.close();
 			}
-		);
+		)};	  
 	});
 });
 	

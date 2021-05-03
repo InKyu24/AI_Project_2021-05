@@ -9,6 +9,7 @@
 		<mapper resource="mybatis/mappers/member.xml"/>		
 		<mapper resource="mybatis/mappers/board.xml"/>
 		<mapper resource="mybatis/mappers/notice.xml"/>
+		<mapper resource="mybatis/mappers/break.xml"/>
 	</mappers>	
 
 </configuration>
