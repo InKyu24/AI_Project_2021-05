@@ -53,7 +53,7 @@ $(document).ready(function(){
 		alert("사용자 종류를 입력해주세요.");
 		return;
 		}
-		
+			  
 		if (user_type=="L"){
 			$.post("/belongCheckL",
 			{
@@ -100,9 +100,9 @@ $(document).ready(function(){
 			},
 			function(data, status){
 				alert(data);
-				self.close();
+				location.href='login.html';
 			}
-		)};	  
+	)};	  
 	});
 });
 	

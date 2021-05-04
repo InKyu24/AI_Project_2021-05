@@ -42,7 +42,7 @@ public class NoticeController {
 		int notice_notiNO=Integer.parseInt(request.getParameter("notice_notiNO"));
 		NoticeVO noticeVO = new NoticeVO(notice_notiNO);
 		noticeService.removeNoti(noticeVO);
-		return new RedirectView("noticeList");
+		return new RedirectView("html/noticeList");
     }	
 	
 	// 글 수정
@@ -97,7 +97,7 @@ public class NoticeController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-    	return new RedirectView("noticeList");
+    	return new RedirectView("html/noticeList");
     }	
 
 	
@@ -154,11 +154,11 @@ public class NoticeController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-    	return new RedirectView("noticeList");
+    	return new RedirectView("html/noticeList");
     }	
     
 	// 모든 글 보기
-	@RequestMapping(value = "noticeList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "html/noticeList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
 	public ModelAndView noticeList(HttpServletRequest request) {
 
 		ModelAndView mav = new ModelAndView("notice");
@@ -178,7 +178,7 @@ public class NoticeController {
 	}
 	
 	// 글 쓰기 화면 얻기
-	@RequestMapping(value = "noticeWriteForm", method = {RequestMethod.GET }, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "html/noticeWriteForm", method = {RequestMethod.GET }, produces = "application/text; charset=utf8")
 	public String noticeWriteForm(HttpServletRequest request) {
 		return "noticeWriteForm";
 	}

@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <title>BUMMY</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="keywords" content="bummy, video conference, zoom, multicampus" />
+    <meta name="author" content="jieun" />
+    <!-- Favicon icon --><link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font--><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css --><link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork --><link rel="stylesheet" type="text/css" href="assets/css/jieun/css/jieun.min.css">
+    <!-- waves.css --><link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon --><link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n --><link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css"><link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css --><link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css --><link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+
+<body>
+    <!-- Pre-loader start -->
+    <div class="theme-loader">
+        <div class="loader-track">
+            <div class="preloader-wrapper">
+                <div class="spinner-layer spinner-blue">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+                <div class="spinner-layer spinner-red">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-yellow">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+
+                <div class="spinner-layer spinner-green">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="circle-clipper right">
+                        <div class="circle"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Pre-loader end -->
+    <div id="pcoded" class="pcoded">
+        <div class="pcoded-overlay-box"></div>
+        <div class="pcoded-container navbar-wrapper">
+            <nav class="navbar header-navbar pcoded-header">
+                <div class="navbar-wrapper">
+                    <div class="navbar-logo">
+                        <a class="mobile-menu waves-effect waves-light" id="mobile-collapse" href="#!">
+                            <i class="ti-menu"></i>
+                        </a>
+                        <div class="mobile-search waves-effect waves-light">
+                            <div class="header-search">
+                                <div class="main-search morphsearch-search">
+                                    <div class="input-group">
+                                        <span class="input-group-prepend search-close"><i class="ti-close input-group-text"></i></span>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword">
+                                        <span class="input-group-append search-btn"><i class="ti-search input-group-text"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="main-s.html">
+                            <img class="img-fluid" src="assets/images/logo.png" alt="Theme-Logo" />
+                        </a>
+                        <a class="mobile-options waves-effect waves-light">
+                            <i class="ti-more"></i>
+                        </a>
+                    </div>
+                    <div class="navbar-container container-fluid">
+                        <ul class="nav-left">
+                            <li>
+                                <div class="sidebar_toggle"><a href="javascript:void(0)"><i class="ti-menu"></i></a></div>
+                            </li>
+                            <li>
+                                <a href="#!" onclick="javascript:toggleFullScreen()" class="waves-effect waves-light">
+                                    <i class="ti-fullscreen"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <ul class="nav-right">
+                            <li class="header-notification">
+                            </li>
+                            <li class="user-profile header-notification">
+                                <a href="#!" class="waves-effect waves-light">
+                                    <img src="assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
+                                    <span class="user_name">user_name&nbsp;<i class="fa fa-caret-down"></i></span>
+                                    
+                                    <i class="ti-angle-down"></i>
+                                </a>
+                                <ul class="show-notification profile-notification">
+                                    <li class="waves-effect waves-light">
+                                        <a class="profile">
+                                            <i class="ti-user"></i> 내 프로필
+                                        </a>
+                                    </li>
+								    <li class="waves-effect waves-light">
+                                        <a href="#!">
+                                            <i class="ti-settings"></i> Settings
+                                        </a>
+                                    </li>
+									<li class="waves-effect waves-light">
+                                            <a href="login.html"><i class="ti-layout-sidebar-left logout"></i> Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="pcoded-main-container">
+                <div class="pcoded-wrapper">
+                    <nav class="pcoded-navbar">
+                        <div class="sidebar_toggle"><a href="#"><i class="icon-close icons"></i></a></div>
+                        <div class="pcoded-inner-navbar main-menu">
+                            <div class="">
+                                <div class="main-menu-header">
+                                    <img class="img-80 img-radius" src="assets/images/avatar-4.jpg" alt="User-Profile-Image">
+                                    <div class="user-details">
+                                        <span id="more-details" class="user_name">user_name&nbsp;<i class="fa fa-caret-down"></i></span>
+                                    </div>
+                                </div>
+                                <div class="main-menu-content">
+                                    <ul>
+                                        <li class="more-details">
+                                            <a class="profile"><i class="ti-user"></i>내 프로필</a>
+                                            <a href="#!"><i class="ti-settings"></i>Settings</a>
+                                            <a href="login.html"><i class="ti-layout-sidebar-left logout"></i>Logout</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="p-15 p-b-0">
+                                <form class="form-material">
+</form>
+                            </div>
+<ul class="pcoded-item pcoded-left-item">
+                  <li class="active">
+                                    <a href="main-s.html" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-home"></i><b>D</b></span>
+                                        <span class="pcoded-mtext">MAIN</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+              </li>
+                            </ul>
+<ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                				  <a href="#" id="noticeList" class="waves-effect waves-dark">	
+                                        <span class="pcoded-micon"><i class="ti-check"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext">공지사항&nbsp;</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+<ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                					<a href="#" id="boardList" class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-pencil-alt"></i><b>A</b></span>
+                                        <span class="pcoded-mtext">게시판</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+							</ul>
+<ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                				  <a href="#" id="face_register" "class="waves-effect waves-dark">
+                                        <span class="pcoded-micon"><i class="ti-camera"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext">얼굴등록</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+            			<ul class="pcoded-item pcoded-left-item litem" style = "display : none">
+                <li class="">
+                				  <a href='#' id="uList" class='waves-effect waves-dark'>
+                                        <span class="pcoded-micon"><i class="ti-id-badge"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext">회원 관리</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                        <ul class="pcoded-item pcoded-left-item litem" style = "display : none">
+                <li class="">
+               					<a class='waves-effect waves-dark' id='c_manager' href='#'>
+                                        <span class="pcoded-micon"><i class="ti-layout-grid3"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext">회의실 관리</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                						<ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                				  <a class="waves-effect waves-dark" id="class_room" href="#">
+                                        <span class="pcoded-micon"><i class="ti-arrow-right"></i><b>FC</b></span>
+                                        <span class="pcoded-mtext">회의 입장하기</span>
+                                        <span class="pcoded-mcaret"></span>
+                                    </a>
+                                </li>
+                            </ul>
+</div>
+                    </nav>
+                    <div class="pcoded-content">
+                        <!-- Page-header start -->
+						<div class="page-header">
+                            <div class="page-block">
+                                <div class="row align-items-center">
+                                    <div class="col-md-8">
+                                        <div class="page-header-title">
+                                            <h5 class="m-b-10">항상 당신을 응원합니다</h5>
+                                            <p class="m-b-0">우리 모두의 내일은 오늘보다 더 단단해질 거예요</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Page-header end -->
+                        <div class="pcoded-inner-content">
+                            <!-- Main-body start -->
+                            <div class="main-body">
+                                <div class="page-wrapper"> <!-- Page-body start -->
+                                    <div class="page-body">
+                                      <div class="row" id="main">
+                                            <!-- Material statustic card start -->
+                                            <div class="col-md-12 col-xl-6">
+                                                <div class="card mat-stat-card">
+                                                    <div class="card-block">
+<div class="row align-items-center">
+	
+<div class="col-sm-6 p-b-20 p-t-20 col-xl-12">
+	<div class="card-header">
+                                <h5><a href="notice.html">공지사항</a></h5>
+<div class="card-header-right">
+                                    <ul class="list-unstyled card-option">
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                  </ul>
+                                </div>
+                              </div>
+	<div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th><a href="notice.html">학습 내용 관련하여 공지합니다.</a></th>
+                                                              <th><a href="notice.html">2021.04.22</a></th>
+                                                            </tr>
+                                                        </thead>
+                                                  </table>
+                                                </div>
+                            </div></div>
+                                                      </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="col-md-12 col-xl-6">
+                                              <div class="card mat-stat-card">
+                                                <div class="card-block">
+                                                  <div class="row align-items-center">
+                                                    <div class="col-sm-6 p-b-20 p-t-20 col-xl-12">
+                                                      <div class="card-header">
+                                                        <h5><a href="bulletinboard.html">자유게시판</a></h5>
+                                                        <div class="card-header-right">
+                                                          <ul class="list-unstyled card-option">
+                                                            <li></li>
+                                                            <li></li>
+                                                            <li></li>
+                                                            <li><i class="fa fa-refresh reload-card"></i></li>
+                                                            <li><i class="fa fa-trash close-card"></i></li>
+                                                          </ul>
+                                                        </div>
+                                                      </div>
+                                                      <div class="card-block table-border-style">
+                                                        <div class="table-responsive">
+                                                          <table class="table" >
+                                                            <thead>
+                                                              <tr>
+                                                                <th><a href="bulletinboard.html">중간고사 보시느라 다들 수고 많으셨어요&nbsp;</a></th>
+                                                                <th><a href="bulletinboard.html">2021.04.22</a></th>
+                                                              </tr>
+                                                            </thead>
+                                                          </table>
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                        <div class="col-xl-12">
+                                              <div class="card proj-progress-card">
+                                                    <div class="card-block">
+                                                      <div class="row">
+															
+                                                        <div class="progress-bar bg-white" style="width:55%"><br>
+<h5 class="m-b-30 f-w-900"><span class="text-amazon m-l-10">당신의 회의에 참여하세요</span>
+																<h5 class="m-b-30 f-w-900"><button class="btn btn-primary waves-effect growl-animated" 
+																   data-type="inverse" 
+																   data-from="top" 
+																   data-align="right" 
+																   data-icon="fa fa-comments" 
+																   style="cursor:pointer"
+																   a href="#"
+																   onclick="swal('죄송합니다', '아직 회의가 개설되어 있지 않습니다.', 'error')">회의실 바로 입장하기</button></script></h5>
+</div>
+<di></di><h5 class="m-b-0 f-w-200"><img src="assets/images/main.png" width="347" height="342" alt=""/><span class="text-amazon m-l-10"></span></h5>
+<div class="progress-bar bg-white" style="width:50%"><br>
+  
+                                                          </div>
+</div>
+                                                    </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-12 col-xl-6">
+                                          <div class="card mat-stat-card">
+                                            <div class="card-block">
+                                              <div class="row align-items-center">
+                                                <div class="col-sm-6 p-b-20 p-t-20 col-xl-12">
+                                                  <div class="card-header">
+                                                    <h5><a href="documentsboard.html">자료게시판</a></h5>
+                                                    <div class="card-header-right">
+                                                      <ul class="list-unstyled card-option">
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                  <div class="card-block table-border-style">
+                                                    <div class="table-responsive">
+                                                      <table class="table" >
+                                                        <thead>
+                                                          <tr>
+                                                            <th><a href="documentsboard.html">중간고사까지의 학습자료 제공합니다</a></th>
+                                                            <th><a href="documentsboard.html">2021.04.22</a></th>
+                                                          </tr>
+                                                        </thead>
+                                                      </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                        <div class="col-md-12 col-xl-6">
+                                          <div class="card mat-stat-card">
+                                            <div class="card-block">
+                                              <div class="row align-items-center">
+                                                <div class="col-sm-6 p-b-20 p-t-20 col-xl-12">
+                                                  <div class="card-header">
+                                                    <h5><a href="qaboard.html">Q&amp;A</a></h5>
+                                                    <div class="card-header-right">
+                                                      <ul class="list-unstyled card-option">
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li></li>
+                                                        <li><i class="fa fa-refresh reload-card"></i></li>
+                                                        <li><i class="fa fa-trash close-card"></i></li>
+                                                      </ul>
+                                                    </div>
+                                                  </div>
+                                                  <div class="card-block table-border-style">
+                                                    <div class="table-responsive">
+                                                      <table class="table" >
+                                                        <thead>
+                                                          <tr>
+                                                            <th><a href="qaboard.html">교수님 이번 수업 질문 있습니다.</a></th>
+                                                            <th><a href="qaboard.html">2021.04.22</a></th>
+                                                          </tr>
+                                                        </thead>
+                                                      </table>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+										<div class="col-xl-12">
+                                              <div class="card proj-progress-card">
+                                                    <div class="card-block"><div class="card">
+                                            <div class="card-header">
+                                                <h5><a href="bummynotice.html">버미 공지사항</a></h5>
+<div class="card-header-right">
+
+                                              </div>
+                                            </div>
+                                            <div class="card-block table-border-style">
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>No</th>
+                                                                <th>제목</th>
+                                                                <th>작성자</th>
+                                                                <th>작성일</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th scope="row">1</th>
+                                                                <td><a href="bummynotice.html">2021년 04월 22일 버미 업데이트 사항 안내</a></td>
+                                                                <td>버미</td>
+                                                                <td>2021/04/22</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">2</th>
+                                                                <td><a href="bummynotice.html">2021년 04월 22일 버미 업데이트 사항 안내</a></td>
+                                                                <td>버미</td>
+                                                                <td>2021/04/22</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th scope="row">3</th>
+                                                                <td><a href="bummynotice.html">2021년 04월 22일 버미 업데이트 사항 안내</a></td>
+                                                                <td>버미</td>
+                                                                <td>2021/04/22</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                                      <div class="row">
+<di></di>
+</div>
+                                                </div>
+                                          </div>
+                                        </div>
+<div class="card-block proj-progress-card"> </div>
+<div> </div>
+                      <div class="card proj-progress-card"> </div>
+                                      </div>
+<div class="col-xl-12">
+  <div class="card proj-progress-card"> </div>
+</div>
+<div class="col-xl-6">
+                        <div class="card proj-progress-card"> </div>
+                                      </div>
+                                          <div class="col-xl-6">
+                                              <div class="card proj-progress-card"> </div>
+                                          </div>
+                                            <div class="col-xl-12">
+                                              <div class="card proj-progress-card"> </div>
+                                            </div>
+<!-- Project statustic end -->
+                                  </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
+						
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  
+
+    <!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+    <script type="text/javascript" src="assets/js/jquery-ui/jquery-ui.min.js "></script>
+    <script type="text/javascript" src="assets/js/popper.js/popper.min.js"></script>
+    <script type="text/javascript" src="assets/js/jieun/js/jieun.min.js"></script>
+    <script src="assets/pages/waves/js/waves.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="assets/js/jquery.mCustomScrollbar.concat.min.js "></script>
+    <script src="assets/js/pcoded.min.js"></script>
+    <script src="assets/js/vertical/vertical-layout.min.js "></script>
+    <script type="text/javascript" src="assets/js/script.js "></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	   	<!-- 쿠키 설정 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+		<!-- 로그아웃 JS -->
+	<script type="text/javascript" src="../js/logout.js"></script>
+	<script>
+	$(function(){
+		var user_id=$.cookie('user_id');
+		var user_name=$.cookie('user_name');
+		var user_type=$.cookie('user_type');
+		var user_belong=$.cookie('user_belong');
+		var login=$.cookie('logined');
+		$(".user_name").html(user_name);
+		if (user_type=="L") {
+			$('.litem').show();
+		}
+	});
+	  
+	$('#noticeList').click(function(e){
+	    var href = 'noticeList';
+	    e.preventDefault();
+		$("#main").load(href);
+	});
+	$('#boardList').click(function(e){
+	    var href = 'boardList';
+	    e.preventDefault();
+		$("#main").load(href);
+	});
+	$('#uList').click(function(e){
+	    var href = 'uList';
+	    e.preventDefault();
+		$("#main").load(href);
+	});
+	$('#class_room').click(function(e){
+	    var href = 'class_room';
+	    e.preventDefault();
+		$("#main").load(href);
+	});
+	$('#face_register').click(function(e){
+	    var href = 'face_register.html';
+	    e.preventDefault();
+		$("#main").load(href);
+	});
+	$('#c_manager').click(function(e){
+    var href = 'c_manager.html';
+    e.preventDefault();
+	$("#main").load(href);
+	});
+	$('.profile').click(function(e){
+    var href = 'profile.html';
+    e.preventDefault();
+	$("#main").load(href);
+	});
+	</script>
+</body>
+
+</html>

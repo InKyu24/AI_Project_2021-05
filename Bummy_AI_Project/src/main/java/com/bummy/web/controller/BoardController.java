@@ -43,7 +43,7 @@ public class BoardController {
 		System.out.println(board_articleNO);
 		BoardVO boardVO = new BoardVO(board_articleNO);
 		boardService.removeArticle(boardVO);
-		return new RedirectView("boardList");
+		return new RedirectView("/html/boardList");
     }	
 	
 	// 글 수정
@@ -98,7 +98,7 @@ public class BoardController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-    	return new RedirectView("boardList");
+    	return new RedirectView("/html/boardList");
     }	
 
 	
@@ -154,11 +154,11 @@ public class BoardController {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 		}
-    	return new RedirectView("boardList");
+    	return new RedirectView("/html/boardList");
     }	
     
 	// 모든 글 보기
-	@RequestMapping(value = "boardList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "/html/boardList", method = { RequestMethod.GET }, produces = "application/text; charset=utf8")
 	public ModelAndView boardList(HttpServletRequest request) {
 			ModelAndView mav = new ModelAndView("board");
 			List<BoardVO> articlesList = boardService.listArticles();
