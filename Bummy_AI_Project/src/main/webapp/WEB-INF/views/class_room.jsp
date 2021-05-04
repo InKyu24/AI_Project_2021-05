@@ -2,7 +2,6 @@
     pageEncoding="UTF-8" %>
  
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +23,6 @@
 		let ws, ws_cam;
 		let localstream;
 		let cam_loop;
-		
 		let name="["+user_name+"]";
 		
 		// HTML5의 내장 객체 WebSocket 생성 + Java class "WebSocket.java"와 연결
@@ -55,7 +53,10 @@
 						}
 					);
 			} else if (user_type == "L" && msg.slice(0,5) == "#출석체크") {
-				ws.send("[서버] 5초 후에 출석체크를 시작합니다. 카메라 앞에 얼굴이 잘 보이도록 해주세요.");			
+				ws.send("[서버] 5초 후에 출석체크를 시작합니다. 카메라 앞에 얼굴이 잘 보이도록 해주세요.");
+				
+				// !!!!! 10초 후에 user_attend가 1인 학생들을 전달받는다.
+				// !!!!!확인을 누르면 다시 모든 user_attend가 0으로 바뀐다.			
 			} else {
 				ws.send(name+" "+msg);
 			}
@@ -65,7 +66,6 @@
 		});
 		
 		// 메시지가 오면 메시지를 받는다.
-			// 출석 확인 되는 사람들은 user_attend를 1로 바꾼다
 		ws.onmessage=function(msg){
 			console.log(msg.data);
 			var oldMsg=$("textarea").val();
@@ -112,6 +112,7 @@
 													console.log(data);
 													alert(data);
 													if (data == "출석 확인") {
+														// !!!!! 출석 확인 되는 사람들은 user_attend를 1로 바꾼다
 													} else if (data == "대리 출석이 의심되는 상황") {
 														ws.send("[서버] "+user_name+"님은 현재 대리출석이 의심됩니다.");
 													}
@@ -131,20 +132,42 @@
 				5000);
 			}
 			
-			if (user_type=="P") {
-				$.post("/break_get",
-					{
+			if (user_type!="L") {
+				$.post("/breakTime_get",
+					{	
 						user_belong:user_belong
 					},
-					function(data, status){						
+					function(data, status){
+						var breakTime = Number(data);
+						var nowTime = new Date();
+						var nowMin = nowTime.getMinutes();
+						var sumMin;
+						 
+						for (sumMin= breakTime+nowMin; sumMin/60>1;) {
+							var targetMin=sumMin-60;
+						}
+						
+						var breakSecond = targetMin*60*1000;
+						
+						$.post("/break_get",
+								{user_belong:user_belong},
+								function(data, status){
+									if(data!=null) {
+										setTimeout(function() {
+											var breakTimeMsg = data;
+											// breakTime이 경과하게 되면 오디오 파일이 재생되도록 한다.
+											alert(breakTimeMsg);
+											// breakBool을 0으로 만들어준다.
+										}, breakSecond);
+									}
+								}
+						)
 					}
 				)
 			};	  
-				// breakBool을 우선적으로 체크
-					// breakBool이 true일 때, user_belong에 맞는 breakTime과 breakMsg를 가져오기
-						// breakTime이 경과하게 되면 오디오 파일이 재생되도록 한다.
-						// breakBool을 false로 만들어준다.
-					// breakBool이 false이면, 아무것도 안함.
+						
+						
+					
 		}
 		
 		// 엔터키를 이용하여 전송 
@@ -157,7 +180,6 @@
 			
 		// 캡처 설정
 		if (user_type!="L" && check_time != 0) {
-			alert(check_time);
 			let count=0;
 			let timer=setInterval(function(){ 
 				navigator.getUserMedia(
