@@ -11,62 +11,101 @@
 <title>글쓰기창</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
-
+     <!-- Favicon icon -->
+    <link rel="icon" href="assets/images/favicon.ico" type="image/x-icon">
+    <!-- Google font-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700" rel="stylesheet">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- Required Fremwork -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jieun/css/jieun.min.css">
+    <!-- waves.css -->
+    <link rel="stylesheet" href="assets/pages/waves/css/waves.min.css" type="text/css" media="all">
+    <!-- themify icon -->
+    <link rel="stylesheet" type="text/css" href="assets/icon/themify-icons/themify-icons.css">
+    <!-- font-awesome-n -->
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome-n.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.min.css">
+    <!-- scrollbar.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.mCustomScrollbar.css">
+    <!-- Style.css -->
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    
 <script type="text/javascript">
- // 리스트로 돌아가기
-  function backToList(){location.href="../noticeList";}
+$('#backToList').click(function(){
+	var href = 'noticeList';
+	$("#main").load(href);
+});	
+
+function writeNotice(){
+ 	
+	$("#main").load("../boardList");
+};
+  	
+  	
 </script>
 
 </head>
 <body>
-<div class="container">
-<h1 style="text-align:center">글쓰기</h1>
-  <form name="notiForm" method="post" action="../noticeWrite" enctype="multipart/form-data">
-    <table>
+<div class="col-xl-12">
+                                              <div class="card proj-progress-card">
+                                                    <div class="card-block"><div class="card">
+                                            <div class="card-header">
+                                                <h5>&nbsp;공지 작성&nbsp;</h5>
+<div class="card-header-right">
+
+                                              </div>
+                                            </div>
+<div class="card-block table-border-style">
+                                                <div class="table-border-style"> 
+	                                                            <div class="form-group row">
+                                                                <label class="col-sm-1 col-form-label">제목</label>
+                                                                <div class="col-sm-11">
+                                                                    <input type="text" class="form-control" maxlength="300" name="notice_title" >
+                                                                </div>
+																	
+                                                  </div>
+	</div>
+	                                                            <div class="form-group row">
+                                                                <label class="col-sm-1 col-form-label">파일</label>
+                                                                <div class="col-sm-11">
+                                                                    <input type="file" class="form-control">
+                                                                    <script type="text/javascript">
+																		  var cnt=1;
+																		  function fn_addFile(){
+																			  $("#d_file").append("<br>"+"<input type='file' name='file"+cnt+"' />");
+																			  cnt++;
+																		  }  
+															  		</script>
+                                                                </div>
+                                                            </div>
+	<div class="form-group row">
+      <label class="col-sm-1 col-form-label">내용</label>
+<div class="col-sm-11">
+        <textarea name="notice_content" maxlength="4000" rows="17" cols="15" class="form-control">
+	</textarea>
 	
-		<tr>
-			<td >작성자 :</td>
-			<!-- 작성자 ID or NAME를 쿠키로 받아서 자동으로 작성되도록 -->
-			<td colspan=2  ><input type="text" size="50" maxlength="100" placeholder="(로그인 이름으로 자동 입력됩니다)" readonly style="background:lightgray"/> </td>
-		</tr>
-		
-     	<tr>
-		   <td >글제목 : </td>
-		   <td colspan="2"><input type="text" size="50"  maxlength="300" name="notice_title" /></td>
-	 	</tr>
-	 	
-	 	<tr>
-			<td valign="top"><br>글내용 : </td>
-			<td colspan=2><textarea name="notice_content" rows="10" cols="53" maxlength="4000"></textarea> </td>
-     	</tr>
-     	
-     	
-     	<!-- 파일 관련한건 도무지 이해가 안됨... -->
-     	<tr>
-		 	<td >파일 첨부 :  </td>
-		 	<td> <input type="file" name="file" /></td>		
-	   	</tr>
-					    <script type="text/javascript">
-							  var cnt=1;
-							  function fn_addFile(){
-								  $("#d_file").append("<br>"+"<input type='file' name='file"+cnt+"' />");
-								  cnt++;
-							  }  
-				  		</script>
-	   	<tr>
-			<td colspan="4"><div id="d_file"></div></td>
-	   	</tr>
-	   
-	   
-		<tr>
-	   		<td></td>
-	      	<td colspan="2" ><input type="submit" value="글쓰기"><input type="button" value="목록보기" onClick="backToList()"/></td>
-		</tr>
-	</table>
-  </form>
 </div>
+		
+  </div>
+       <input type="submit" class="btn waves-effect waves-light btn-primary pull-right" id="writeNotice" value="작성하기"/>                                    </div>
+														
+                                            <table>
+                                                <div class="table-responsive">
+                                                    <table class="table">
+                                              <tbody>
+                                                <tr> </tr>
+                                              </tbody>
+												</div>
+                                            </table>
+                                                                                                </div>
+                                                      <div class="row">
+<di></di>
+</div>
+                                                </div>
+</div>
+                                        </div>
+<div class="card-block proj-progress-card"> </div>
 </body>
 </html>
 

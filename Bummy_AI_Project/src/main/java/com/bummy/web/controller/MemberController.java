@@ -42,17 +42,23 @@ public class MemberController {
         	System.out.println(user_id);
             return user_id+"로 가입하셨던 것 같네요.\n메인페이지에서 로그인 해주세요";
         }
-	}	
+	}
+	
 	// 회원 관리
-	@RequestMapping(value = "/pList", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "html/pAccept", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public void p_Accept(HttpServletRequest request) throws IOException{
+		System.out.println("ddddd");
+		String user_id=request.getParameter("user_id");
+		System.out.println("1"+user_id);
+		MemberVO memberVO=new MemberVO(user_id);
+		memberService.pAccept(memberVO); 
+	}
+	
+	// 회원 관리
+	@RequestMapping(value = "html/pList", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public ModelAndView p_Manager(HttpServletRequest request) throws IOException{
-		if (request.getParameter("user_id")!=null) {
-			String user_id=request.getParameter("user_id");
-			System.out.println(user_id);
-			MemberVO memberVO=new MemberVO(user_id);
-			memberService.pAccept(memberVO); 
-		} else {}
 		
 		FindCookies fc = new FindCookies();
 
@@ -60,28 +66,19 @@ public class MemberController {
 		String user_type=fc.FindCookie(request, "user_type");
 		String user_belong="멀티캠퍼스";
 		
-		System.out.println(user_id);
-		System.out.println(user_type);
-		System.out.println(user_belong);
-		
 		ModelAndView mav = new ModelAndView("p_manager");
-		System.out.println(mav);
 		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
-		System.out.println(memberVO);
 		List<MemberVO> pList = memberService.pList(memberVO);
-		System.out.println(pList.size());
-		System.out.println(memberVO);
 		mav.addObject("pList",pList);
 		return mav;
 	}
 	
 	// 회원 관리
-	@RequestMapping(value = "/uList", method = {RequestMethod.GET, RequestMethod.POST}, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "html/uList", method = {RequestMethod.POST, RequestMethod.GET}, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public ModelAndView u_Manager(HttpServletRequest request) throws IOException{
 		if (request.getParameter("user_id")!=null) {
 			String user_id=request.getParameter("user_id");
-			System.out.println(user_id);
 			MemberVO memberVO=new MemberVO(user_id);
 			memberService.pAccept(memberVO); 
 		} else {}
@@ -92,16 +89,9 @@ public class MemberController {
 		String user_type=fc.FindCookie(request, "user_type");
 		String user_belong="멀티캠퍼스";
 		
-		System.out.println(user_id);
-		System.out.println(user_type);
-		System.out.println(user_belong);
-		
 		ModelAndView mav = new ModelAndView("u_manager");
-		System.out.println(mav);
 		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
-		System.out.println(memberVO);
 		List<MemberVO> uList = memberService.uList(memberVO); 
-		System.out.println(uList.size());
 		mav.addObject("uList",uList);
 		return mav;
 	}
@@ -112,6 +102,7 @@ public class MemberController {
 	public String logout(HttpServletRequest request, HttpServletResponse response){
 		HttpSession session=request.getSession(false);
 		session.invalidate();
+		System.out.println("a");
 		return "";
 	}
 
@@ -147,7 +138,7 @@ public class MemberController {
 	}
 	
 	// belongCheckL
-	@RequestMapping(value ="/belongCheckL", produces = "application/text; charset=utf8", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value ="/belongCheckL", produces = "application/text; charset=utf8", method= {RequestMethod.POST})
 	@ResponseBody
 	public String belongCheckL(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String user_id=request.getParameter("user_id");
@@ -164,7 +155,7 @@ public class MemberController {
 	}
 	
 	// 회원가입 구현
-	@RequestMapping(value ="/signup", produces = "application/text; charset=utf8", method= {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value ="/signup", produces = "application/text; charset=utf8", method= {RequestMethod.POST})
 	@ResponseBody
 	public String signup(HttpServletRequest request, HttpServletResponse response)throws Exception{
 		String user_id=request.getParameter("user_id");
@@ -176,7 +167,6 @@ public class MemberController {
 		String user_type=request.getParameter("user_type");
 		System.out.println(user_type);
 		String user_Ltype=request.getParameter("user_Ltype");
-		System.out.println(user_Ltype);
 		String user_Ptype=request.getParameter("user_Ptype");
 		String user_img="D:\\registry\\"+user_id+".jpg";
 			

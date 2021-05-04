@@ -16,7 +16,9 @@
 
 <script type="text/javascript">
  // 리스트로 돌아가기
-  function backToList(){location.href="../boardList";}
+  function backToList(){
+  	$("#main").load("../boardList");
+  }	
 </script>
 
 </head>

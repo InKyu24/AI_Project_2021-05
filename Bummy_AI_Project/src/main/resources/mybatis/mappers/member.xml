@@ -28,7 +28,7 @@
 	<select id="checkTimeGet" resultType="int" >
 		<![CDATA[
 			select check_time from USER_INFO
-			where user_belong=#{user_belong} and user_type=#{user_type}
+			where user_belong=#{user_belong} and user_type='L'
 		]]>
 	</select>
 	

@@ -24,18 +24,20 @@ public class ClassController {
 	@Autowired
 	ClassService classService;
 	
-	@RequestMapping(value = "/class_room", method = {RequestMethod.GET}, produces = "application/text; charset=utf8")
+	@RequestMapping(value = "html/class_room", method = {RequestMethod.GET}, produces = "application/text; charset=utf8")
 	@ResponseBody
 	public ModelAndView classRoom(HttpServletRequest request, HttpServletResponse response) throws IOException {
 			ModelAndView mav = new ModelAndView("class_room");
 			Cookie cookie[] = request.getCookies();
-			String user_id=cookie[1].getValue();
-			String user_belong=URLDecoder.decode(cookie[4].getValue(), "UTF-8");
+			String user_id=cookie[0].getValue();
+			String user_belong=URLDecoder.decode(cookie[3].getValue(), "UTF-8");
 			String user_type="L";
+			
 			// belong 받아서, check_time 조회할 수 있도록! 
 			MemberVO memberVO=new MemberVO(user_id,user_belong,user_type);
-			int check_time=classService.checkTimeGet(memberVO);
 			
+			System.out.println(user_belong);
+			int check_time=classService.checkTimeGet(memberVO);;
 			mav.addObject("check_time", check_time);
 			return mav;
 	}

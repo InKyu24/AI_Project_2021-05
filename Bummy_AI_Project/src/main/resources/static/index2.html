@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>버미버미버미</title>
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
+	<!-- 로그인 JS -->
+	<script type="text/javascript" src="js/login.js"></script>	
+	<!-- 로그아웃 JS -->
+	<script type="text/javascript" src="js/logout.js"></script>
+</head>
+
+<body>
+<!-- 로그인 -->
+<div id="msgDiv"> 
+<form id='loginForm' method='post'>        		
+	<table>
+	<tr>		
+	<td><input size="10" id="user_id" placeholder="아이디 입력" autofocus tabindex="1"> </td>
+	<td rowspan="2"><input type="button" id="login" value="로그인"></td>
+	</tr>
+	<tr>
+	<td><input size="10" id="user_pw" type="password" placeholder="비밀번호 입력" autofocus tabindex="2"></td>		
+	</table>
+	<button type="button" onclick="window.open('html/signup.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=400,height=750');">회원가입</button>
+	<button type="button" onclick="window.open('html/findID.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=400,height=750');">ID 찾기</button>	
+</form>
+</div>	
+
+<!-- 인사말 -->
+<li id="IntroLi">
+<a class="nav-link" href="#" onclick="window.open('intro', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">인사말</a>
+</li>
+
+<!-- 공지사항 -->
+<li id="NoticeLi" class="pitem" style = "display : none">
+<a class="nav-link" href="#" onclick="window.open('noticeList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">공지사항</a>
+</li>
+
+<!-- 게시판 -->
+<li id="BoardLi" class="pitem" style = "display : none">
+<a class="nav-link" href="#" onclick="window.open('boardList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=900,height=600');">게시판</a>
+</li>
+
+<!-- 얼굴 등록 -->
+<li id="FaceRegisterLi" class="pitem" style = "display : none">
+<a class="nav-link" href="#" onclick="window.open('html/face_register.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">얼굴 등록</a>
+</li>
+
+<!-- 강의실 -->
+<li id="ClassRoomLi" class="pitem" style = "display : none">       
+<a class="nav-link" href="#" onclick="window.open('class_room', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">강의실 입장</a>
+</li>
+
+<!-- 회원 관리 -->
+<li id="P_ManagerLi" class="litem" style = "display : none">
+<a class='nav-link' id='p_manager' href='#' onclick="window.open('uList', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">회원 관리</a>
+</li>
+
+<!-- 강의실 관리 -->
+<li id="C_ManagerLi" class="litem" style = "display : none">
+<a class='nav-link' id='c_manager' href='#' onclick="window.open('html/c_manager.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">강의실 관리</a>
+</li>
+
+<!-- 타이머 -->
+<li id="TimerLi" class="litem" style = "display : none">
+<a class='nav-link' id='timer' href='#' onclick="window.open('html/t_manager.html', '_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=500,width=750,height=400');">타이머</a>
+</li>
+
+</body>
+	<!-- 쿠키 설정 -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+	<script>
+	
+	$(function(){
+		var user_id=$.cookie('user_id');
+		var user_name=$.cookie('user_name');
+		var user_type=$.cookie('user_type');
+		var user_belong=$.cookie('user_belong');
+		var login=$.cookie('logined');
+		$("#msgDiv").html(login);
+		if (user_type=="P") {
+			$('.pitem').show();
+		}else if (user_type=="L") {
+			$('.pitem').show();
+			$('.litem').show();
+		}
+	});
+
+	</script>
+</html>
