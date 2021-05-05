@@ -32,4 +32,8 @@ public class BreakDAO {
 	public String breakTimeMsgGet(BreakVO breakVO) {
 		return sqlSession.selectOne("mapper.break.breakTimeMsgGet",breakVO);
 	}
+
+	public void breakBreak(BreakVO breakVO) {
+		sqlSession.update("mapper.break.breakBreak",breakVO);
+	}
 }

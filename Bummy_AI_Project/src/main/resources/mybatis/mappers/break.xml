@@ -4,6 +4,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.break">
+	<update id="breakBreak">
+		<![CDATA[
+			update Break set breakTime=null,breakTimeMsg=null,breakbool=0
+			where user_belong=#{user_belong}
+		]]>
+	</update>
+	
 	<select id="breakTimeMsgGet" resultType="String" parameterType="breakVO">
 		<![CDATA[
 			select breakTimeMsg from Break 

@@ -3,6 +3,7 @@ package com.bummy.web.controller;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bummy.web.service.ClassService;
+import com.bummy.web.vo.BreakVO;
 import com.bummy.web.vo.MemberVO;
 
 @Controller
@@ -36,6 +38,7 @@ public class ClassController {
 			// belong 받아서, check_time 조회할 수 있도록! 
 			MemberVO memberVO=new MemberVO(user_id,user_belong,user_type);
 			
+			System.out.println(user_id);
 			System.out.println(user_belong);
 			int check_time=classService.checkTimeGet(memberVO);;
 			mav.addObject("check_time", check_time);
@@ -81,5 +84,42 @@ public class ClassController {
 		} else {
 			return user_belong+" 소속 학생들은 강의실 입장 후 "+check_time+"초 후에 출석이 확인됩니다.";
 		}
+	}
+	
+	// 출석 1인 사람 조회
+	@RequestMapping(value="/attend_check", method= {RequestMethod.POST}, produces="application/text; charset=utf8")
+	@ResponseBody
+	public String attendCheck(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String user_id=request.getParameter("user_id");
+		String user_belong=request.getParameter("user_belong");
+		String user_type=request.getParameter("user_type");
+		
+		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
+		String attendList = classService.attendCheck(memberVO);
+		return attendList;
+		
+		
+	}
+	
+	// 출석 DB 초기화
+	@RequestMapping(value="/attend_break", method= {RequestMethod.POST}, produces="application/text; charset=utf8")
+	@ResponseBody
+	public void attendBreak(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String user_id=request.getParameter("user_id");
+		String user_belong=request.getParameter("user_belong");
+		String user_type=request.getParameter("user_type");
+		
+		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
+		classService.attendBreak(memberVO);
+	}
+	
+	// 출석 1로 업데이트
+	@RequestMapping(value="/attend_p", method= {RequestMethod.POST}, produces="application/text; charset=utf8")
+	@ResponseBody
+	public void attendP(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String user_id=request.getParameter("user_id");
+		
+		MemberVO memberVO = new MemberVO(user_id);
+		classService.attendP(memberVO);
 	}
 }

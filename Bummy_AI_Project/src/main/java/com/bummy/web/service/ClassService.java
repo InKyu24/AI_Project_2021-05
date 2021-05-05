@@ -21,4 +21,17 @@ public class ClassService {
 	public int checkTimeGet(MemberVO memberVO) {
 		return classDAO.checkTimeGet(memberVO);
 	}
+
+	public void attendP(MemberVO memberVO) {
+		classDAO.attendP(memberVO);
+		
+	}
+
+	public void attendBreak(MemberVO memberVO) {
+		classDAO.attendBreak(memberVO);
+	}
+
+	public String attendCheck(MemberVO memberVO) {
+		return classDAO.attendCheck(memberVO);
+	}
 }

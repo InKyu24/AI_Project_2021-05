@@ -12,14 +12,14 @@
 <!-- 쿠키 설정 -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script>
+	
 	$(document).ready(function(){
-		
 		var user_name=$.cookie('user_name');
 		var user_id=$.cookie('user_id');
 		var user_type=$.cookie('user_type');
 		var user_belong=$.cookie('user_belong');
 		var check_time=${check_time}*1000;
-			
+		
 		let ws, ws_cam;
 		let localstream;
 		let cam_loop;
@@ -56,7 +56,22 @@
 				ws.send("[서버] 5초 후에 출석체크를 시작합니다. 카메라 앞에 얼굴이 잘 보이도록 해주세요.");
 				
 				// !!!!! 10초 후에 user_attend가 1인 학생들을 전달받는다.
-				// !!!!!확인을 누르면 다시 모든 user_attend가 0으로 바뀐다.			
+				// !!!!!확인을 누르면 다시 모든 user_attend가 0으로 바뀐다.
+				setTimeout(function() { 
+					$.post("/attend_check",
+							{user_id:user_id, user_belong:user_belong, user_type:user_type },
+								function(data, status) {
+									ws.send("[서버] 출석이 확인되는 학생은 아래와 같습니다.");
+									ws.send(data);
+								}
+							);
+				}, 10000);
+				$.post("/attend_break",
+						{user_id:user_id, user_belong:user_belong, user_type:user_type },
+							function(data, status) {
+								console.log("출석 초기화 완료");
+							}
+				);	
 			} else {
 				ws.send(name+" "+msg);
 			}
@@ -87,87 +102,75 @@
 								// 얼굴 개수 확인
 								$.ajax({
 									type : 'post',
-									url : '../condition1',
+									url : '../condition',
 									cache : false,
 									data : formData,
 									processData : false,
 									contentType : false,
 									success : function(data) {
-										// 얼굴이 없으면
-										if (data==0) {
-											alert("얼굴이 인식되지 않습니다. 자리에 계시나요?");
+										if (data=="얼굴이 인식되지 않습니다. 자리에 계시나요?") {
 											ws.send("[서버] "+user_name+"님은 현재 부재중인 것 같습니다.");
-										// 얼굴이 많으면
-											alert("얼굴이 너무 많습니다. 주최자에게 다시 출석체크를 요청해주세요.");
-										// 얼굴이 있으면, 비교 시작
-										} else if (data==1) {
-											$.ajax({
-												type : 'post',
-												url : '../condition2',
-												cache : false,
-												data : formData,
-												processData : false,
-												contentType : false,
-												success : function(data) {
-													console.log(data);
-													alert(data);
-													if (data == "출석 확인") {
-														// !!!!! 출석 확인 되는 사람들은 user_attend를 1로 바꾼다
-													} else if (data == "대리 출석이 의심되는 상황") {
-														ws.send("[서버] "+user_name+"님은 현재 대리출석이 의심됩니다.");
-													}
-												}
-											});
-										}
+										} else if (data =="얼굴이 너무 많습니다. 주최자에게 다시 출석체크를 요청해주세요.") {
+											alert(data);
+										} else if (data=="대리 출석이 의심되는 상황") {
+											ws.send("[서버] "+user_name+"님은 현재 대리출석이 의심됩니다.");
+										} else if (data=="출석 확인") {
+											$.post("/attend_p" ,
+													{user_id:user_id},
+														function(data, status) {
+															alert("출석체크 완료");
+													});	
+										} else {
+											ws.send("[서버] "+user_name+"님의 컴퓨터에서 알 수 없는 에러 발생")
+										}	
 									}
 								});
 							});
 						},
 						function() {
-							alert("[서버] 카메라 문제로 출석이 확인되지 않았습니다. 주최자에게 다시 출석체크를 요청해주세요.");
+							ws.send("[서버] "+user_name+"님의 컴퓨터는 현재 웹캠 사용 불가 상태")
 						}
 					);
 					if(++count==1) clearInterval(timer);
-				},
-				5000);
+				}, 5000);
 			}
 			
-			if (user_type!="L") {
+			if (user_type!="L" && msg.data.slice(0,9) == "[서버] 지금부터") {
 				$.post("/breakTime_get",
 					{	
 						user_belong:user_belong
 					},
-					function(data, status){
-						var breakTime = Number(data);
-						var nowTime = new Date();
-						var nowMin = nowTime.getMinutes();
-						var sumMin;
-						 
-						for (sumMin= breakTime+nowMin; sumMin/60>1;) {
-							var targetMin=sumMin-60;
-						}
-						
-						var breakSecond = targetMin*60*1000;
-						
-						$.post("/break_get",
-								{user_belong:user_belong},
-								function(data, status){
-									if(data!=null) {
+						function(data, status){
+							var breakTime = Number(data);
+							if (breakTime != null) {
+								if (breakTime == 0) {
+									alert ("쉬는 시간 설정 오류");
+								} else {
+									console.log("설정한 쉬는 시간"+breakTime)
+									var breakSecond = breakTime*1000*60;
+									console.log(breakSecond);
+									
 										setTimeout(function() {
-											var breakTimeMsg = data;
-											// breakTime이 경과하게 되면 오디오 파일이 재생되도록 한다.
-											alert(breakTimeMsg);
-											// breakBool을 0으로 만들어준다.
+											$.post("/break_get",
+												{user_belong:user_belong},
+													function(data, status) {
+															// !!! 여기서 음성이 나오도록 해야한다.
+															alert("쉬는 시간 종료");
+															$.post("/break_break",
+																{user_belong:user_belong},
+																	function(data, status) {
+																		console.log("초기화 완료");
+																	}
+															)
+													}
+											)
 										}, breakSecond);
-									}
 								}
-						)
-					}
-				)
-			};	  
-						
-						
-					
+							}
+						}
+				) 
+			}
+			
 		}
 		
 		// 엔터키를 이용하여 전송 
@@ -183,63 +186,50 @@
 			let count=0;
 			let timer=setInterval(function(){ 
 				navigator.getUserMedia(
-					{audio:false, video:true},
-					function(stream){
-						const track=stream.getVideoTracks()[0];
-						let imageCapture=new ImageCapture(track);
-						imageCapture.takePhoto().then(function(photo){
-							console.log(photo);
-							const fileName = user_id+'.jpg';
-							let formData = new FormData();
-							formData.append('file', photo, fileName);
-							// 얼굴 개수 확인
-							$.ajax({
-								type : 'post',
-								url : '../condition1',
-								cache : false,
-								data : formData,
-								processData : false,
-								contentType : false,
-								success : function(data) {
-									// 얼굴이 없으면
-									if (data==0) {
-										alert("얼굴이 인식되지 않습니다. 자리에 계시나요?");
-										ws.send("[서버]"+user_name+"님은 현재 부재중인 것 같습니다.");
-									// 얼굴이 많으면
-										alert("얼굴이 너무 많습니다. 주최자에게 다시 출석체크를 요청해주세요.");
-									// 얼굴이 있으면, 비교 시작
-									} else if (data==1) {
-										$.ajax({
-											type : 'post',
-											url : '../condition2',
-											cache : false,
-											data : formData,
-											processData : false,
-											contentType : false,
-											success : function(data) {
-												console.log(data);
-												alert(data);
-												if (data == "출석 확인") {
-												} else if (data == "대리 출석이 의심되는 상황") {
-													ws.send("[서버]"+user_name+"님은 현재 대리출석이 의심됩니다.");
-												}
-											}
-										});
+						{audio:false, video:true},
+						function(stream){
+							const track=stream.getVideoTracks()[0];
+							let imageCapture=new ImageCapture(track);
+							imageCapture.takePhoto().then(function(photo){
+								console.log(photo);
+								const fileName = user_id+'.jpg';
+								let formData = new FormData();
+								formData.append('file', photo, fileName);
+								// 얼굴 개수 확인
+								$.ajax({
+									type : 'post',
+									url : '../condition',
+									cache : false,
+									data : formData,
+									processData : false,
+									contentType : false,
+									success : function(data) {
+										if (data=="얼굴이 인식되지 않습니다. 자리에 계시나요?") {
+											ws.send("[서버] "+user_name+"님은 현재 부재중인 것 같습니다.");
+										} else if (data =="얼굴이 너무 많습니다. 주최자에게 다시 출석체크를 요청해주세요.") {
+											alert(data);
+										} else if (data=="대리 출석이 의심되는 상황") {
+											ws.send("[서버] "+user_name+"님은 현재 대리출석이 의심됩니다.");
+										} else if (data=="출석 확인") {
+											//!!! DB에서 출석을 1로	
+										} else {
+											ws.send("[서버] "+user_name+"님의 컴퓨터에서 알 수 없는 에러 발생")
+											ws.send("[서버] "+user_name+"님의 컴퓨터에서 알 수 없는 에러 발생")
+										}	
 									}
-								}
+								});
 							});
-						});
-					},
-					function() {
-						alert("[서버] 카메라 문제로 출석이 확인되지 않았습니다. 주최자에게 다시 출석체크를 요청해주세요.");
-					}
-				);
-				if(++count==1) clearInterval(timer);
-			},
-			//선생님이 정한 시간
-			check_time);
-		}
+						},
+						function() {
+							alert("fail");
+						}
+					);
+					if(++count==1) clearInterval(timer);
+				}, check_time);
+			} // 명령 출석체크 조건	
+		
 	});
+	
 </script>
 
 </head>
@@ -248,5 +238,6 @@
 	<br><br>
 	<input type="text" id="chatMsg"><input type="button" id="msgBtn" value="전송"><br>
 	<textarea id="chatTxt" rows="10" cols="30"></textarea>
+
 </body>
 </html>
