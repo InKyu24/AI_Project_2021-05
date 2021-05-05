@@ -38,7 +38,6 @@
 			if (user_type == "L" && msg.slice(0,5) == "#쉬는시간") {
 				var breakMsg = msg.slice(6);
 				var breakMsgArr = breakMsg.split('/',2);
-				// 쉬는 시간
 				let breakTime = breakMsgArr[0];
 				let breakTimeMsg = breakMsgArr[1];
 				ws.send("[서버] 지금부터 "+breakTime+"분 동안 쉬는 시간입니다. 시간이 지나면 알려드릴게요!");
@@ -54,9 +53,6 @@
 					);
 			} else if (user_type == "L" && msg.slice(0,5) == "#출석체크") {
 				ws.send("[서버] 5초 후에 출석체크를 시작합니다. 카메라 앞에 얼굴이 잘 보이도록 해주세요.");
-				
-				// !!!!! 10초 후에 user_attend가 1인 학생들을 전달받는다.
-				// !!!!!확인을 누르면 다시 모든 user_attend가 0으로 바뀐다.
 				setTimeout(function() { 
 					$.post("/attend_check",
 							{user_id:user_id, user_belong:user_belong, user_type:user_type },
@@ -65,7 +61,7 @@
 									ws.send(data);
 								}
 							);
-				}, 10000);
+				}, 7000);
 				$.post("/attend_break",
 						{user_id:user_id, user_belong:user_belong, user_type:user_type },
 							function(data, status) {
@@ -211,9 +207,12 @@
 										} else if (data=="대리 출석이 의심되는 상황") {
 											ws.send("[서버] "+user_name+"님은 현재 대리출석이 의심됩니다.");
 										} else if (data=="출석 확인") {
-											//!!! DB에서 출석을 1로	
+											$.post("/attend_p" ,
+													{user_id:user_id},
+														function(data, status) {
+															alert("출석체크 완료");
+													});	
 										} else {
-											ws.send("[서버] "+user_name+"님의 컴퓨터에서 알 수 없는 에러 발생")
 											ws.send("[서버] "+user_name+"님의 컴퓨터에서 알 수 없는 에러 발생")
 										}	
 									}
@@ -221,12 +220,12 @@
 							});
 						},
 						function() {
-							alert("fail");
+							ws.send("[서버] "+user_name+"님의 컴퓨터는 현재 웹캠 사용 불가 상태")
 						}
 					);
 					if(++count==1) clearInterval(timer);
 				}, check_time);
-			} // 명령 출석체크 조건	
+			}
 		
 	});
 	
