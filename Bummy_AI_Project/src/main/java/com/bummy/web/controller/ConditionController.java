@@ -1,9 +1,6 @@
 package com.bummy.web.controller;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -23,29 +20,22 @@ public class ConditionController {
 	DetectFace detectFace = new DetectFace();
 	CompareCheck compareCheck = new CompareCheck();
 	
-	@PostMapping("condition1")
-	public int realtime_check(@RequestParam("file") MultipartFile file,HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
-		Cookie cookie[] = req.getCookies();
+	@PostMapping("condition")
+	public String realtime_check(@RequestParam("file") MultipartFile file,HttpSession session, HttpServletRequest req,HttpServletResponse resp) {
 		try {
-			String user_id = cookie[1].getValue();
-			file.transferTo(new File("D:\\real\\"+file.getOriginalFilename()));
-			String imgFile="D:\\real\\"+file.getOriginalFilename();
+			file.transferTo(new File("D:\\real\\" + file.getOriginalFilename()));
+			String fileName = file.getOriginalFilename();
+			String imgFile = "D:\\real\\" + file.getOriginalFilename();
 			int result = Integer.parseInt(detectFace.main(imgFile));
-				return result;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return 0;
-	}
-	
-	@PostMapping("condition2")
-	public String realtime_upload(@RequestParam("file") MultipartFile file,HttpSession session, HttpServletRequest req, HttpServletResponse resp) {
-		Cookie cookie[] = req.getCookies();
-		try {
-			String user_id = cookie[1].getValue();
-			file.transferTo(new File("D:\\real\\"+file.getOriginalFilename()));
-			String returnMsg = compareCheck.compareFaces(user_id);
+			if (result == 1) {
+				String returnMsg = compareCheck.compareFaces(fileName);
 				return returnMsg;
+			} else if (result > 2) {
+				return "얼굴이 너무 많습니다. 주최자에게 다시 출석체크를 요청해주세요.";
+			} else {
+				return "얼굴이 인식되지 않습니다. 자리에 계시나요?";
+			}
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

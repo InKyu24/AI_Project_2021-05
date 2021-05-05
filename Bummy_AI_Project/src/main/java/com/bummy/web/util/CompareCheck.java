@@ -18,11 +18,11 @@ import java.nio.ByteBuffer;
 import com.amazonaws.util.IOUtils;
 
 public class CompareCheck {
-	public String compareFaces(String user_id) throws Exception{
+	public String compareFaces(String fileName) throws Exception{
 	     Float similarityThreshold = 70F;
 	     
-	     String sourceImage = "d:\\registry\\"+user_id+".jpg";
-	     String targetImage = "d:\\real\\"+user_id+".jpg";
+	     String sourceImage = "d:\\registry\\"+fileName;
+	     String targetImage = "d:\\real\\"+fileName;
 	     
 	     ByteBuffer sourceImageBytes=null;
 	     ByteBuffer targetImageBytes=null;

@@ -32,4 +32,8 @@ public class BreakService {
 	public String breakTimeMsgGet(BreakVO breakVO) {
 		return breakDAO.breakTimeMsgGet(breakVO);
 	}
+
+	public void breakBreak(BreakVO breakVO) {
+		breakDAO.breakBreak(breakVO);
+	}
 }
