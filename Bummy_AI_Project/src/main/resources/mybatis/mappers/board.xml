@@ -31,8 +31,8 @@
 	
 	<insert id="boardWrite" parameterType="java.util.Map">
 		<![CDATA[
-			insert into board (board_title, board_content, board_filename, board_id, board_parentNO, board_name) 
-			values (#{board_title},#{board_content},#{board_filename},#{board_id},#{board_parentNO}, #{board_name})
+			insert into board (board_title, board_content, board_filename, board_id, board_parentNO, board_name, board_date) 
+			values (#{board_title},#{board_content},#{board_filename},#{board_id},#{board_parentNO}, #{board_name}, current_timestamp)
 		]]>
 	</insert>
 	

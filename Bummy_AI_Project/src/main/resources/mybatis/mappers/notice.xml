@@ -31,8 +31,8 @@
 	
 	<insert id="noticeWrite" parameterType="java.util.Map">
 		<![CDATA[
-			insert into notice (notice_title, notice_content, notice_filename, notice_id, notice_parentNO, notice_name) 
-			values (#{notice_title},#{notice_content},#{notice_filename},#{notice_id},#{notice_parentNO}, #{notice_name})
+			insert into notice (notice_title, notice_content, notice_filename, notice_id, notice_parentNO, notice_name, notice_date) 
+			values (#{notice_title},#{notice_content},#{notice_filename},#{notice_id},#{notice_parentNO}, #{notice_name}, current_timestamp)
 		]]>
 	</insert>
 	
