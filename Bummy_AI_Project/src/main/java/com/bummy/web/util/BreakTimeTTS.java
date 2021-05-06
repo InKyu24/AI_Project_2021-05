@@ -14,7 +14,7 @@ import java.net.URLEncoder;
  */
 public class BreakTimeTTS {
 
- public static void main(String breakTimeMsg, String user_belong) {
+ public static void main(String breakTimeMsg, String user_id) {
      String clientId = "uf4hxtdqdo";//애플리케이션 클라이언트 아이디값";
      String clientSecret = "6G2Fc8paabdrpObsRzU6ZNRa3M5mIwWOowDYkiie";//애플리케이션 클라이언트 시크릿값";
      try {
@@ -41,8 +41,8 @@ public class BreakTimeTTS {
              InputStream is = con.getInputStream();
              int read = 0;
              byte[] bytes = new byte[1024];
-             // mp3 파일 생성
-             File f = new File(user_belong + ".mp3");
+             // mp3 파일 생성 new File(경로, user_id + ".mp3")
+             File f = new File(user_id + ".mp3");
              f.createNewFile();
              OutputStream outputStream = new FileOutputStream(f);
              while ((read =is.read(bytes)) != -1) {

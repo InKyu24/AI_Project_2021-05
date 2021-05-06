@@ -31,7 +31,7 @@ public class ClassDAO {
 		
 	}
 
-	public String attendCheck(MemberVO memberVO) {
-		return sqlSession.selectOne("mapper.member.attendCheck", memberVO);
+	public List<String> attendCheck(MemberVO memberVO) {
+		return sqlSession.selectList("mapper.member.attendCheck", memberVO);
 	}
 }

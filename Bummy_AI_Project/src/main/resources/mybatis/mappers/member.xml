@@ -4,7 +4,14 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
 <mapper namespace="mapper.member">
-	<select id="attendCheck" resultType="String" parameterType="memberVO">
+	<select id="findLeaderID" resultType="String" parameterType="memberVO">
+		<![CDATA[
+			select user_id from USER_INFO
+			where user_belong=#{user_belong} and user_type='L'
+		]]>
+	</select>
+	
+	<select id="attendCheck" resultType="String">
 		<![CDATA[
 			select user_name from USER_INFO
 			where user_belong=#{user_belong} and user_type='P' and user_attend=1

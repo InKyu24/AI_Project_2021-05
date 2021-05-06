@@ -43,6 +43,7 @@
 				ws.send("[서버] 지금부터 "+breakTime+"분 동안 쉬는 시간입니다. 시간이 지나면 알려드릴게요!");
 					$.post("/break_set",
 						{
+							user_id:user_id,
 							user_belong:user_belong,
 							breakTime:breakTime,
 							breakTimeMsg:breakTimeMsg,
@@ -51,7 +52,15 @@
 							alert(data);
 						}
 					);
-			} else if (user_type == "L" && msg.slice(0,5) == "#출석체크") {
+			}else if (user_type == "L" && msg.slice(0,7) == "#출석자 확인") {
+				$.post("/attend_check",
+						{user_id:user_id, user_belong:user_belong, user_type:user_type },
+							function(data, status) {
+								ws.send("[서버] 출석이 확인되는 학생은 아래와 같습니다.");
+								ws.send(data);
+						}
+				);
+			}else if (user_type == "L" && msg.slice(0,5) == "#출석체크") {
 				ws.send("[서버] 5초 후에 출석체크를 시작합니다. 카메라 앞에 얼굴이 잘 보이도록 해주세요.");
 				setTimeout(function() { 
 					$.post("/attend_check",
@@ -111,7 +120,7 @@
 										} else if (data=="대리 출석이 의심되는 상황") {
 											ws.send("[서버] "+user_name+"님은 현재 대리출석이 의심됩니다.");
 										} else if (data=="출석 확인") {
-											$.post("/attend_p" ,
+											$.post("/attend_p",
 													{user_id:user_id},
 														function(data, status) {
 															alert("출석체크 완료");
@@ -143,7 +152,8 @@
 									alert ("쉬는 시간 설정 오류");
 								} else {
 									console.log("설정한 쉬는 시간"+breakTime)
-									var breakSecond = breakTime*1000*60;
+									// !!! 테스트 중! 나중에 60를 추가로 곱해줘야 해요
+									var breakSecond = breakTime*1000;
 									console.log(breakSecond);
 									
 										setTimeout(function() {
@@ -151,7 +161,11 @@
 												{user_belong:user_belong},
 													function(data, status) {
 															// !!! 여기서 음성이 나오도록 해야한다.
-															alert("쉬는 시간 종료");
+																audio=document.querySelector('audio');
+																audio.src=data+".mp3"
+																audio.onloadedmetadata=function(e){
+																	audio.play();
+																}
 															$.post("/break_break",
 																{user_belong:user_belong},
 																	function(data, status) {
@@ -226,17 +240,82 @@
 					if(++count==1) clearInterval(timer);
 				}, check_time);
 			}
-		
 	});
 	
 </script>
 
 </head>
 <body>
-	<div id="checkMsg"></div>
-	<br><br>
-	<input type="text" id="chatMsg"><input type="button" id="msgBtn" value="전송"><br>
-	<textarea id="chatTxt" rows="10" cols="30"></textarea>
+	
 
+										<div class="col-xl-12">
+                                              <div class="card proj-progress-card">
+                                                    <div class="card-block"><div class="card">
+                                            <div class="card-header">
+                                                <h5>회의실에 오신 것을 환영합니다.</h5>
+<div class="card-header-right">
+
+                                              </div>
+                                            </div>
+<div class="card-block table-border-style">
+
+	<h6>주최자는 명령어를 사용하여 여러 가지 기능을 수행할 수 있습니다.</h6>
+	<br> 1. 회의실 관리 탭에서 자동 출석 시간을 설정하면, 참여자들의 출석을 자동으로 확인할 수 있습니다.
+	<br> 2. 채팅창에 '#출석체크' 라고 입력하게 되면, 5초 뒤에 자동으로 참여자들의 출석을 확인할 수 있습니다.
+	<br> 3. 채팅창에 '#쉬는시간 숫자/메시지'를 입력하게 되면, 쉬는 시간이 종료된 후에 메시지를 전달해줍니다. 예시) #쉬는시간 10/쉬는시간 끝!
+	<br><br>
+	
+	<table>
+	 <tr>
+	 	<td><textarea id="chatTxt" rows="20" cols="60"></textarea></td>	
+	 	<td><audio src="" controls="controls" style = "display : none"></audio></td> 	
+	 </tr>
+	 <tr>
+	 	<td><input type="text" id="chatMsg" size="60"></td>
+	 	<td><input type="button" id="msgBtn" value="전송"></td>
+	 </tr>
+	 </table>
+	
+</div>
+                                                      <div class="row">
+
+</div>
+                                                </div>
+</div>
+                                        </div>
+<div class="card-block proj-progress-card"> </div>
+<div> </div>
+                      <div class="card proj-progress-card"> </div>
+                                      </div>
+<div class="col-xl-12">
+  <div class="card proj-progress-card"> </div>
+</div>
+<div class="col-xl-6">
+                        <div class="card proj-progress-card"> </div>
+</div>
+                                          <div class="col-xl-6">
+                                              <div class="card proj-progress-card"> </div>
+                                          </div>
+                                            <div class="col-xl-12">
+                                              <div class="card proj-progress-card"> </div>
+                                            </div>
+<!-- Project statustic end -->
+                                  </div>
+                                    </div>
+                                    <!-- Page-body end -->
+                                </div>
+                                <div id="styleSelector"> </div>
+                            </div>
+						
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+	
+
+	
+	
 </body>
 </html>
