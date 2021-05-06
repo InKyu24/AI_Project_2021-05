@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.bummy.web.dao.BreakDAO;
 import com.bummy.web.vo.BreakVO;
+import com.bummy.web.vo.MemberVO;
 
 @Service
 public class BreakService {
@@ -35,5 +36,9 @@ public class BreakService {
 
 	public void breakBreak(BreakVO breakVO) {
 		breakDAO.breakBreak(breakVO);
+	}
+
+	public String findLeaderID(MemberVO memberVO) {
+		return breakDAO.findLeaderID(memberVO);
 	}
 }

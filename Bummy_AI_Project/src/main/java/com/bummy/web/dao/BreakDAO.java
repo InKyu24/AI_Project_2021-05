@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.bummy.web.vo.BreakVO;
+import com.bummy.web.vo.MemberVO;
 
 @Repository
 public class BreakDAO {
@@ -35,5 +36,9 @@ public class BreakDAO {
 
 	public void breakBreak(BreakVO breakVO) {
 		sqlSession.update("mapper.break.breakBreak",breakVO);
+	}
+
+	public String findLeaderID(MemberVO memberVO) {
+		return sqlSession.selectOne("mapper.member.findLeaderID", memberVO);
 	}
 }

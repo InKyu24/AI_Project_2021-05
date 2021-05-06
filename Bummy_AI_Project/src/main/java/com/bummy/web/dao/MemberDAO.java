@@ -21,4 +21,5 @@ public interface MemberDAO {
 	String idCheck(MemberVO memberVO);
 
 	String belongCheckL(MemberVO memberVO);
+
 }

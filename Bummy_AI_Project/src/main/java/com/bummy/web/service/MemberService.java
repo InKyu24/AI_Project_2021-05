@@ -45,4 +45,5 @@ public class MemberService {
 		return memberDAO.belongCheckL(memberVO);
 	}
 
+
 }

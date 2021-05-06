@@ -1,16 +1,19 @@
 package com.bummy.web.controller;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -95,10 +98,10 @@ public class ClassController {
 		String user_type=request.getParameter("user_type");
 		
 		MemberVO memberVO = new MemberVO(user_id,user_belong,user_type);
-		String attendList = classService.attendCheck(memberVO);
-		return attendList;
-		
-		
+		List<String> attendList = classService.attendCheck(memberVO);
+		System.out.println(attendList);
+		// user_name만을 가져오는 String 배열로 만들기
+		return attendList.toString();
 	}
 	
 	// 출석 DB 초기화

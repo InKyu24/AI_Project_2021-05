@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.bummy.web.service.BreakService;
 import com.bummy.web.util.BreakTimeTTS;
 import com.bummy.web.vo.BreakVO;
+import com.bummy.web.vo.MemberVO;
 
 @Controller
 public class BreakController {
@@ -34,6 +35,7 @@ public class BreakController {
 	@RequestMapping(value="/break_set", method= {RequestMethod.POST}, produces="application/text; charset=utf8")
 	@ResponseBody
 	public String breakSet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String user_id=request.getParameter("user_id");
 		String user_belong=request.getParameter("user_belong");
 		int breakTime = Integer.parseInt(request.getParameter("breakTime"));
 		String breakTimeMsg=request.getParameter("breakTimeMsg");
@@ -42,6 +44,8 @@ public class BreakController {
 		
 		BreakVO breakVO = new BreakVO(user_belong, breakTime, breakTimeMsg, breakbool);
 		breakService.breakSet(breakVO);
+		
+		BreakTimeTTS.main(breakTimeMsg, user_id);
 		return "쉬는 시간 설정 완료";
 	}
 		
@@ -61,15 +65,16 @@ public class BreakController {
 		return null;	
 	}
 		
-	// 쉬는 시간 메시지 가져와서 TTS
+	// TTS 된 파일명 가져오기
 	@RequestMapping(value="/break_get", method= {RequestMethod.POST}, produces="application/text; charset=utf8")
 	@ResponseBody
-	public void breakGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+	public String breakGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		String user_id=request.getParameter("user_id");
 		String user_belong=request.getParameter("user_belong");
-		
-		BreakVO breakVO = new BreakVO(user_belong);
-		String breakTimeMsg = breakService.breakTimeMsgGet(breakVO);
-		BreakTimeTTS.main(breakTimeMsg, user_belong);
+		String user_type=request.getParameter("user_type");
+		MemberVO memberVO =new MemberVO(user_id,user_belong,user_type);
+		String leader_id = breakService.findLeaderID(memberVO);
+		return leader_id;
 	}
 	
 	// breakDB 초기화

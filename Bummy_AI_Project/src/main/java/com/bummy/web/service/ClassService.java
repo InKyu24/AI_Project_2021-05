@@ -31,7 +31,7 @@ public class ClassService {
 		classDAO.attendBreak(memberVO);
 	}
 
-	public String attendCheck(MemberVO memberVO) {
+	public List<String> attendCheck(MemberVO memberVO) {
 		return classDAO.attendCheck(memberVO);
 	}
 }
