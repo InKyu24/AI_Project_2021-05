@@ -33,8 +33,7 @@ $(document).ready(function(){
 				user_belong:user_belong
 			},
 			function(data, status){
-				alert(data);		
-				self.close();
+				alert(data);						
 			}
 		);
 	});

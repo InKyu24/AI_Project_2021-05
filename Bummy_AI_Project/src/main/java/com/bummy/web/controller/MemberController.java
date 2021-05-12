@@ -168,7 +168,7 @@ public class MemberController {
 		System.out.println(user_type);
 		String user_Ltype=request.getParameter("user_Ltype");
 		String user_Ptype=request.getParameter("user_Ptype");
-		String user_img="D:\\registry\\"+user_id+".jpg";
+		String user_img="/upload/registry_"+user_id+".jpg";
 			
 		System.out.println("아이디: "+user_id+"\n비밀번호: "+user_pw+"\n이름: "+user_name+"\n전화번호: "+user_phone+"\n이메일: "+user_email+"\n소속: "+user_belong+"\n타입: "+user_type+"\n사진경로: "+user_img);
 		

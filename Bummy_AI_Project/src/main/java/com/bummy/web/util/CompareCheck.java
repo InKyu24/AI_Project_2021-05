@@ -21,8 +21,8 @@ public class CompareCheck {
 	public String compareFaces(String fileName) throws Exception{
 	     Float similarityThreshold = 70F;
 	     
-	     String sourceImage = "d:\\registry\\"+fileName;
-	     String targetImage = "d:\\real\\"+fileName;
+	     String sourceImage = "/upload/registry_"+fileName;
+	     String targetImage = "/upload/real_"+fileName;
 	     
 	     ByteBuffer sourceImageBytes=null;
 	     ByteBuffer targetImageBytes=null;

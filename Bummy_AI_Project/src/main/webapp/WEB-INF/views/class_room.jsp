@@ -26,11 +26,26 @@
 		let name="["+user_name+"]";
 		
 		// HTML5의 내장 객체 WebSocket 생성 + Java class "WebSocket.java"와 연결
-		ws=new WebSocket("ws://localhost:8090/class");
+		ws=new WebSocket("wss://34.233.254.189:8090/class");
 		// 연결이 되면 아래를 실행 + Java class "WebSocket.java"에서 작성한 메소드 실행
 		ws.onopen=function(){
 			console.log("con ok");
 		};
+		
+		
+		$('#disconnectBtn').click(function(){
+			if (user_type == "L") {
+				$.post("/attend_break",
+						{user_id:user_id, user_belong:user_belong, user_type:user_type },
+							function(data, status) {
+								console.log("출석 초기화 완료");
+							}
+				);
+			}
+			ws.close();
+			console.log("WebSocket is closed now.");
+			swal('연결 종료', '회의에서 안전하게 연결이 종료되었습니다.', 'success')
+		});		
 		
 		// 메시지 보내기 및 쉬는시간 및 출석체크
 		$("#msgBtn").on("click", ()=> {
@@ -70,13 +85,7 @@
 									ws.send(data);
 								}
 							);
-				}, 7000);
-				$.post("/attend_break",
-						{user_id:user_id, user_belong:user_belong, user_type:user_type },
-							function(data, status) {
-								console.log("출석 초기화 완료");
-							}
-				);	
+				}, 15000);	
 			} else {
 				ws.send(name+" "+msg);
 			}
@@ -161,11 +170,19 @@
 												{user_belong:user_belong},
 													function(data, status) {
 															// !!! 여기서 음성이 나오도록 해야한다.
-																audio=document.querySelector('audio');
-																audio.src=data+".mp3"
+		/* 														audio=document.querySelector('audio');
+																audio.src="https://34.233.254.189:8090/html/"+data+".mp3"
 																audio.onloadedmetadata=function(e){
 																	audio.play();
-																}
+																} */
+																
+																snd=document.querySelector('audio');
+																console.log(data);
+																data=JSON.parse(data);
+																console.log(data);
+																var snd = new Audio("data:audio/mp3;base64," + data.base64audio);
+																snd.play();
+
 															$.post("/break_break",
 																{user_belong:user_belong},
 																	function(data, status) {
@@ -240,8 +257,9 @@
 					if(++count==1) clearInterval(timer);
 				}, check_time);
 			}
+		
 	});
-	
+
 </script>
 
 </head>
@@ -262,7 +280,8 @@
 	<h6>주최자는 명령어를 사용하여 여러 가지 기능을 수행할 수 있습니다.</h6>
 	<br> 1. 회의실 관리 탭에서 자동 출석 시간을 설정하면, 참여자들의 출석을 자동으로 확인할 수 있습니다.
 	<br> 2. 채팅창에 '#출석체크' 라고 입력하게 되면, 5초 뒤에 자동으로 참여자들의 출석을 확인할 수 있습니다.
-	<br> 3. 채팅창에 '#쉬는시간 숫자/메시지'를 입력하게 되면, 쉬는 시간이 종료된 후에 메시지를 전달해줍니다. 예시) #쉬는시간 10/쉬는시간 끝!
+	<br> 3. 채팅창에 '#쉬는시간 숫자(단위:분)/메시지'를 입력하게 되면, 쉬는 시간이 종료된 후에 메시지를 전달해줍니다. 예시) #쉬는시간 10/쉬는시간 끝!
+	<br> 4. 회의실을 떠날 때에는 반드시 연결 종료 버튼을 눌러주세요.
 	<br><br>
 	
 	<table>
@@ -274,8 +293,9 @@
 	 	<td><input type="text" id="chatMsg" size="60"></td>
 	 	<td><input type="button" id="msgBtn" value="전송"></td>
 	 </tr>
+	 	<td></td>
+	 	<td><input type="button" id="disconnectBtn" value="연결 종료"></td>
 	 </table>
-	
 </div>
                                                       <div class="row">
 

@@ -18,9 +18,20 @@ public class UploadController {
 	public String upload(@RequestParam("file") MultipartFile file) {
 		System.out.println("파일인" + file + "이 들어옴");
 		try {
+			File uploadDir = new File("/upload");
+			if(!uploadDir.exists()) {
+				boolean bool = uploadDir.mkdir();
+				if(bool) {
+					System.out.println("성공적으로 폴더 생성");
+				}else {
+					System.out.println("미안, 폴더 생성 실패야");
+				}
+			}
+			
 			// 경로 설정 관련 문제	
-			file.transferTo(new File("D:\\registry\\"+file.getOriginalFilename()));
-			String imgFile="D:\\registry\\"+file.getOriginalFilename();
+			file.transferTo(new File("/upload/registry_"+file.getOriginalFilename()));
+			String imgFile="/upload/registry_"+file.getOriginalFilename();
+			System.out.println(imgFile);
 			int result = Integer.parseInt(detectFace.main(imgFile));
 			
 			if (result == 1) {

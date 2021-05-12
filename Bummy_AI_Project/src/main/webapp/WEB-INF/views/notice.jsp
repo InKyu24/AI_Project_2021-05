@@ -36,8 +36,8 @@
 				</div>
 			</div>
 			<div class="card-block table-border-style container">
-				<div class="table-responsive">
-					<table align="center" border="0"  width="80%"  class="table table-striped">                                               
+				<div class="table table-responsive">
+					<table align="center" border="0"  width="80%"  class="table">                                               
 						<thead>
 							<tr>
 								<th>No</th>
@@ -63,15 +63,15 @@
 							<tr>
 								<th scope="row">
 									${noti.notice_notiNO}
-								</td>
-								<td align='left'  width="35%">
+								</th>
+								<td>
 									<a class='cls1' href="../viewNoti?notice_notiNO=${noti.notice_notiNO}">${noti.notice_title }</a>		
 								</td>
-								<td width="10%">
+								<td>
 									${noti.notice_name }
 								</td>
 								<td>
-									<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${noti.notice_Date}" />
+									<fmt:formatDate pattern="yyyy-MM-dd" value="${noti.notice_Date}" />
 								</td> 
 							</tr>
 						</c:forEach>
