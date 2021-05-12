@@ -1,0 +1,6 @@
+sudo docker images
+sudo docker rmi –f 
+git pull
+sudo docker build -t inkyu24/bummy .
+sudo docker run -v ~/0bummy/upload:/upload -p 8090:8090 -p 9999:9999 inkyu24/bummy & 
+sudo docker run -p 8090:8090 -p 9999:9999 -v /etc/localtime:/etc/localtime:ro -v ~/0bummy/upload:/upload -e TZ=Asia/Seoul inkyu24/bummy

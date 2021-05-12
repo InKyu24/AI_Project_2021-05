@@ -22,10 +22,10 @@ public class ConditionController {
 	
 	@PostMapping("condition")
 	public String realtime_check(@RequestParam("file") MultipartFile file,HttpSession session, HttpServletRequest req,HttpServletResponse resp) {
-		try {
-			file.transferTo(new File("D:\\real\\" + file.getOriginalFilename()));
+		try {		
+			file.transferTo(new File("/upload/real_" + file.getOriginalFilename()));
 			String fileName = file.getOriginalFilename();
-			String imgFile = "D:\\real\\" + file.getOriginalFilename();
+			String imgFile = "/upload/real_" + file.getOriginalFilename();
 			int result = Integer.parseInt(detectFace.main(imgFile));
 			if (result == 1) {
 				String returnMsg = compareCheck.compareFaces(fileName);

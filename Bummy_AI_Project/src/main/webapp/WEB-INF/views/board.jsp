@@ -21,16 +21,16 @@
 				</div>
 			</div>
 			<div class="card-block table-border-style container">
-				<div class="table-responsive">
-					<table align="center" border="0"  width="80%"  class="table table-striped">                                               
-						<thead>
+				<div class="table table-responsive">
+					<table align="center" border="0"  width="80%"  class="table">                                               
+					<thead>
 							<tr>
 								<th>No</th>
 								<th>제목</th>
 								<th>작성자</th>
 								<th>작성일</th>
 							</tr>
-						</thead>
+					</thead>
 					<tbody>
 					<c:choose>
 					<c:when test="${articlesList=='[]'}" >
@@ -48,15 +48,15 @@
 							<tr>
 								<th scope="row">
 									${articles.board_articleNO}
-								</td>
-								<td align='left'  width="35%">
+								</th>
+								<td>
 									<a class='cls1' href="../viewNoti?board_articleNO=${articles.board_articleNO}">${articles.board_title }</a>		
 								</td>
-								<td width="10%">
+								<td>
 									${articles.board_name }
 								</td>
 								<td>
-									<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${articles.board_Date}" />
+									<fmt:formatDate pattern="yyyy-MM-dd" value="${articles.board_Date}" />
 								</td> 
 							</tr>
 						</c:forEach>
