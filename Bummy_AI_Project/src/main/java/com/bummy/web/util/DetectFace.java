@@ -16,8 +16,8 @@ public class DetectFace {
     public static String main(String imgFile) {
 
         StringBuffer reqStr = new StringBuffer();
-        String clientId = "lv0h6xt1fj";//애플리케이션 클라이언트 아이디값";
-        String clientSecret = "EOX8UlngHnfHxKsq2TmYfZ1HiRIpgJe0xs6RBvx1";//애플리케이션 클라이언트 시크릿값";
+        String clientId = "Client Id Value";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "Client Secret Key";//애플리케이션 클라이언트 시크릿값";
 
         try {
             String paramName = "image"; // 파라미터명은 image로 지정

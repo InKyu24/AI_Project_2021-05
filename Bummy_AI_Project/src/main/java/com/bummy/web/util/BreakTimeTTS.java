@@ -21,8 +21,8 @@ public class BreakTimeTTS {
 
 	public Resource main(String breakTimeMsg, String user_id, Path location) {
 			System.out.println("main");
-	     String clientId = "uf4hxtdqdo";//애플리케이션 클라이언트 아이디값";
-	     String clientSecret = "6G2Fc8paabdrpObsRzU6ZNRa3M5mIwWOowDYkiie";//애플리케이션 클라이언트 시크릿값";
+	     String clientId = "Client Id Value";//애플리케이션 클라이언트 아이디값";
+	     String clientSecret = "Client Secret Key";//애플리케이션 클라이언트 시크릿값";
 	     try {
 	    	 String text = URLEncoder.encode(breakTimeMsg, "UTF-8");
 	    	   	 
